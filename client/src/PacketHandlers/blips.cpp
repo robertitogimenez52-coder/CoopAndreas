@@ -2,6 +2,7 @@
 #include "network/packet_types.h"
 #include "stdafx.h"
 #include <CNetworkCheckpoint.h>
+#include <CMissionMarkerSync.h>
 
 PACKET_HANDLER(ePacketType::UPDATE_CHECKPOINT, Packets::Blips::UpdateCheckpoint* pUpdateCheckpoint)
 {
@@ -17,4 +18,9 @@ PACKET_HANDLER(ePacketType::REMOVE_CHECKPOINT, Packets::Blips::RemoveCheckpoint*
 		return;
 
 	CNetworkCheckpoint::Remove();
+}
+
+PACKET_HANDLER(ePacketType::MISSION_MARKERS, Packets::Blips::MissionMarkers* pMissionMarkers)
+{
+	CMissionMarkerSync::HandlePacket(pMissionMarkers);
 }

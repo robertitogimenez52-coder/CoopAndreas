@@ -36,6 +36,7 @@
 #include <CParachuteSync.h>
 #include <CGangZonesSync.h>
 #include <UI/CChatGamepad.h>
+#include <CMissionMarkerSync.h>
 #include <CWeatherSync.h>
 #include <network/packets/scripts.h>
 
@@ -280,6 +281,10 @@ public:
             }*/
 
             CNetworkCheckpoint::Process();
+            if (CNetwork::m_bAuthenticated)
+            {
+                CMissionMarkerSync::Process();
+            }
             CNetworkPlayerNameTag::Process();
             CChatGamepad::Process();
             CChat::Draw();

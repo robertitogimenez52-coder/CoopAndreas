@@ -23,3 +23,11 @@ PACKET_HANDLER(ePacketType::REMOVE_CHECKPOINT, Packets::Blips::RemoveCheckpoint*
         }
     }
 }
+
+PACKET_HANDLER(ePacketType::MISSION_MARKERS, Packets::Blips::MissionMarkers* pMissionMarkers, CNetworkPlayer* pNetworkPlayer)
+{
+    if (pNetworkPlayer->m_bIsHost)
+    {
+        GetPacketFactory().SendToAll(*pMissionMarkers, pNetworkPlayer);
+    }
+}
