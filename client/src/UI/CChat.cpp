@@ -1,6 +1,7 @@
 #include "config.h"
 #include "stdafx.h"
 #include "CUnicode.h"
+#include "CTeleportToHost.h"
 
 std::vector<CChatMessage> CChat::m_aMessages{};
 std::vector<std::wstring> CChat::m_aPrevMessages{};
@@ -532,6 +533,15 @@ void CChat::SubmitInput()
     {
         m_sInputText.clear();
         m_nCaretPos = 0;
+        return;
+    }
+
+    if (m_sInputText == L"/tp")
+    {
+        AddPreviousMessage(m_sInputText);
+        m_sInputText.clear();
+        m_nCaretPos = 0;
+        CTeleportToHost::Teleport();
         return;
     }
 
