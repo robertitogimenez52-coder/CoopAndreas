@@ -39,6 +39,17 @@ public:
 	// set by the PLAYER_BUSTED packet, consumed by the host's death/arrest check
 	bool m_bBusted = false;
 
+	// set by the PLAYER_WANTED_LEVEL packet
+	uint8_t m_nWantedLevel = 0;
+
+	// the idle anim (CTaskSimplePlayerOnFoot::PlayIdleAnimations) to play once the anim block is loaded, -1 - none
+	int16_t m_nPendingIdleAnim = -1;
+
+	// the parachute object of the network player, see CParachuteSync
+	CObject* m_pParachute = nullptr;
+	uint8_t m_nParachuteAnim = 0;
+	bool m_bParachuteAnimPending = false;
+
 	~CNetworkPlayer();
 	CNetworkPlayer(playerid_t id, CVector position);
 

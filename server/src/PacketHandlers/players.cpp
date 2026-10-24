@@ -72,6 +72,25 @@ PACKET_HANDLER(ePacketType::PLAYER_STATS, Packets::Players::PlayerStats* pPlayer
     GetPacketFactory().SendToAll(*pPlayerStats, pNetworkPlayer);
 }
 
+PACKET_HANDLER(ePacketType::PLAYER_WANTED_LEVEL, Packets::Players::PlayerWantedLevel* pPlayerWantedLevel, CNetworkPlayer* pNetworkPlayer)
+{
+    pNetworkPlayer->m_nWantedLevel = pPlayerWantedLevel->wantedLevel;
+    pPlayerWantedLevel->senderPlayerid = pNetworkPlayer->m_playerId;
+    GetPacketFactory().SendToAll(*pPlayerWantedLevel, pNetworkPlayer);
+}
+
+PACKET_HANDLER(ePacketType::PLAYER_IDLE_ANIM, Packets::Players::PlayerIdleAnim* pPlayerIdleAnim, CNetworkPlayer* pNetworkPlayer)
+{
+    pPlayerIdleAnim->senderPlayerid = pNetworkPlayer->m_playerId;
+    GetPacketFactory().SendToAll(*pPlayerIdleAnim, pNetworkPlayer);
+}
+
+PACKET_HANDLER(ePacketType::PLAYER_PARACHUTE, Packets::Players::PlayerParachute* pPlayerParachute, CNetworkPlayer* pNetworkPlayer)
+{
+    pPlayerParachute->senderPlayerid = pNetworkPlayer->m_playerId;
+    GetPacketFactory().SendToAll(*pPlayerParachute, pNetworkPlayer);
+}
+
 PACKET_HANDLER(ePacketType::REBUILD_PLAYER, Packets::Players::RebuildPlayer* pRebuildPlayer, CNetworkPlayer* pNetworkPlayer)
 {
     pNetworkPlayer->m_pPedClothesDesc = pRebuildPlayer->clothesDesc;

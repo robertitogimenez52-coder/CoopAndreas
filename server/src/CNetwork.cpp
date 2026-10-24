@@ -9,6 +9,9 @@
 #include <network/packets/vehicles.h>
 #include <network/packets/peds.h>
 #include <network/packets/scripts.h>
+#include "CCheatState.h"
+#include "CStuntJumpState.h"
+#include "CGangZoneState.h"
 
 bool CNetwork::Init(unsigned short port)
 {
@@ -220,12 +223,24 @@ void CNetwork::HandlePlayerConnected(ENetPeer* pENetPeer, Packets::System::Playe
             GetPacketFactory().Send(rebuildPacket, pNewNetworkPlayer);
         }
 
+        if (i->m_nWantedLevel)
+        {
+            Packets::Players::PlayerWantedLevel wantedLevelPacket{};
+            wantedLevelPacket.senderPlayerid = i->m_playerId;
+            wantedLevelPacket.wantedLevel = i->m_nWantedLevel;
+            GetPacketFactory().Send(wantedLevelPacket, pNewNetworkPlayer);
+        }
+
         if (i->m_waypointState.place)
         {
             i->m_waypointState.senderPlayerid = i->m_playerId;
             GetPacketFactory().Send(i->m_waypointState, pNewNetworkPlayer);
         }
     }
+
+    CCheatState::SendTo(pNewNetworkPlayer);
+    CStuntJumpState::SendTo(pNewNetworkPlayer);
+    CGangZoneState::SendTo(pNewNetworkPlayer);
 
     for (auto i : CNetworkVehicleManager::m_pVehicles)
     {

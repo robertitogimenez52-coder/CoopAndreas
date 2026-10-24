@@ -202,4 +202,122 @@ private:
     }
 };
 
+class CheatSync : public Packet
+{
+    DEFINE_PACKET_TYPE(CheatSync, ePacketType::CHEAT_SYNC, ePacketChannel::EVENT);
+
+public:
+    static constexpr uint8_t NUM_CHEATS = 92;
+
+    uint8_t cheatId = 0;
+
+    // true - the cheat function was called (weather, time, peds, traffic, ...), false - the cheat was toggled
+    bool bFunction = false;
+    bool bActive = false;
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_int(stream, cheatId, 0, NUM_CHEATS - 1);
+        serialize_bool(stream, bFunction);
+        serialize_bool(stream, bActive);
+        return true;
+    }
+};
+
+class StuntJumpDone : public Packet
+{
+    DEFINE_PACKET_TYPE(StuntJumpDone, ePacketType::STUNT_JUMP_DONE, ePacketChannel::EVENT);
+
+public:
+    // the index in CStuntJumpManager::mp_poolStuntJumps, the same for everyone as they're loaded from the data files
+    uint16_t jumpIndex = 0;
+
+    // false when it's sent to a player who joined later
+    bool bReward = true;
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_uint16(stream, jumpIndex);
+        serialize_bool(stream, bReward);
+        return true;
+    }
+};
+
+class FireExtinguished : public Packet
+{
+    DEFINE_PACKET_TYPE(FireExtinguished, ePacketType::FIRE_EXTINGUISHED, ePacketChannel::EVENT);
+
+public:
+    WorldPositionCompressed pos{};
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_object(stream, pos);
+        return true;
+    }
+};
+
+class PickupCollected : public Packet
+{
+    DEFINE_PACKET_TYPE(PickupCollected, ePacketType::PICKUP_COLLECTED, ePacketChannel::EVENT);
+
+public:
+    // the pickups are matched by the position and model, their indices are different for everyone
+    WorldPositionCompressed pos{};
+    int16_t modelId = 0;
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_object(stream, pos);
+        serialize_int(stream, modelId, 0, 20000);
+        return true;
+    }
+};
+
+// the gang territories (CZoneInfo::m_nGangDensity), sent by the host
+class GangZonesUpdate : public Packet
+{
+    DEFINE_PACKET_TYPE(GangZonesUpdate, ePacketType::GANG_ZONES_UPDATE, ePacketChannel::EVENT);
+
+public:
+    static constexpr int MAX_ZONES = 64;      // per packet
+    static constexpr int NUM_ZONE_INFOS = 380;  // CTheZones::ZoneInfoArray
+    static constexpr int NUM_GANGS = 10;
+
+    struct SZone
+    {
+        uint16_t index = 0;
+        uint8_t gangDensity[NUM_GANGS]{};
+    };
+
+    bool bGangWarsActive = false;
+    uint8_t count = 0;
+    SZone zones[MAX_ZONES]{};
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_bool(stream, bGangWarsActive);
+        serialize_int(stream, count, 0, MAX_ZONES);
+        for (int i = 0; i < count; i++)
+        {
+            serialize_int(stream, zones[i].index, 0, NUM_ZONE_INFOS - 1);
+            for (int j = 0; j < NUM_GANGS; j++)
+            {
+                serialize_uint8(stream, zones[i].gangDensity[j]);
+            }
+        }
+        return true;
+    }
+};
+
 }  // namespace Packets::World

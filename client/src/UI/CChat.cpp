@@ -517,31 +517,36 @@ void CChat::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 return;
 
             ToggleInput(false);
-
-            if (m_sInputText.empty())
-                return;
-
-            if (IsInputTextEmpty(m_sInputText))
-            {
-                m_sInputText.clear();
-                m_nCaretPos = 0;
-                return;
-            }
-
-            Packets::System::ChatMessage packet{};
-            wcscpy_s(packet.message, m_sInputText.c_str());
-            AddPlayerChatMessage(CLocalPlayer::m_Name, packet.message);
-            AddPreviousMessage(m_sInputText);
-            GetPacketFactory().Send(packet);
-
-            auto it = std::find(m_aPrevMessages.begin(), m_aPrevMessages.end(), m_sInputText);
-            if (it != m_aPrevMessages.end())
-            {
-                m_nCurrentPrevMessageIndex = (uint8_t)(std::distance(m_aPrevMessages.begin(), it)) + 1;
-            }
-
-            m_sInputText.clear();
-            m_nCaretPos = 0;
+            SubmitInput();
         }
     }
+}
+
+// sends the typed message, the input is closed by the caller
+void CChat::SubmitInput()
+{
+    if (m_sInputText.empty())
+        return;
+
+    if (IsInputTextEmpty(m_sInputText))
+    {
+        m_sInputText.clear();
+        m_nCaretPos = 0;
+        return;
+    }
+
+    Packets::System::ChatMessage packet{};
+    wcscpy_s(packet.message, m_sInputText.c_str());
+    AddPlayerChatMessage(CLocalPlayer::m_Name, packet.message);
+    AddPreviousMessage(m_sInputText);
+    GetPacketFactory().Send(packet);
+
+    auto it = std::find(m_aPrevMessages.begin(), m_aPrevMessages.end(), m_sInputText);
+    if (it != m_aPrevMessages.end())
+    {
+        m_nCurrentPrevMessageIndex = (uint8_t)(std::distance(m_aPrevMessages.begin(), it)) + 1;
+    }
+
+    m_sInputText.clear();
+    m_nCaretPos = 0;
 }

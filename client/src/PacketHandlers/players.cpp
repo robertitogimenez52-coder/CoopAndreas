@@ -4,6 +4,8 @@
 #include <CAimSync.h>
 #include <CEntryExitTransitionSync.h>
 #include <CProjectileInfo.h>
+#include <CWantedLevelSync.h>
+#include <CParachuteSync.h>
 
 PACKET_HANDLER(ePacketType::PLAYER_ONFOOT_UPDATE, Packets::Players::OnFootUpdate* pOnFootUpdate)
 {
@@ -66,8 +68,18 @@ PACKET_HANDLER(ePacketType::PLAYER_KEY_SYNC, Packets::Players::KeyPressed* pKeyP
         return;
     }
 
+    // the right stick (hydraulics) isn't in the key snapshot, it comes with the driver update
+    int16_t rightStickX = pNetworkPlayer->m_newControllerState.RightStickX;
+    int16_t rightStickY = pNetworkPlayer->m_newControllerState.RightStickY;
+
     pNetworkPlayer->m_oldControllerState = pKeyPressed->keySnapshot.oldControllerState;
     pNetworkPlayer->m_newControllerState = pKeyPressed->keySnapshot.newControllerState;
+
+    if (pNetworkPlayer->m_pPed && pNetworkPlayer->m_pPed->m_nPedFlags.bInVehicle)
+    {
+        pNetworkPlayer->m_oldControllerState.RightStickX = pNetworkPlayer->m_newControllerState.RightStickX = rightStickX;
+        pNetworkPlayer->m_oldControllerState.RightStickY = pNetworkPlayer->m_newControllerState.RightStickY = rightStickY;
+    }
 
     pNetworkPlayer->m_pPed->m_fCurrentRotation = pKeyPressed->currentRotation.m_angle;
     pNetworkPlayer->m_pPed->m_fAimingRotation = pKeyPressed->aimingRotation.m_angle;
@@ -258,4 +270,23 @@ PACKET_HANDLER(ePacketType::REBUILD_PLAYER, Packets::Players::RebuildPlayer* pRe
 
         //CStatsSync::ApplyLocalContext();
     }
+}
+
+PACKET_HANDLER(ePacketType::PLAYER_WANTED_LEVEL, Packets::Players::PlayerWantedLevel* pPlayerWantedLevel)
+{
+    CWantedLevelSync::HandlePacket(pPlayerWantedLevel);
+}
+
+PACKET_HANDLER(ePacketType::PLAYER_IDLE_ANIM, Packets::Players::PlayerIdleAnim* pPlayerIdleAnim)
+{
+    if (auto pNetworkPlayer = CNetworkPlayerManager::GetPlayer(pPlayerIdleAnim->senderPlayerid))
+    {
+        // played by CTaskSimplePlayerOnFoot__PlayIdleAnimations_Hook
+        pNetworkPlayer->m_nPendingIdleAnim = pPlayerIdleAnim->animId;
+    }
+}
+
+PACKET_HANDLER(ePacketType::PLAYER_PARACHUTE, Packets::Players::PlayerParachute* pPlayerParachute)
+{
+    CParachuteSync::HandlePacket(pPlayerParachute);
 }

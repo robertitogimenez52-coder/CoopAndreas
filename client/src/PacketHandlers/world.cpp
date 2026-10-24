@@ -3,6 +3,11 @@
 #include "stdafx.h"
 #include <CWeatherSync.h>
 #include <CMoonSync.h>
+#include <CCheatSync.h>
+#include <CStuntJumpSync.h>
+#include <CFireSync.h>
+#include <CPickupSync.h>
+#include <CGangZonesSync.h>
 #include <game_sa/CTagManager.h>
 
 PACKET_HANDLER(ePacketType::GAME_WEATHER_TIME, Packets::World::GameWeatherTime* pGameWeatherTime)
@@ -66,4 +71,29 @@ PACKET_HANDLER(ePacketType::UPDATE_ALL_TAGS, Packets::World::UpdateAllTags* pUpd
 PACKET_HANDLER(ePacketType::UPDATE_MOON_SIZE, Packets::World::UpdateMoonSize* pUpdateMoonSize)
 {
 	CMoonSync::HandlePacket(pUpdateMoonSize);
+}
+
+PACKET_HANDLER(ePacketType::CHEAT_SYNC, Packets::World::CheatSync* pCheatSync)
+{
+	CCheatSync::HandlePacket(pCheatSync);
+}
+
+PACKET_HANDLER(ePacketType::STUNT_JUMP_DONE, Packets::World::StuntJumpDone* pStuntJumpDone)
+{
+	CStuntJumpSync::HandlePacket(pStuntJumpDone);
+}
+
+PACKET_HANDLER(ePacketType::FIRE_EXTINGUISHED, Packets::World::FireExtinguished* pFireExtinguished)
+{
+	CFireSync::HandlePacket(pFireExtinguished);
+}
+
+PACKET_HANDLER(ePacketType::PICKUP_COLLECTED, Packets::World::PickupCollected* pPickupCollected)
+{
+	CPickupSync::HandlePacket(pPickupCollected);
+}
+
+PACKET_HANDLER(ePacketType::GANG_ZONES_UPDATE, Packets::World::GangZonesUpdate* pGangZonesUpdate)
+{
+	CGangZonesSync::HandlePacket(pGangZonesUpdate);
 }

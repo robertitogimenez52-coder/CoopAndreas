@@ -65,6 +65,7 @@ void CNetworkVehicleManager::UpdateDriver(CVehicle* pVehicle)
 
 		vehicleDriverUpdate.playerHealth.iHealth = static_cast<uint8_t>(std::clamp(pPlayerPed->m_fHealth, 0.0f, 255.0f));
 		vehicleDriverUpdate.playerHealth.iArmour = static_cast<uint8_t>(std::clamp(pPlayerPed->m_fArmour, 0.0f, 255.0f));
+		vehicleDriverUpdate.playerHealth.iMaxHealth = CWorld::Players[0].m_nMaxHealth;
 		CKeySync::CollectState(vehicleDriverUpdate.playerKeys);
 
 		vehicleDriverUpdate.color1 = pVehicle->m_nPrimaryColor;
@@ -73,6 +74,24 @@ void CNetworkVehicleManager::UpdateDriver(CVehicle* pVehicle)
 		vehicleDriverUpdate.health = pVehicle->m_fHealth;
 
 		vehicleDriverUpdate.paintjob = pVehicle->GetRemapIndex();
+
+		vehicleDriverUpdate.radioStation = AudioEngine.GetCurrentRadioStationID();
+
+		if (pVehicle->m_nHandlingFlags.bHydraulicInst || pVehicle->m_nHandlingFlags.bHydraulicGeom)
+		{
+			vehicleDriverUpdate.bHydraulics = true;
+			vehicleDriverUpdate.hydraulicsStickX = CPad::GetPad(0)->NewState.RightStickX;
+			vehicleDriverUpdate.hydraulicsStickY = CPad::GetPad(0)->NewState.RightStickY;
+		}
+
+		if (pVehicle->m_pTrailer)
+		{
+			if (CNetworkVehicle* pNetworkTrailer = CNetworkVehicleManager::GetVehicle(pVehicle->m_pTrailer))
+			{
+				vehicleDriverUpdate.bHasTrailer = true;
+				vehicleDriverUpdate.trailerid = pNetworkTrailer->m_vehicleId;
+			}
+		}
 
 		if (pVehicle->m_nVehicleType == VEHICLE_AUTOMOBILE)
 		{
@@ -149,6 +168,7 @@ void CNetworkVehicleManager::UpdatePassenger(CVehicle* pVehicle, CPlayerPed* pPl
 
 		 packet.playerHealth.iHealth = static_cast<uint8_t>(std::clamp(pPlayerPed->m_fHealth, 0.0f, 255.0f));
 		 packet.playerHealth.iArmour = static_cast<uint8_t>(std::clamp(pPlayerPed->m_fArmour, 0.0f, 255.0f));
+		 packet.playerHealth.iMaxHealth = CWorld::Players[0].m_nMaxHealth;
 		 CKeySync::CollectState(packet.playerKeys);
 
 		 packet.vehicleid = pNetworkVehicle->m_vehicleId;

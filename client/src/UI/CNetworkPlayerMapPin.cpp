@@ -58,8 +58,9 @@ void CNetworkPlayerMapPin::Process()
 			pos.x,
 			pos.y,
 			angle,
-			5 * RsGlobal.maximumWidth / 640,
-			5 * RsGlobal.maximumHeight / 360,
+			// same 640x448 base as the vanilla HUD, so the arrow has the same proportions as the local player's one
+			(unsigned int)CUtil::HUD_X(5.0f),
+			(unsigned int)CUtil::HUD_Y(5.0f),
 			player->m_pPed->IsHidden() ? CRGBA{ 50, 50, 50, 255 } : CRGBA{ 255, 255, 255, 255 }
 		);
 	}

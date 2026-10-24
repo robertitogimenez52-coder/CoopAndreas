@@ -83,6 +83,8 @@ void __fastcall CVehicle__ProcessControl_Hook()
 
     player->m_pPed->m_fHealth = player->m_onFootSnapshotInterpolated.healthSnapshot.iHealth;
     player->m_pPed->m_fArmour = player->m_onFootSnapshotInterpolated.healthSnapshot.iArmour;
+    player->m_pPed->m_fMaxHealth = player->m_onFootSnapshotInterpolated.healthSnapshot.iMaxHealth;
+    CWorld::Players[playerNum].m_nMaxHealth = player->m_onFootSnapshotInterpolated.healthSnapshot.iMaxHealth;
 
     player->m_pPed->m_nPedType = PED_TYPE_CIVMALE;
 

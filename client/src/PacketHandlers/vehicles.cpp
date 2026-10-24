@@ -97,10 +97,52 @@ PACKET_HANDLER(ePacketType::VEHICLE_DRIVER_UPDATE, Packets::Vehicles::VehicleDri
 
     pNetworkPlayer->ApplyWeaponSnapshot(pVehicleDriverUpdate->playerWeapon);
     pNetworkPlayer->m_onFootSnapshotInterpolated.healthSnapshot = pVehicleDriverUpdate->playerHealth;
+    pNetworkPlayer->m_onFootSnapshotInterpolated.iBreath = 100;  // only synced on foot
     pNetworkPlayer->m_pPed->m_fHealth = pVehicleDriverUpdate->playerHealth.iHealth;
     pNetworkPlayer->m_pPed->m_fArmour = pVehicleDriverUpdate->playerHealth.iArmour;
     pNetworkPlayer->m_oldControllerState = pVehicleDriverUpdate->playerKeys.oldControllerState;
     pNetworkPlayer->m_newControllerState = pVehicleDriverUpdate->playerKeys.newControllerState;
+
+    if (pVehicleDriverUpdate->bHydraulics)
+    {
+        // not in the key snapshot, the hydraulics are processed in the network player's key context
+        pNetworkPlayer->m_oldControllerState.RightStickX = pVehicleDriverUpdate->hydraulicsStickX;
+        pNetworkPlayer->m_oldControllerState.RightStickY = pVehicleDriverUpdate->hydraulicsStickY;
+        pNetworkPlayer->m_newControllerState.RightStickX = pVehicleDriverUpdate->hydraulicsStickX;
+        pNetworkPlayer->m_newControllerState.RightStickY = pVehicleDriverUpdate->hydraulicsStickY;
+    }
+
+    // attach or detach the trailer like the driver did
+    CVehicle* pTrailer = nullptr;
+    if (pVehicleDriverUpdate->bHasTrailer)
+    {
+        if (CNetworkVehicle* pNetworkTrailer = CNetworkVehicleManager::GetVehicle(pVehicleDriverUpdate->trailerid))
+        {
+            pTrailer = pNetworkTrailer->m_pVehicle;
+        }
+    }
+
+    if (pVehicle->m_pTrailer != pTrailer)
+    {
+        if (pVehicle->m_pTrailer)
+        {
+            pVehicle->m_pTrailer->BreakTowLink();
+        }
+
+        if (pTrailer && pTrailer != pVehicle && !pTrailer->m_pTractor)
+        {
+            pTrailer->SetTowLink(pVehicle, true);
+        }
+    }
+
+    // a passenger of the network player listens to the driver's radio station
+    CPlayerPed* pLocalPlayer = FindPlayerPed(0);
+    if (pLocalPlayer && pLocalPlayer->m_nPedFlags.bInVehicle && pLocalPlayer->m_pVehicle == pVehicle &&
+        pVehicleDriverUpdate->radioStation >= 0 && AudioEngine.IsVehicleRadioActive() &&
+        !AudioEngine.IsRadioRetuneInProgress() && AudioEngine.GetCurrentRadioStationID() != pVehicleDriverUpdate->radioStation)
+    {
+        AudioEngine.RetuneRadio(pVehicleDriverUpdate->radioStation);
+    }
 
     pVehicle->m_nPrimaryColor = pVehicleDriverUpdate->color1;
     pVehicle->m_nSecondaryColor = pVehicleDriverUpdate->color2;
@@ -335,6 +377,7 @@ PACKET_HANDLER(
 
     pNetworkPlayer->ApplyWeaponSnapshot(pVehiclePassengerUpdate->playerWeapon);
     pNetworkPlayer->m_onFootSnapshotInterpolated.healthSnapshot = pVehiclePassengerUpdate->playerHealth;
+    pNetworkPlayer->m_onFootSnapshotInterpolated.iBreath = 100;  // only synced on foot
     pNetworkPlayer->m_pPed->m_fHealth = pVehiclePassengerUpdate->playerHealth.iHealth;
     pNetworkPlayer->m_pPed->m_fArmour = pVehiclePassengerUpdate->playerHealth.iArmour;
     pNetworkPlayer->m_newControllerState = pVehiclePassengerUpdate->playerKeys.newControllerState;

@@ -48,6 +48,8 @@ static void __fastcall CPlayerPed__ProcessControl_Hook(CPlayerPed* This)
 
     player->m_pPed->m_fHealth = player->m_onFootSnapshotInterpolated.healthSnapshot.iHealth;
     player->m_pPed->m_fArmour = player->m_onFootSnapshotInterpolated.healthSnapshot.iArmour;
+    player->m_pPed->m_fMaxHealth = player->m_onFootSnapshotInterpolated.healthSnapshot.iMaxHealth;
+    CWorld::Players[playerNum].m_nMaxHealth = player->m_onFootSnapshotInterpolated.healthSnapshot.iMaxHealth;
 
     /*CTask* activeTask = player->m_pPed->m_pIntelligence->m_TaskMgr.GetActiveTask();
 
@@ -268,12 +270,94 @@ void __fastcall CPlayerPed__ProcessWeaponSwitch_Hook(CPlayerPed* This, SKIP_EDX,
     }
 }
 
+// set on the anims played by CTaskSimplePlayerOnFoot::PlayIdleAnimations
+static constexpr unsigned short ANIM_FLAG_PLAYER_IDLE = 0x200;
+
+static CAnimBlendAssociation* GetPlayingIdleAnim(CPed* ped)
+{
+    if (!ped->m_pRwClump)
+        return nullptr;
+
+    for (auto assoc = RpAnimBlendClumpGetFirstAssociation(ped->m_pRwClump); assoc; assoc = RpAnimBlendGetNextAssociation(assoc))
+    {
+        if ((assoc->m_nFlags & ANIM_FLAG_PLAYER_IDLE) && assoc->m_fBlendDelta >= 0.0f)
+            return assoc;
+    }
+
+    return nullptr;
+}
+
+static void ProcessNetworkPlayerIdleAnims(CNetworkPlayer* networkPlayer, CPlayerPed* playerPed)
+{
+    // the vanilla code would use the local pad's touch time, so the idle anims are synced instead
+    bool bBusy = playerPed->m_nMoveState > PEDMOVE_STILL || CUtil::IsDucked(playerPed) || TheCamera.m_bWideScreenOn ||
+                 networkPlayer->m_newControllerState.LeftShoulder1 || networkPlayer->m_newControllerState.RightShoulder1;
+
+    if (bBusy)
+    {
+        networkPlayer->m_nPendingIdleAnim = -1;
+
+        if (playerPed->m_pRwClump)
+        {
+            for (auto assoc = RpAnimBlendClumpGetFirstAssociation(playerPed->m_pRwClump); assoc; assoc = RpAnimBlendGetNextAssociation(assoc))
+            {
+                if (assoc->m_nFlags & ANIM_FLAG_PLAYER_IDLE)
+                    assoc->m_fBlendDelta = -8.0f;
+            }
+        }
+        return;
+    }
+
+    if (networkPlayer->m_nPendingIdleAnim == -1 || !playerPed->m_pRwClump)
+        return;
+
+    static int nIdlesBlockId = CAnimManager::GetAnimationBlockIndex("playidles");
+    if (nIdlesBlockId < 0)
+        return;
+
+    if (!CAnimManager::ms_aAnimBlocks[nIdlesBlockId].bLoaded)
+    {
+        CStreaming::RequestModel(25575 + nIdlesBlockId, eStreamingFlags::GAME_REQUIRED);  // IFPToModelId
+        return;
+    }
+
+    if (!GetPlayingIdleAnim(playerPed))
+    {
+        if (auto assoc = CAnimManager::BlendAnimation(playerPed->m_pRwClump, ANIM_GROUP_PLAYIDLES, networkPlayer->m_nPendingIdleAnim, 8.0f))
+        {
+            assoc->m_nFlags |= ANIM_FLAG_PLAYER_IDLE;
+        }
+    }
+
+    networkPlayer->m_nPendingIdleAnim = -1;
+}
+
 void __fastcall CTaskSimplePlayerOnFoot__PlayIdleAnimations_Hook(
     CTaskSimplePlayerOnFoot* This, SKIP_EDX, CPlayerPed* playerPed)
 {
     if (CWorld::PlayerInFocus == 0)
     {
+        bool bWasPlaying = GetPlayingIdleAnim(playerPed) != nullptr;
+
         plugin::CallMethod<0x6872C0>(This, playerPed);
+
+        if (!bWasPlaying && CNetwork::m_bAuthenticated)
+        {
+            CAnimBlendAssociation* assoc = GetPlayingIdleAnim(playerPed);
+            if (assoc && assoc->m_nAnimId >= Packets::Players::PlayerIdleAnim::FIRST_ANIM_ID &&
+                assoc->m_nAnimId <= Packets::Players::PlayerIdleAnim::LAST_ANIM_ID)
+            {
+                Packets::Players::PlayerIdleAnim packet{};
+                packet.animId = assoc->m_nAnimId;
+                GetPacketFactory().Send(packet);
+            }
+        }
+        return;
+    }
+
+    if (auto networkPlayer = CNetworkPlayerManager::GetPlayer(playerPed))
+    {
+        ProcessNetworkPlayerIdleAnims(networkPlayer, playerPed);
     }
 }
 

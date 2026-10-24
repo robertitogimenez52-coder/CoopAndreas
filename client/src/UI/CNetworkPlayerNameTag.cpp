@@ -31,6 +31,30 @@ void DrawNickName(float x, float y, float scale, unsigned char alpha, const char
 	CFont::PrintString(x, y, name);
 }
 
+// the wanted stars after the nickname, ']' is a star in the HUD font like in CHud::DrawWanted
+void DrawWantedStars(float x, float y, float scale, unsigned char alpha, const char* name, uint8_t wantedLevel)
+{
+	if (wantedLevel == 0)
+		return;
+
+	char stars[7] = {0};
+	for (uint8_t i = 0; i < wantedLevel && i < 6; i++)
+		stars[i] = ']';
+
+	CFont::SetScale(PROPORION_X(0.6f * scale), PROPORION_Y(1.22f * scale));
+	CFont::SetFontStyle(1);
+	float nameWidth = CFont::GetStringWidth(name, true, false);
+
+	CFont::SetOrientation(eFontAlignment::ALIGN_LEFT);
+	CFont::SetFontStyle(FONT_GOTHIC);
+	CFont::SetColor(CRGBA(144, 98, 16, alpha));
+	CFont::SetBackground(false, false);
+	CFont::SetDropColor(CRGBA(0, 0, 0, alpha));
+	CFont::SetDropShadowPosition(1);
+	CFont::SetScale(PROPORION_X(0.5f * scale), PROPORION_Y(1.0f * scale));
+	CFont::PrintString(x + nameWidth + PROPORION_X(6.0f * scale), y, stars);
+}
+
 void DrawWeaponIcon(CPed* ped, float x, float y, float scale, unsigned char alpha)
 {
 	const float width = CUtil::HUD_X(47.0f / 2.0f) * scale;
@@ -143,8 +167,11 @@ void CNetworkPlayerNameTag::Process()
 
 		float scale = std::clamp(1.2f - normalizedDistance, 0.7f, 1.0f);
 		
+		const auto& healthSnapshot = player->m_onFootSnapshotInterpolated.healthSnapshot;
+		float healthPercent = healthSnapshot.iHealth * 100.0f / (healthSnapshot.iMaxHealth ? healthSnapshot.iMaxHealth : 100);
+
 		// draw health bar
-		if (player->m_onFootSnapshotInterpolated.healthSnapshot.iHealth >= 10.0f || GetTickCount() % 500 > 150) // blinking, fps fixed
+		if (healthPercent >= 10.0f || GetTickCount() % 500 > 150) // blinking, fps fixed
 		{
 			DrawBarChartScale(
 				out.x,
@@ -152,32 +179,59 @@ void CNetworkPlayerNameTag::Process()
 				(uint16_t)(PROPORION_X(100.0f * scale)),
 				(uint8_t)(PROPORION_Y(14.0f * scale)),
 				scale,
-				player->m_onFootSnapshotInterpolated.healthSnapshot.iHealth,
+				healthPercent,
 				CRGBA(180, 25, 29, alpha)
 			);
 		}
 
+		// the bars above the health bar
+		int extraBars = 0;
+
 		// draw armour bar
-		if (player->m_onFootSnapshotInterpolated.healthSnapshot.iArmour > 0.0f)
+		if (healthSnapshot.iArmour > 0.0f)
 		{
+			extraBars++;
 			DrawBarChartScale(
 				out.x,
-				out.y - PROPORION_X(12) * scale,
+				out.y - PROPORION_X(12) * scale * extraBars,
 				(uint16_t)(PROPORION_X(100) * scale),
 				(uint8_t)(PROPORION_Y(14) * scale),
 				scale,
-				player->m_onFootSnapshotInterpolated.healthSnapshot.iArmour,
+				healthSnapshot.iArmour,
 				CRGBA(225, 225, 225, alpha)
 			);
 		}
-		
-		float nicknameOffsetY = (player->m_onFootSnapshotInterpolated.healthSnapshot.iArmour > 0.0f ? 12.0f * scale + 12.0f * scale : 12.0f * scale);
+
+		// draw breath bar, the same colour as the HUD one
+		if (player->m_onFootSnapshotInterpolated.iBreath < 100)
+		{
+			extraBars++;
+			DrawBarChartScale(
+				out.x,
+				out.y - PROPORION_X(12) * scale * extraBars,
+				(uint16_t)(PROPORION_X(100) * scale),
+				(uint8_t)(PROPORION_Y(14) * scale),
+				scale,
+				player->m_onFootSnapshotInterpolated.iBreath,
+				CRGBA(172, 203, 241, alpha)
+			);
+		}
+
+		float nicknameOffsetY = 12.0f * scale + 12.0f * scale * extraBars;
 		DrawNickName(
 			out.x + PROPORION_X(4.8f),
 			out.y - (PROPORION_Y(nicknameOffsetY) + PROPORION_Y(8.0f)),
 			scale,
 			alpha,
 			player->GetName().c_str()
+		);
+		DrawWantedStars(
+			out.x + PROPORION_X(4.8f),
+			out.y - (PROPORION_Y(nicknameOffsetY) + PROPORION_Y(8.0f)),
+			scale,
+			alpha,
+			player->GetName().c_str(),
+			player->m_nWantedLevel
 		);
 		DrawWeaponIcon(
 			player->m_pPed,

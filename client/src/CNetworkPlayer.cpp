@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "CParachuteSync.h"
 #include <CTaskSimpleCarSetPedOut.h>
 #include <CCarEnterExit.h>
 #include <CTaskSimpleCarSetPedInAsPassenger.h>
@@ -54,6 +55,8 @@ void CNetworkPlayer::CreatePed(CVector position)
 
 void CNetworkPlayer::DestroyPed()
 {
+    CParachuteSync::RemoveParachute(this);
+
     if (m_pPed->m_pVehicle)
     {
         plugin::Command<Commands::WARP_CHAR_FROM_CAR_TO_COORD>(CPools::GetPedRef(m_pPed), 0.f, 0.f, 0.f);

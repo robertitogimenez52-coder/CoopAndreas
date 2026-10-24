@@ -28,6 +28,14 @@
 #include <CAimSync.h>
 #include <CKeySync.h>
 #include <CCompatibilityChecker.h>
+#include <CWantedLevelSync.h>
+#include <CCheatSync.h>
+#include <CStuntJumpSync.h>
+#include <CFireSync.h>
+#include <CPickupSync.h>
+#include <CParachuteSync.h>
+#include <CGangZonesSync.h>
+#include <UI/CChatGamepad.h>
 #include <CWeatherSync.h>
 #include <network/packets/scripts.h>
 
@@ -117,6 +125,14 @@ public:
                     GetPacketFactory().Send(packet);
                 }
 
+                CWantedLevelSync::Process();
+                CCheatSync::Process();
+                CStuntJumpSync::Process();
+                CFireSync::Process();
+                CPickupSync::Process();
+                CParachuteSync::Process();
+                CGangZonesSync::Process();
+
                 unsigned int tickCount = GetTickCount();
 
                 CPassengerEnter::Process();
@@ -160,6 +176,17 @@ public:
                             static_cast<uint8_t>(std::clamp(localPlayer->m_fHealth, 0.0f, 255.0f));
                         onFootUpdate.healthSnapshot.iArmour =
                             static_cast<uint8_t>(std::clamp(localPlayer->m_fArmour, 0.0f, 255.0f));
+                        onFootUpdate.healthSnapshot.iMaxHealth = CWorld::Players[0].m_nMaxHealth;
+
+                        if (localPlayer->m_pPlayerData)
+                        {
+                            float fMaxBreath = CStats::GetFatAndMuscleModifier(STAT_MOD_AIR_IN_LUNG);
+                            if (fMaxBreath > 0.0f)
+                            {
+                                onFootUpdate.iBreath = static_cast<uint8_t>(
+                                    std::clamp(localPlayer->m_pPlayerData->m_fBreath / fMaxBreath * 100.0f, 0.0f, 100.0f));
+                            }
+                        }
 
                         CWeapon& weapon = localPlayer->m_aWeapons[localPlayer->m_nActiveWeaponSlot];
                         onFootUpdate.weaponSnapshot.iWeaponType = weapon.m_eWeaponType;
@@ -254,8 +281,10 @@ public:
 
             CNetworkCheckpoint::Process();
             CNetworkPlayerNameTag::Process();
+            CChatGamepad::Process();
             CChat::Draw();
             CChat::DrawInput();
+            CChatGamepad::Draw();
 
             if (FrontEndMenuManager.m_bPrefsShowHud)
             {

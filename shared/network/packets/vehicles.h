@@ -169,6 +169,18 @@ public:
     float planeGearState{};
     eDoorLock locked{};
 
+    // the driver's radio station (eRadioID), the passengers tune in to it
+    int8_t radioStation = -1;
+
+    // the right stick of the driver, it controls the hydraulics (CAutomobile::HydraulicControl)
+    bool bHydraulics = false;
+    int16_t hydraulicsStickX = 0;
+    int16_t hydraulicsStickY = 0;
+
+    // the network trailer towed by the vehicle
+    bool bHasTrailer = false;
+    vehicleid_t trailerid{};
+
 private:
     template <typename Stream>
     bool Serialize(Stream& stream)
@@ -257,6 +269,30 @@ private:
         }
 
         serialize_int(stream, (int&)locked, DOORLOCK_NOT_USED, DOORLOCK_SKIP_SHUT_DOORS);
+
+        if (Stream::IsWriting)
+        {
+            radioStation = std::clamp<int8_t>(radioStation, -1, 13);
+        }
+        serialize_int(stream, radioStation, -1, 13);
+
+        serialize_bool(stream, bHydraulics);
+        if (bHydraulics)
+        {
+            if (Stream::IsWriting)
+            {
+                hydraulicsStickX = std::clamp<int16_t>(hydraulicsStickX, -128, 128);
+                hydraulicsStickY = std::clamp<int16_t>(hydraulicsStickY, -128, 128);
+            }
+            serialize_int(stream, hydraulicsStickX, -128, 128);
+            serialize_int(stream, hydraulicsStickY, -128, 128);
+        }
+
+        serialize_bool(stream, bHasTrailer);
+        if (bHasTrailer)
+        {
+            serialize_vehicleid(stream, trailerid);
+        }
 
         return true;
     }

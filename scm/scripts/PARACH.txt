@@ -376,6 +376,7 @@ if
 goto_if_false @PARACH_2652
 Task.PlayAnimNonInterruptable(8@, "PARA_OPEN", "PARACHUTE", 1000.0, False, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_OPEN_O", "PARACHUTE", 1000.0, False, True)
+Coop.SyncParachuteAnim(8@, 1) // the others see the parachute too
 $tempf1, $tempf1, 24@ = Char.GetVelocity(8@)
 set_var_float_to_lvar_float $para_vel_change = 24@
 $para_vel_change += 5.0
@@ -395,6 +396,7 @@ if
 goto_if_false @PARACH_2838
 Task.PlayAnimNonInterruptable(8@, "PARA_OPEN", "PARACHUTE", 1000.0, False, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_OPEN_O", "PARACHUTE", 1000.0, False, True)
+Coop.SyncParachuteAnim(8@, 1) // the others see the parachute too
 $tempf1, $tempf1, 24@ = Char.GetVelocity(8@)
 set_var_float_to_lvar_float $para_vel_change = 24@
 $para_vel_change += 5.0
@@ -486,6 +488,7 @@ if
 goto_if_false @PARACH_3540
 Task.PlayAnimNonInterruptable(8@, "PARA_FLOAT", "PARACHUTE", 2.0, True, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_FLOAT_O", "PARACHUTE", 2.0, True, True)
+Coop.SyncParachuteAnim(8@, 2) // the others see the parachute too
 14@ = 2
 set_lvar_float_to_var_float 29@ = $tempf1
 25@ = 0.0
@@ -591,6 +594,7 @@ goto_if_false @PARACH_4204
 15@ = 4
 Task.PlayAnimNonInterruptable(8@, "PARA_DECEL", "PARACHUTE", 1.0, True, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_DECEL_O", "PARACHUTE", 1.0, True, True)
+Coop.SyncParachuteAnim(8@, 3) // the others see the parachute too
 
 :PARACH_4204
 goto @PARACH_4574
@@ -604,6 +608,7 @@ goto_if_false @PARACH_4336
 15@ = 0
 Task.PlayAnimNonInterruptable(8@, "PARA_FLOAT", "PARACHUTE", 1.0, True, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_FLOAT_O", "PARACHUTE", 1.0, True, True)
+Coop.SyncParachuteAnim(8@, 2) // the others see the parachute too
 
 :PARACH_4336
 if and
@@ -613,6 +618,7 @@ goto_if_false @PARACH_4455
 15@ = -1
 Task.PlayAnimNonInterruptable(8@, "PARA_STEERL", "PARACHUTE", 1.0, True, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_STEERL_O", "PARACHUTE", 1.0, True, True)
+Coop.SyncParachuteAnim(8@, 4) // the others see the parachute too
 
 :PARACH_4455
 if and
@@ -622,6 +628,7 @@ goto_if_false @PARACH_4574
 15@ = 1
 Task.PlayAnimNonInterruptable(8@, "PARA_STEERR", "PARACHUTE", 1.0, True, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_STEERR_O", "PARACHUTE", 1.0, True, True)
+Coop.SyncParachuteAnim(8@, 5) // the others see the parachute too
 
 :PARACH_4574
 $tempf3, $tempf4, $tempf1 = Char.GetVelocity(8@)
@@ -664,6 +671,7 @@ goto_if_false @PARACH_5012
 13@ = 1
 Task.PlayAnimNonInterruptable(8@, "PARA_DECEL", "PARACHUTE", 4.0, True, False, False, True, -2)
 Object.PlayAnim(9@, "PARA_DECEL_O", "PARACHUTE", 4.0, True, True)
+Coop.SyncParachuteAnim(8@, 3) // the others see the parachute too
 if 
   is_int_lvar_equal_to_int_var 8@ == $scplayer
 goto_if_false @PARACH_5012
@@ -695,6 +703,7 @@ goto_if_false @PARACH_5219
 13@ = 2
 Task.PlayAnimNonInterruptable(8@, "PARA_LAND", "PARACHUTE", 1000.0, False, True, False, True, -2)
 Object.PlayAnim(9@, "PARA_LAND_O", "PARACHUTE", 1000.0, False, True)
+Coop.SyncParachuteAnim(8@, 6) // the others see the parachute too
 
 :PARACH_5219
 if 
@@ -708,6 +717,7 @@ if
   $para_anim_time == 1.0
 goto_if_false @PARACH_5496
 Object.Delete(9@)
+Coop.SyncParachuteAnim(8@, 0)
 Object.Delete(10@)
 $player_x, $player_y, $player_z = World.GetDeadCharPickupCoords(8@)
 if 
@@ -744,6 +754,7 @@ if
 goto_if_false @PARACH_5623
 Task.PlayAnimNonInterruptable(8@, "PARA_LAND_WATER", "PARACHUTE", 1000.0, False, True, False, True, -2)
 Object.PlayAnim(9@, "PARA_LAND_WATER_O", "PARACHUTE", 1.0, False, True)
+Coop.SyncParachuteAnim(8@, 7) // the others see the parachute too
 13@ = 5
 $para_anim_time = 0.0
 
@@ -767,6 +778,7 @@ $ai_landed = 1
 
 :PARACH_5746
 Object.Delete(9@)
+Coop.SyncParachuteAnim(8@, 0)
 Object.Delete(10@)
 13@ = 3
 Task.Pause(8@, 1)
@@ -782,6 +794,7 @@ if and
   13@ == 0
 goto_if_false @PARACH_5935
 Object.PlayAnim(9@, "PARA_LAND_O", "PARACHUTE", 1.0, False, True)
+Coop.SyncParachuteAnim(8@, 6) // the others see the parachute too
 Task.DieNamedAnim(8@, "FALL_SKYDIVE_DIE", "PARACHUTE", 1000.0, 0)
 13@ = 1
 
@@ -871,6 +884,7 @@ Pickup.Remove(0@)
 
 :PARACH_6463
 Object.Delete(9@)
+Coop.SyncParachuteAnim(8@, 0)
 Object.Delete(10@)
 if 
   is_int_lvar_equal_to_int_var 8@ == $scplayer

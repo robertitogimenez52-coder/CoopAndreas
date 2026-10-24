@@ -17,6 +17,8 @@
 #include "ShadowHooks.h"
 #include "CCarPedGenHooks.h"
 #include "CCutsceneSkipVote.h"
+#include "CCheatSync.h"
+#include "CGangZonesSync.h"
 
 void CHook::Init()
 {
@@ -39,4 +41,6 @@ void CHook::Init()
     ShadowHooks::InjectHooks();
     CCarPedGenHooks::InjectHooks();
     CCutsceneSkipVote::InjectHooks();
+    CCheatSync::InjectHooks();
+    CGangZonesSync::InjectHooks();
 }

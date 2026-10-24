@@ -41,5 +41,6 @@ public:
     static void Draw();
     static void ToggleInput(bool toggle);
     static void DrawInput();
+    static void SubmitInput();
     static void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };

@@ -322,3 +322,20 @@ std::string CUtil::GetWeaponName(eWeaponType type)
 
     return names[type];
 }
+
+// CPlayerInfo::m_nMaxHealth of the local player, the synced one of a network player
+float CUtil::GetPlayerMaxHealth(CPlayerPed* ped)
+{
+    float fMaxHealth = 100.0f;
+
+    if (ped == FindPlayerPed(0))
+    {
+        fMaxHealth = CWorld::Players[0].m_nMaxHealth;
+    }
+    else if (auto networkPlayer = CNetworkPlayerManager::GetPlayer(ped))
+    {
+        fMaxHealth = networkPlayer->m_onFootSnapshotInterpolated.healthSnapshot.iMaxHealth;
+    }
+
+    return fMaxHealth > 0.0f ? fMaxHealth : 100.0f;
+}

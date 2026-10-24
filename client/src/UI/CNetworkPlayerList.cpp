@@ -128,7 +128,9 @@ void CNetworkPlayerList::DrawBars(CPlayerPed* pPlayerPed, float fX, float fY)
             barHeight, pPlayerPed->m_fArmour, 0, 0, 1, HudColour.GetRGBA(HUD_COLOUR_WHITE), CRGBA(0, 0, 0, 0));
     }
 
-    CSprite2d::DrawBarChart(fBarOffsetX + barWidth, fBarOffsetY, barWidth, barHeight, pPlayerPed->m_fHealth, 0, 0, 1,
+    float fHealthPercent = pPlayerPed->m_fHealth * 100.0f / CUtil::GetPlayerMaxHealth(pPlayerPed);
+
+    CSprite2d::DrawBarChart(fBarOffsetX + barWidth, fBarOffsetY, barWidth, barHeight, fHealthPercent, 0, 0, 1,
         HudColour.GetRGBA(HUD_COLOUR_RED), CRGBA(0, 0, 0, 0));
 }
 

@@ -76,6 +76,7 @@ struct SHealthSnapshot
 public:
     uint8_t iHealth = 100;
     uint8_t iArmour = 0;
+    uint8_t iMaxHealth = 100;  // CPlayerInfo::m_nMaxHealth, grows with the max health stat
 
     template <typename Stream>
     bool Serialize(Stream& stream)
@@ -98,6 +99,20 @@ public:
         {
             iArmour = 0;
         }
+        bool hasMaxHealth = false;
+        if (Stream::IsWriting)
+        {
+            hasMaxHealth = iMaxHealth != 100;
+        }
+        serialize_bool(stream, hasMaxHealth);
+        if (hasMaxHealth)
+        {
+            serialize_uint8(stream, iMaxHealth);
+        }
+        else
+        {
+            iMaxHealth = 100;
+        }
         return true;
     }
 };
@@ -118,6 +133,7 @@ public:
     bool bHasJetpack = false;
     int8_t iFightingStyle{};
     SKeySnapshot keySnapshot{};
+    uint8_t iBreath = 100;  // percent of the air left in the lungs, less than 100 only under water
 
 private:
     template <typename Stream>
@@ -140,6 +156,21 @@ private:
         serialize_bits(stream, iFightingStyle, 8);  // TODO
 
         serialize_object(stream, keySnapshot);
+
+        bool hasBreath = false;
+        if (Stream::IsWriting)
+        {
+            hasBreath = iBreath < 100;
+        }
+        serialize_bool(stream, hasBreath);
+        if (hasBreath)
+        {
+            serialize_int(stream, iBreath, 0, 100);
+        }
+        else
+        {
+            iBreath = 100;
+        }
 
         return true;
     }
@@ -447,6 +478,77 @@ private:
             serialize_float(stream, stats[i]);
         }
 
+        return true;
+    }
+};
+
+class PlayerWantedLevel : public Packet
+{
+    DEFINE_PACKET_TYPE(PlayerWantedLevel, ePacketType::PLAYER_WANTED_LEVEL, ePacketChannel::EVENT);
+
+public:
+    SenderPlayerId senderPlayerid{};
+    uint8_t wantedLevel = 0;
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_object(stream, senderPlayerid);
+        serialize_int(stream, wantedLevel, 0, 6);
+        return true;
+    }
+};
+
+class PlayerIdleAnim : public Packet
+{
+    DEFINE_PACKET_TYPE(PlayerIdleAnim, ePacketType::PLAYER_IDLE_ANIM, ePacketChannel::EVENT);
+
+public:
+    static constexpr int16_t FIRST_ANIM_ID = 261;  // ANIM_ID_STRETCH
+    static constexpr int16_t LAST_ANIM_ID = 264;   // ANIM_ID_STRLEG
+
+    SenderPlayerId senderPlayerid{};
+    int16_t animId = FIRST_ANIM_ID;  // from the "playidles" block, see CTaskSimplePlayerOnFoot::PlayIdleAnimations
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_object(stream, senderPlayerid);
+        serialize_int(stream, animId, FIRST_ANIM_ID, LAST_ANIM_ID);
+        return true;
+    }
+};
+
+class PlayerParachute : public Packet
+{
+    DEFINE_PACKET_TYPE(PlayerParachute, ePacketType::PLAYER_PARACHUTE, ePacketChannel::EVENT);
+
+public:
+    enum eParachuteAnim : uint8_t
+    {
+        PARACHUTE_REMOVED,
+        PARACHUTE_OPEN,
+        PARACHUTE_FLOAT,
+        PARACHUTE_DECEL,
+        PARACHUTE_STEER_LEFT,
+        PARACHUTE_STEER_RIGHT,
+        PARACHUTE_LAND,
+        PARACHUTE_LAND_WATER,
+
+        PARACHUTE_ANIM_COUNT
+    };
+
+    SenderPlayerId senderPlayerid{};
+    uint8_t anim = PARACHUTE_REMOVED;  // the anim of the parachute object in the PARACH script
+
+private:
+    template <typename Stream>
+    bool Serialize(Stream& stream)
+    {
+        serialize_object(stream, senderPlayerid);
+        serialize_int(stream, anim, 0, PARACHUTE_ANIM_COUNT - 1);
         return true;
     }
 };
