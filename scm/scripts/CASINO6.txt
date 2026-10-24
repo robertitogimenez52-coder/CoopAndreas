@@ -17,6 +17,14 @@ terminate_this_script
 :CASINO6_47
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+412@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        412@ += 30
+    end
+end
 $onmission = 1
 World.SwitchEntryExit('ABATOIR', True)
 Text.LoadMissionText('CASINO6')
@@ -1851,6 +1859,7 @@ Blip.ChangeDisplay(99@, BlipDisplay.BlipOnly)
 Blip.SetEntryExit(99@, 968.3954, 2160.965, 1.0)
 Task.StayInSamePlace(70@, True)
 Char.GiveWeapon(70@, WeaponType.Mp5, 3000)
+Char.SetHealth(70@, 412@)
 Char.SetCurrentWeapon(70@, WeaponType.Mp5)
 Char.SetAccuracy(70@, 40)
 Char.SetDecisionMaker(70@, 35@)
@@ -1878,6 +1887,7 @@ Blip.ChangeDisplay(101@, BlipDisplay.BlipOnly)
 Blip.SetEntryExit(101@, 968.3954, 2160.965, 1.0)
 Task.StayInSamePlace(72@, True)
 Char.GiveWeapon(72@, WeaponType.Mp5, 3000)
+Char.SetHealth(72@, 412@)
 Char.SetCurrentWeapon(72@, WeaponType.Mp5)
 Char.SetAccuracy(72@, 40)
 Char.SetDecisionMaker(72@, 35@)

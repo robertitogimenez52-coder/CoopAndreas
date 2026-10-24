@@ -17,6 +17,14 @@ terminate_this_script
 :CASINO9_47
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+237@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        237@ += 30
+    end
+end
 $onmission = 1
 Text.LoadMissionText('CASINO9')
 Char.SetCoordinates($scplayer, 2175.412, 1681.548, 9.8203)
@@ -1780,6 +1788,7 @@ goto @CASINO9_10891
 40@ = Char.Create(24, 61, 1.881, 34.9202, 1198.602)
 Char.SetHeading(40@, 180.0)
 Char.GiveWeapon(40@, WeaponType.Pistol, 3000)
+Char.SetHealth(40@, 237@)
 Char.SetCurrentWeapon(40@, WeaponType.Pistol)
 Char.SetDropsWeaponsWhenDead(40@, False)
 Char.SetShootRate(40@, 70)

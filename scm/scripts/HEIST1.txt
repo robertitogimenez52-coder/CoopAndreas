@@ -17,6 +17,14 @@ terminate_this_script
 :HEIST1_47
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+325@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        325@ += 30
+    end
+end
 Text.LoadMissionText('HEIST1')
 $onmission = 1
 $disable_mod_garage = 1
@@ -1146,16 +1154,19 @@ Char.SetNeverTargeted(45@, True)
 Char.SetHeading(52@, 172.9746)
 Char.SetDecisionMaker(52@, 103@)
 Char.GiveWeapon(52@, WeaponType.Pistol, 30000)
+Char.SetHealth(52@, 325@)
 Char.SetHasUsedEntryExit(52@, 2415.348, 1123.942, 10.0)
 53@ = Char.Create(24, 71, 376.3221, 170.1705, 1007.398)
 Char.SetHeading(53@, 314.7879)
 Char.SetDecisionMaker(53@, 103@)
 Char.GiveWeapon(53@, WeaponType.Pistol, 30000)
+Char.SetHealth(53@, 325@)
 Char.SetHasUsedEntryExit(53@, 2415.348, 1123.942, 10.0)
 54@ = Char.Create(24, 71, 351.8366, 163.8015, 1024.786)
 Char.SetHeading(54@, 239.6)
 Char.SetDecisionMaker(54@, 103@)
 Char.GiveWeapon(54@, WeaponType.Pistol, 30000)
+Char.SetHealth(54@, 325@)
 Char.SetHasUsedEntryExit(54@, 2415.348, 1123.942, 10.0)
 47@ = Char.Create(24, 147, 355.1732, 172.5407, 1024.781)
 Char.SetHeading(47@, 259.56)
@@ -3272,6 +3283,7 @@ Char.SetHasUsedEntryExit(78@, 2415.348, 1123.942, 10.0)
 Char.SetHeading(79@, 5.7879)
 Char.SetDecisionMaker(79@, 105@)
 Char.GiveWeapon(79@, WeaponType.Pistol, 30000)
+Char.SetHealth(79@, 325@)
 Char.SetHasUsedEntryExit(79@, 2415.348, 1123.942, 10.0)
 Task.TurnCharToFaceChar(78@, 79@)
 80@ = Char.Create(24, 282, 377.9352, 192.4556, 1013.18)

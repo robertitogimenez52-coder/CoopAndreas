@@ -16,6 +16,14 @@ terminate_this_script
 
 :SYN5_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+201@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        201@ += 30
+    end
+end
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('SYN5')
@@ -1864,6 +1872,7 @@ Char.SetCoordinates(45@, -1629.3, 1412.4, 6.2)
 Char.SetHeading(45@, 76.7)
 Task.PlayAnim(45@, "SEAT_IDLE", "PED", 1000.0, False, False, False, True, -1)
 Char.GiveWeapon(45@, WeaponType.Tec9, 30000)
+Char.SetHealth(45@, 201@)
 
 :SYN5_12290
 if 
@@ -1873,6 +1882,7 @@ Char.ClearTasksImmediately(46@)
 Char.SetCoordinates(46@, -1626.5, 1414.2, 6.2)
 Char.SetHeading(46@, 116.9)
 Char.GiveWeapon(46@, WeaponType.Tec9, 30000)
+Char.SetHealth(46@, 201@)
 
 :SYN5_12351
 if 
@@ -1882,6 +1892,7 @@ Char.ClearTasksImmediately(47@)
 Char.SetCoordinates(47@, -1628.5, 1414.9, 6.2)
 Char.SetHeading(47@, 50.5)
 Char.GiveWeapon(47@, WeaponType.Tec9, 30000)
+Char.SetHealth(47@, 201@)
 
 :SYN5_12412
 if 
@@ -1891,6 +1902,7 @@ Char.ClearTasksImmediately(48@)
 Char.SetCoordinates(48@, -1629.7, 1416.0, 6.2)
 Char.SetHeading(48@, 222.8)
 Char.GiveWeapon(48@, WeaponType.Tec9, 30000)
+Char.SetHealth(48@, 201@)
 
 :SYN5_12473
 Task.ChatWithChar(47@, 48@, True, 1)
@@ -2534,6 +2546,7 @@ Char.SetDecisionMaker(51@, 196@)
 Char.SetKindaStayInSamePlace(51@, True)
 Char.SetOnlyDamagedByPlayer(51@, True)
 Char.GiveWeapon(51@, WeaponType.Tec9, 30000)
+Char.SetHealth(51@, 201@)
 Task.KillCharOnFoot(51@, $scplayer)
 107@ = Math.RandomIntInRange(0, 2)
 52@ = Char.Create(25, 108@(107@,7i), -1670.5, 1364.8, 6.2)
@@ -2543,6 +2556,7 @@ Char.SetDecisionMaker(52@, 196@)
 Char.SetKindaStayInSamePlace(52@, True)
 Char.SetOnlyDamagedByPlayer(52@, True)
 Char.GiveWeapon(52@, WeaponType.Tec9, 30000)
+Char.SetHealth(52@, 201@)
 Task.KillCharOnFoot(52@, $scplayer)
 107@ = Math.RandomIntInRange(0, 2)
 53@ = Char.Create(25, 108@(107@,7i), -1687.5, 1367.8, 6.2)
@@ -2552,6 +2566,7 @@ Char.SetDecisionMaker(53@, 196@)
 Char.SetKindaStayInSamePlace(53@, True)
 Char.SetOnlyDamagedByPlayer(53@, True)
 Char.GiveWeapon(53@, WeaponType.Tec9, 30000)
+Char.SetHealth(53@, 201@)
 Task.KillCharOnFoot(53@, $scplayer)
 107@ = Math.RandomIntInRange(0, 2)
 54@ = Char.Create(25, 108@(107@,7i), -1657.3, 1379.8, 8.8)
@@ -2561,6 +2576,7 @@ Char.SetDecisionMaker(54@, 196@)
 Char.SetKindaStayInSamePlace(54@, True)
 Char.SetOnlyDamagedByPlayer(54@, True)
 Char.GiveWeapon(54@, WeaponType.Tec9, 30000)
+Char.SetHealth(54@, 201@)
 Task.KillCharOnFoot(54@, $scplayer)
 Car.Delete(58@)
 Char.Delete($ryder)
@@ -3688,6 +3704,7 @@ goto_if_false @SYN5_23905
 45@ = Char.Create(25, 108@(107@,7i), -1713.16, 1356.57, 16.2)
 Char.SetHeading(45@, 44.5)
 Char.GiveWeapon(45@, WeaponType.Tec9, 300000)
+Char.SetHealth(45@, 201@)
 Task.SetIgnoreWeaponRangeFlag(45@, True)
 Char.SetDecisionMaker(45@, 197@)
 Char.SetStayInSamePlace(45@, True)
@@ -3701,6 +3718,7 @@ goto_if_false @SYN5_24010
 46@ = Char.Create(25, 108@(107@,7i), -1682.9, 1379.8, 13.8)
 Char.SetHeading(46@, 36.8)
 Char.GiveWeapon(46@, WeaponType.Tec9, 300000)
+Char.SetHealth(46@, 201@)
 Task.SetIgnoreWeaponRangeFlag(46@, True)
 Char.SetDecisionMaker(46@, 197@)
 Char.SetStayInSamePlace(46@, True)
@@ -3714,6 +3732,7 @@ goto_if_false @SYN5_24115
 47@ = Char.Create(25, 108@(107@,7i), -1686.2, 1393.2, 20.5)
 Char.SetHeading(47@, 276.9)
 Char.GiveWeapon(47@, WeaponType.Tec9, 300000)
+Char.SetHealth(47@, 201@)
 Task.SetIgnoreWeaponRangeFlag(47@, True)
 Char.SetDecisionMaker(47@, 197@)
 Char.SetStayInSamePlace(47@, True)
@@ -3727,6 +3746,7 @@ goto_if_false @SYN5_24220
 48@ = Char.Create(25, 108@(107@,7i), -1686.4, 1345.6, 16.2)
 Char.SetHeading(48@, 4.0)
 Char.GiveWeapon(48@, WeaponType.Tec9, 300000)
+Char.SetHealth(48@, 201@)
 Task.SetIgnoreWeaponRangeFlag(48@, True)
 Char.SetDecisionMaker(48@, 197@)
 Char.SetStayInSamePlace(48@, True)
@@ -3888,6 +3908,7 @@ goto_if_false @SYN5_25502
 Char.SetAccuracy(47@, 130@)
 Char.SetHeading(47@, 236.0)
 Char.GiveWeapon(47@, WeaponType.Tec9, 30000)
+Char.SetHealth(47@, 201@)
 Char.SetDecisionMaker(47@, 196@)
 Char.SetOnlyDamagedByPlayer(47@, True)
 
@@ -3901,6 +3922,7 @@ Char.SetAccuracy(48@, 130@)
 Char.SetAnimGroup(48@, "GANG1")
 Char.SetHeading(48@, 301.0)
 Char.GiveWeapon(48@, WeaponType.Tec9, 30000)
+Char.SetHealth(48@, 201@)
 Char.SetDecisionMaker(48@, 196@)
 Char.SetOnlyDamagedByPlayer(48@, True)
 

@@ -18,6 +18,14 @@ terminate_this_script
 :SCRASH2_54
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+171@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        171@ += 30
+    end
+end
 $onmission = 1
 75@ = 0
 76@ = 0
@@ -2698,6 +2706,7 @@ switch_start 99@ total_jumps 2 default_jump 0 @SCRASH2_15980 jumps 3 @SCRASH2_15
 
 :SCRASH2_15832
 Char.GiveWeapon(80@, WeaponType.Pistol, 99)
+Char.SetHealth(80@, 171@)
 Char.SetDecisionMaker(80@, 97@)
 Task.KillCharOnFootWhileDucking(80@, $scplayer, 4, 4000, 34)
 99@ = 4

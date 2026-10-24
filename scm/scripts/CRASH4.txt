@@ -16,6 +16,14 @@ terminate_this_script
 
 :CRASH4_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+76@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        76@ += 30
+    end
+end
 $onmission = 1
 $flag_on_doberman_mission = 1
 49@ = 0
@@ -1016,6 +1024,7 @@ World.ClearArea(0, 1922.439, -1118.043, 25.125, 10.0)
 Char.SetHeading(34@, 180.0)
 Char.SetOnlyDamagedByPlayer(34@, True)
 Char.GiveWeapon(34@, WeaponType.Tec9, 30000)
+Char.SetHealth(34@, 76@)
 Char.SetProofs(34@, True, True, True, True, True)
 Camera.SetFadingColor(0, 0, 0)
 Camera.DoFade(1, 1000)

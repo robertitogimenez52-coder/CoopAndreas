@@ -16,6 +16,14 @@ terminate_this_script
 
 :HEIST4_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+287@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        287@ += 30
+    end
+end
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('HEIST4')
@@ -304,17 +312,21 @@ goto @HEIST4_2102
 Char.SetDecisionMaker(76@, 61@)
 Char.SetHeading(76@, 297.0)
 Char.GiveWeapon(76@, WeaponType.Pistol, 2000)
+Char.SetHealth(76@, 287@)
 77@ = Char.Create(24, 284, 2311.85, 2439.375, 9.8203)
 Char.SetDecisionMaker(77@, 61@)
 Char.SetHeading(77@, 115.0)
 Char.GiveWeapon(77@, WeaponType.Pistol, 2000)
+Char.SetHealth(77@, 287@)
 82@ = Char.Create(24, 284, 1612.244, 1845.855, 9.828)
 Char.SetDecisionMaker(82@, 61@)
 Char.SetHeading(82@, 110.0)
 Char.GiveWeapon(82@, WeaponType.Pistol, 2000)
+Char.SetHealth(82@, 287@)
 Char.SetCanBeKnockedOffBike(82@, 3)
 63@ = Char.Create(24, 284, 2768.797, 1431.239, 9.487)
 Char.GiveWeapon(63@, WeaponType.Pistol, 2000)
+Char.SetHealth(63@, 287@)
 Char.SetDecisionMaker(63@, 61@)
 Char.SetHeading(63@, 111.0)
 Streaming.MarkModelAsNoLongerNeeded(284)
@@ -325,6 +337,7 @@ Char.SetHeading(68@, 347.0)
 70@ = Char.Create(24, 284, 2619.858, 2339.256, 10.0081)
 Char.SetCanBeKnockedOffBike(70@, 3)
 Char.GiveWeapon(70@, WeaponType.Pistol, 2000)
+Char.SetHealth(70@, 287@)
 Char.SetDecisionMaker(70@, 61@)
 Char.SetHeading(70@, 300.0)
 92@ = Car.Create(463, 2634.011, 2343.212, 9.6797)

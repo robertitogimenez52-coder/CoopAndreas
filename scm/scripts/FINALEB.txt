@@ -11,6 +11,14 @@ terminate_this_script
 
 :FINALEB_36
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+184@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        184@ += 30
+    end
+end
 $onmission = 1
 script_name 'FINALEB'
 Coop.EnableSyncingThisScript()
@@ -470,6 +478,7 @@ gosub @FINALEB_17641
 Char.SetHeading(37@, 359.0)
 Char.SetDecisionMaker(37@, 97@)
 Char.GiveWeapon(37@, WeaponType.MicroUzi, 99999)
+Char.SetHealth(37@, 184@)
 Char.SetWeaponSkill(37@, 2)
 Char.SetAreaVisible(37@, 2)
 140@ = 0
@@ -622,6 +631,7 @@ goto_if_false @FINALEB_4299
 Char.SetHeading(40@, 230.835)
 Char.SetDecisionMaker(40@, 97@)
 Char.GiveWeapon(40@, WeaponType.MicroUzi, 99999)
+Char.SetHealth(40@, 184@)
 Char.SetWeaponSkill(40@, 2)
 Char.SetAreaVisible(40@, 2)
 Task.KillCharOnFoot(40@, $scplayer)
@@ -784,6 +794,7 @@ Task.ShootAtCoord(43@, 2538.569, -1291.48, 1043.604, 650000)
 Char.SetHeading(44@, 43.6277)
 Char.SetDecisionMaker(44@, 97@)
 Char.GiveWeapon(44@, WeaponType.M4, 99999)
+Char.SetHealth(44@, 184@)
 Char.SetAreaVisible(44@, 2)
 Char.SetAccuracy(44@, 20)
 147@ = 0
@@ -821,6 +832,7 @@ gosub @FINALEB_17696
 Char.SetHeading(46@, 91.8235)
 Char.SetDecisionMaker(46@, 97@)
 Char.GiveWeapon(46@, WeaponType.M4, 99999)
+Char.SetHealth(46@, 184@)
 Char.SetAreaVisible(46@, 2)
 Char.SetAccuracy(46@, 20)
 149@ = 0
@@ -1016,6 +1028,7 @@ Task.ShootAtCoord(36@, 2570.207, -1300.238, 1037.059, 650000)
 Char.SetHeading(37@, 170.5391)
 Char.SetDecisionMaker(37@, 97@)
 Char.GiveWeapon(37@, WeaponType.MicroUzi, 99999)
+Char.SetHealth(37@, 184@)
 Char.SetWeaponSkill(37@, 2)
 Char.SetAreaVisible(37@, 2)
 140@ = 0
@@ -1070,6 +1083,7 @@ gosub @FINALEB_17696
 Char.SetHeading(40@, 359.8018)
 Char.SetDecisionMaker(40@, 97@)
 Char.GiveWeapon(40@, WeaponType.M4, 99999)
+Char.SetHealth(40@, 184@)
 Char.SetAreaVisible(40@, 2)
 143@ = 0
 if 
@@ -1249,6 +1263,7 @@ gosub @FINALEB_17696
 Char.SetHeading(44@, 275.0)
 Char.SetDecisionMaker(44@, 97@)
 Char.GiveWeapon(44@, WeaponType.MicroUzi, 99999)
+Char.SetHealth(44@, 184@)
 Char.SetWeaponSkill(44@, 2)
 Char.SetAreaVisible(44@, 2)
 147@ = 0
@@ -1289,6 +1304,7 @@ gosub @FINALEB_18174
 Char.SetHeading(46@, 270.0)
 Char.SetDecisionMaker(46@, 97@)
 Char.GiveWeapon(46@, WeaponType.M4, 99999)
+Char.SetHealth(46@, 184@)
 Char.SetAreaVisible(46@, 2)
 149@ = 0
 if 
@@ -1756,6 +1772,7 @@ gosub @FINALEB_17696
 Char.SetHeading(37@, 2.21)
 Char.SetDecisionMaker(37@, 97@)
 Char.GiveWeapon(37@, WeaponType.M4, 99999)
+Char.SetHealth(37@, 184@)
 Task.KillCharOnFoot(37@, $scplayer)
 Char.SetAccuracy(37@, 20)
 140@ = 1

@@ -26,6 +26,14 @@ goto @CASINO4_62
 :CASINO4_86
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+304@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        304@ += 30
+    end
+end
 $onmission = 1
 Weather.Force(WeatherType.SunnyVegas)
 Text.LoadMissionText('CASINO4')
@@ -4203,6 +4211,7 @@ goto @CASINO4_23037
 Char.SetHeading(73@, 180.1098)
 Char.SetIsTargetPriority(73@, True)
 Char.GiveWeapon(73@, WeaponType.Pistol, 3000)
+Char.SetHealth(73@, 304@)
 109@ = Sequence.Open()
 Task.PlayAnim(-1, "M_SMKSTND_LOOP", "SMOKING", 4.0, True, False, False, False, -1)
 Sequence.Close(109@)
@@ -4212,6 +4221,7 @@ Sequence.Clear(109@)
 Char.SetHeading(74@, 177.5823)
 Char.SetIsTargetPriority(74@, True)
 Char.GiveWeapon(74@, WeaponType.Pistol, 3000)
+Char.SetHealth(74@, 304@)
 109@ = Sequence.Open()
 Task.PlayAnim(-1, "M_SMKLEAN_LOOP", "SMOKING", 4.0, True, False, False, False, -1)
 Sequence.Close(109@)
@@ -5041,12 +5051,14 @@ Char.MarkAsNoLongerNeeded(73@)
 Char.SetHeading(73@, 180.1098)
 Char.SetIsTargetPriority(73@, True)
 Char.GiveWeapon(73@, WeaponType.Pistol, 3000)
+Char.SetHealth(73@, 304@)
 Char.Delete(74@)
 Char.MarkAsNoLongerNeeded(74@)
 74@ = Char.Create(25, 34, -34.288, 2350.204, 23.125)
 Char.SetHeading(74@, 177.5823)
 Char.SetIsTargetPriority(74@, True)
 Char.GiveWeapon(74@, WeaponType.Pistol, 3000)
+Char.SetHealth(74@, 304@)
 Char.Delete(76@)
 Char.MarkAsNoLongerNeeded(76@)
 76@ = Char.Create(25, 31, -36.6941, 2346.5, 23.125)

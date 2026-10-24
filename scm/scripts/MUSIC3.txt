@@ -16,6 +16,14 @@ terminate_this_script
 
 :MUSIC3_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+235@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        235@ += 30
+    end
+end
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('STRAP3')
@@ -1197,11 +1205,13 @@ World.ClearArea(1, 1303.5, -1131.5, 22.6, 5.0)
 75@ = Char.Create(25, 24, 1303.5, -1131.5, 22.6)
 Char.SetHeading(75@, 168.1)
 Char.GiveWeapon(75@, WeaponType.Pistol, 3000)
+Char.SetHealth(75@, 235@)
 Char.SetDecisionMaker(75@, 233@)
 World.ClearArea(1, 1305.5, -1131.7, 22.6, 5.0)
 77@ = Char.Create(25, 24, 1305.5, -1131.7, 22.6)
 Char.SetHeading(77@, 168.1)
 Char.GiveWeapon(77@, WeaponType.Pistol, 3000)
+Char.SetHealth(77@, 235@)
 Char.SetDecisionMaker(77@, 233@)
 World.ClearArea(1, 1306.4, -1137.5, 22.5, 5.0)
 Car.SetCoordinates(73@, 1306.4, -1137.5, 22.5)
@@ -1490,6 +1500,7 @@ World.ClearArea(1, 1303.5, -1131.5, 22.6, 5.0)
 75@ = Char.Create(25, 24, 1303.5, -1131.5, 22.6)
 Char.SetHeading(75@, 168.1)
 Char.GiveWeapon(75@, WeaponType.Pistol, 3000)
+Char.SetHealth(75@, 235@)
 
 :MUSIC3_9141
 if 
@@ -1510,6 +1521,7 @@ World.ClearArea(1, 1305.5, -1131.7, 22.6, 5.0)
 77@ = Char.Create(25, 24, 1305.5, -1131.7, 22.6)
 Char.SetHeading(77@, 168.1)
 Char.GiveWeapon(77@, WeaponType.Pistol, 3000)
+Char.SetHealth(77@, 235@)
 if 
   not Char.IsInCar(77@, 74@)
 goto_if_false @MUSIC3_9311

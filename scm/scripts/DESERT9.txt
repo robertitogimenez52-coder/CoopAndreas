@@ -22,6 +22,14 @@ terminate_this_script
 :DESERT9_49
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+685@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        685@ += 30
+    end
+end
 Text.LoadMissionText('DSERT9')
 Game.SetWantedMultiplier(0.0)
 Game.SetScriptLimitToGangSize(0)
@@ -715,8 +723,11 @@ Car.SetHeading(34@, 90.0)
 :DESERT9_5013
 Car.ControlMovablePart(34@, 1.0)
 Char.GiveWeapon(40@, WeaponType.MicroUzi, 9999)
+Char.SetHealth(40@, 685@)
 Char.GiveWeapon(41@, WeaponType.MicroUzi, 9999)
+Char.SetHealth(41@, 685@)
 Char.GiveWeapon(42@, WeaponType.MicroUzi, 9999)
+Char.SetHealth(42@, 685@)
 Car.OpenDoor(36@, CarDoor.LeftFrontDoor)
 Car.OpenDoor(36@, CarDoor.RightFrontDoor)
 49@ = Object.Create(#CR_GUNCRATE, 365.0146, 2500.676, 15.492)

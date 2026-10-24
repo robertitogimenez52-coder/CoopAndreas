@@ -17,6 +17,14 @@ terminate_this_script
 :MUSIC1_47
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+331@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        331@ += 30
+    end
+end
 Text.LoadMissionText('STRAP1')
 $onmission = 1
 wait 0
@@ -1224,6 +1232,7 @@ wait 1000
 Char.SetHeading(55@, 51@)
 Char.SetOnlyDamagedByPlayer(55@, True)
 Char.GiveWeapon(55@, WeaponType.Mp5, 99999)
+Char.SetHealth(55@, 331@)
 Char.SetCurrentWeapon(55@, WeaponType.Unarmed)
 231@ = 0
 180@ = DecisionMakerChar.Copy(65542)

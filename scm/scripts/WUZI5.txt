@@ -16,6 +16,14 @@ terminate_this_script
 
 :WUZI5_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+161@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        161@ += 30
+    end
+end
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('WUZI4')
@@ -809,6 +817,7 @@ World.ClearArea(1, -2420.4, 1553.4, 25.0, 1.0)
 Char.SetHeading(42@, 180.0)
 Char.SetDecisionMaker(42@, 158@)
 Char.GiveWeapon(42@, WeaponType.Tec9, 30000)
+Char.SetHealth(42@, 161@)
 Char.Delete(43@)
 99@ = Math.RandomIntInRange(0, 2)
 World.ClearArea(1, -2427.6, 1532.3, 25.0, 1.0)
@@ -1120,6 +1129,7 @@ World.ClearArea(1, -2374.4, 1548.5, 1.1, 1.0)
 Char.SetHeading(45@, 299.2)
 Char.SetDecisionMaker(45@, 158@)
 Char.GiveWeapon(45@, WeaponType.Grenade, 1)
+Char.SetHealth(45@, 161@)
 Char.AddArmor(45@, 100)
 Streaming.RemoveAnimation("SWAT")
 Streaming.MarkModelAsNoLongerNeeded(349)
@@ -1892,6 +1902,7 @@ World.ClearArea(1, -2471.5, 1548.2, 32.2, 1.0)
 65@ = Char.Create(25, 49, -2471.5, 1548.2, 32.2)
 Char.SetHeading(65@, 130.0)
 Char.GiveWeapon(65@, WeaponType.Katana, 1)
+Char.SetHealth(65@, 161@)
 Char.SetShootRate(65@, 70)
 Blip.Remove(80@)
 80@ = Blip.AddForChar(65@)

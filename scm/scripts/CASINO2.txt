@@ -16,6 +16,14 @@ terminate_this_script
 
 :CASINO2_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+271@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        271@ += 30
+    end
+end
 Text.LoadMissionText('CASINO2')
 $disable_all_cranes = 1
 $c2_time_left = 0
@@ -453,6 +461,7 @@ Char.PerformSequence(49@, 211@)
 Char.SetHeading(50@, 278.2997)
 Char.SetDecisionMaker(50@, 78@)
 Char.GiveWeapon(50@, WeaponType.Pistol, 30000)
+Char.SetHealth(50@, 271@)
 Char.SetCurrentWeapon(50@, WeaponType.Pistol)
 Char.PerformSequence(50@, 212@)
 51@ = Char.Create(24, 260, 655.8689, 904.3282, -42.0397)

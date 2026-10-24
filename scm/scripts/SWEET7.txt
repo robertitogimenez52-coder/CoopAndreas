@@ -18,6 +18,14 @@ terminate_this_script
 :SWEET7_54
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+551@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        551@ += 30
+    end
+end
 Text.LoadMissionText('SWEET7')
 $onmission = 1
 wait 0
@@ -361,16 +369,19 @@ Char.SetStayInCarWhenJacked($sweet, True)
 Char.SetGetOutUpsideDownCar($sweet, False)
 289@ = Char.Create(7, 102, 2262.797, -1348.54, 22.985)
 Char.GiveWeapon(289@, WeaponType.MicroUzi, 2000)
+Char.SetHealth(289@, 551@)
 Char.SetDecisionMaker(289@, 93@)
 290@ = Char.Create(7, 103, 2263.582, -1346.651, 22.9838)
 Char.SetHeading(290@, 140.0)
 Char.GiveWeapon(290@, WeaponType.Pistol, 2000)
+Char.SetHealth(290@, 551@)
 Char.SetDecisionMaker(290@, 93@)
 Task.ChatWithChar(289@, 290@, True, 1)
 Task.ChatWithChar(290@, 289@, False, 1)
 291@ = Char.Create(7, 104, 2261.85, -1345.101, 22.9864)
 Char.SetHeading(291@, 224.0)
 Char.GiveWeapon(291@, WeaponType.MicroUzi, 2000)
+Char.SetHealth(291@, 551@)
 Char.SetDecisionMaker(291@, 93@)
 Task.PlayAnim(291@, "MRNM_LOOP", "GRAVEYARD", 10.0, True, False, False, False, -1)
 Streaming.UnloadSpecialCharacter(1)

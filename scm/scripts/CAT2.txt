@@ -11,6 +11,14 @@ terminate_this_script
 
 :CAT2_36
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+640@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        640@ += 30
+    end
+end
 638@ = 1
 37@ = DecisionMakerGroup.Load(0)
 DecisionMakerGroup.ClearEventResponse(37@, 9)
@@ -220,6 +228,7 @@ Streaming.MarkModelAsNoLongerNeeded(71)
 Char.SetHeading(66@, 90.0)
 Char.SetDecisionMaker(66@, 62@)
 Char.GiveWeapon(66@, WeaponType.Pistol, 9999)
+Char.SetHealth(66@, 640@)
 Player.SetControl($player1, False)
 Game.SetEveryoneIgnorePlayer($player1, True)
 Hud.SwitchWidescreen(True)
@@ -1494,6 +1503,7 @@ if
 goto_if_false @CAT2_10379
 Char.ClearTasks(87@)
 Char.GiveWeapon(87@, WeaponType.Shotgun, 9999)
+Char.SetHealth(87@, 640@)
 if 
   Char.IsInAnyCar(87@)
 goto_if_false @CAT2_10349
@@ -1512,6 +1522,7 @@ if
 goto_if_false @CAT2_10496
 Char.ClearTasks(89@)
 Char.GiveWeapon(89@, WeaponType.Shotgun, 9999)
+Char.SetHealth(89@, 640@)
 if 
   Char.IsInAnyCar(89@)
 goto_if_false @CAT2_10453
@@ -2252,6 +2263,7 @@ if
   not Char.IsDead(87@)
 goto_if_false @CAT2_15322
 Char.GiveWeapon(87@, WeaponType.Pistol, 9999)
+Char.SetHealth(87@, 640@)
 Task.KillCharOnFoot(87@, $scplayer)
 Char.SetOnlyDamagedByPlayer(87@, True)
 
@@ -2260,6 +2272,7 @@ if
   not Char.IsDead(89@)
 goto_if_false @CAT2_15363
 Char.GiveWeapon(89@, WeaponType.Shotgun, 9999)
+Char.SetHealth(89@, 640@)
 Task.KillCharOnFoot(89@, $scplayer)
 Char.SetOnlyDamagedByPlayer(89@, True)
 
@@ -2521,6 +2534,7 @@ Char.GiveWeapon(133@, WeaponType.Pistol, 9999)
 Char.GiveWeapon(134@, WeaponType.Pistol, 9999)
 Char.GiveWeapon(135@, WeaponType.Pistol, 9999)
 Char.GiveWeapon(136@, WeaponType.Pistol, 9999)
+Char.SetHealth(136@, 640@)
 if 
   not Char.IsDead($catalina)
 goto_if_false @CAT2_17258

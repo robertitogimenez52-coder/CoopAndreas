@@ -75,24 +75,28 @@ return
 291@ = Char.Create(24, 286, 81@, 87@, 93@)
 Char.SetHeading(291@, 317@)
 Char.GiveWeapon(291@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(291@, 334@)
 Char.SetRelationship(291@, RelationshipType.Hate, PedType.Player1)
 Char.SetKeepTask(291@, True)
 Char.SetDecisionMaker(291@, 300@)
 292@ = Char.Create(24, 286, 82@, 88@, 94@)
 Char.SetHeading(292@, 318@)
 Char.GiveWeapon(292@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(292@, 334@)
 Char.SetRelationship(292@, RelationshipType.Hate, PedType.Player1)
 Char.SetKeepTask(292@, True)
 Char.SetDecisionMaker(292@, 300@)
 293@ = Char.Create(24, 286, 80@, 86@, 92@)
 Char.SetHeading(293@, 319@)
 Char.GiveWeapon(293@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(293@, 334@)
 Char.SetRelationship(293@, RelationshipType.Hate, PedType.Player1)
 Char.SetKeepTask(293@, True)
 Char.SetDecisionMaker(293@, 300@)
 294@ = Char.Create(24, 286, 79@, 85@, 91@)
 Char.SetHeading(294@, 320@)
 Char.GiveWeapon(294@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(294@, 334@)
 Char.SetRelationship(294@, RelationshipType.Hate, PedType.Player1)
 Char.SetKeepTask(294@, True)
 Char.SetDecisionMaker(294@, 300@)
@@ -148,6 +152,14 @@ return
 :BCRASH1_922
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+334@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        334@ += 30
+    end
+end
 $onmission = 1
 wait 0
 Text.LoadMissionText('BCRASH1')

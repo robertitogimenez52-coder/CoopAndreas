@@ -17,6 +17,14 @@ terminate_this_script
 :GUNS1_47
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+280@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        280@ += 30
+    end
+end
 $onmission = 1
 wait 0
 Camera.SetFadingColor(0, 0, 0)
@@ -5280,8 +5288,10 @@ Car.SwitchSiren(103@, True)
 Car.SetHeading(103@, 10.0)
 100@ = Char.CreateInsideCar(PedType.Cop, 280, 103@)
 Char.GiveWeapon(100@, WeaponType.Pistol, 3000)
+Char.SetHealth(100@, 280@)
 101@ = Char.CreateAsPassenger(PedType.Cop, 280, 103@, 0)
 Char.GiveWeapon(101@, WeaponType.Pistol, 3000)
+Char.SetHealth(101@, 280@)
 if and
   not Car.IsDead(102@)
   not Car.IsDead(103@)

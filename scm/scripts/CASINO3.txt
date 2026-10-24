@@ -17,6 +17,14 @@ terminate_this_script
 :CASINO3_47
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+285@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        285@ += 30
+    end
+end
 Text.LoadMissionText('CASINO3')
 $onmission = 1
 wait 0
@@ -202,16 +210,19 @@ Car.SetHeading(60@, 252.0755)
 Car.SetHeading(61@, 233.609)
 76@ = Char.CreateInsideCar(PedType.CivMale, 50, 61@)
 Char.GiveWeapon(76@, WeaponType.MicroUzi, 2000)
+Char.SetHealth(76@, 285@)
 Char.SetCanBeShotInVehicle(76@, True)
 Streaming.MarkModelAsNoLongerNeeded(401)
 Streaming.MarkModelAsNoLongerNeeded(530)
 71@ = Char.CreateInsideCar(PedType.Mission1, 124, 58@)
 Char.GiveWeapon(71@, WeaponType.Pistol, 2000)
+Char.SetHealth(71@, 285@)
 Char.SetHeading(71@, 56.724)
 Char.SetDecisionMaker(71@, 73@)
 Char.SetCanBeShotInVehicle(71@, False)
 72@ = Char.CreateAsPassenger(PedType.Mission1, 125, 58@, 0)
 Char.GiveWeapon(72@, WeaponType.Pistol, 2000)
+Char.SetHealth(72@, 285@)
 Char.SetHeading(72@, 148.026)
 Char.SetDecisionMaker(72@, 73@)
 Char.SetCanBeShotInVehicle(72@, False)
@@ -709,6 +720,7 @@ goto @CASINO3_4804
 89@ = Char.Create(24, 127, 1083.01, 2099.131, 14.3504)
 Char.SetHeading(89@, 186.4201)
 Char.GiveWeapon(89@, WeaponType.Pistol, 2000)
+Char.SetHealth(89@, 285@)
 Char.SetDecisionMaker(89@, 73@)
 87@ = Char.Create(24, 124, 1084.281, 2097.948, 14.3504)
 Char.SetHeading(87@, 153.4201)
@@ -905,6 +917,7 @@ Char.SetHeading($scplayer, 282.0)
 89@ = Char.Create(24, 127, 1086.869, 2078.61, 14.3504)
 Char.SetHeading(89@, 86.4201)
 Char.GiveWeapon(89@, WeaponType.Pistol, 2000)
+Char.SetHealth(89@, 285@)
 Char.SetDecisionMaker(89@, 73@)
 87@ = Char.Create(24, 124, 1086.42, 2077.292, 14.3504)
 Char.SetHeading(87@, 74.4201)
@@ -1954,6 +1967,7 @@ goto_if_false @CASINO3_12795
 Char.SetCoordinates(74@, 1084.126, 2107.637, 14.3504)
 Char.SetHeading(74@, 111.4468)
 Char.GiveWeapon(74@, WeaponType.Pistol, 2000)
+Char.SetHealth(74@, 285@)
 
 :CASINO3_12795
 88@ = Char.Create(24, 124, 1084.71, 2116.736, 14.3504)

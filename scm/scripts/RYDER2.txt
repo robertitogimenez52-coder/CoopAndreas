@@ -20,6 +20,14 @@ terminate_this_script
 :RYDER2_47
 Stat.RegisterMissionGiven
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+478@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        478@ += 30
+    end
+end
 $onmission = 1
 34@ = 0
 35@ = 0
@@ -3071,6 +3079,7 @@ Car.SetHealth(96@, 1300)
 Char.SetRelationship(117@, RelationshipType.Hate, PedType.Player1)
 Char.SetDecisionMaker(117@, 237@)
 Char.GiveWeapon(117@, WeaponType.Pistol, 999999)
+Char.SetHealth(117@, 478@)
 
 :RYDER2_20260
 if 
@@ -3088,6 +3097,7 @@ Car.SetHealth(97@, 1300)
 Char.SetRelationship(118@, RelationshipType.Hate, PedType.Player1)
 Char.SetDecisionMaker(118@, 237@)
 Char.GiveWeapon(118@, WeaponType.Pistol, 999999)
+Char.SetHealth(118@, 478@)
 
 :RYDER2_20401
 Streaming.MarkModelAsNoLongerNeeded(470)

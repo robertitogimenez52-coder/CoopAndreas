@@ -16,6 +16,14 @@ terminate_this_script
 
 :SYN6_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+153@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        153@ += 30
+    end
+end
 $onmission = 1
 $tlf_underway = 1
 Stat.RegisterMissionGiven
@@ -106,6 +114,7 @@ goto @SYN6_541
 
 :SYN6_622
 Char.GiveWeapon(52@, WeaponType.RocketLauncher, 9999)
+Char.SetHealth(52@, 153@)
 Char.SetOnlyDamagedByPlayer(52@, True)
 Char.SetRelationship(52@, RelationshipType.Hate, PedType.Player1)
 Char.SetIsTargetPriority(52@, True)
@@ -913,7 +922,9 @@ if
 goto_if_false @SYN6_5535
 Char.SetStayInSamePlace(151@(39@,2i), True)
 Char.GiveWeapon(152@, WeaponType.Ak47, 9999)
+Char.SetHealth(152@, 153@)
 Char.GiveWeapon(151@, WeaponType.DesertEagle, 9999)
+Char.SetHealth(151@, 153@)
 Char.SetOnlyDamagedByPlayer(151@(39@,2i), True)
 Char.SetSuffersCriticalHits(151@(39@,2i), False)
 Char.SetHealth(151@(39@,2i), 300)

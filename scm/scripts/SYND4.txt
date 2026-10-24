@@ -16,6 +16,14 @@ terminate_this_script
 
 :SYND4_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+137@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        137@ += 30
+    end
+end
 $off1_X = 0.0
 $off_X = 0.0
 $off1_Y = 0.0
@@ -273,9 +281,11 @@ Char.SetHeading(49@, 196.019)
 50@ = Char.Create(25, 164, -2626.409, 1411.96, 6.1094)
 Char.SetHeading(50@, 190.6977)
 Char.GiveWeapon(49@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(49@, 137@)
 Char.SetCurrentWeapon(49@, WeaponType.MicroUzi)
 Char.SetAccuracy(49@, 90)
 Char.GiveWeapon(50@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(50@, 137@)
 Char.SetCurrentWeapon(50@, WeaponType.MicroUzi)
 Char.SetAccuracy(50@, 90)
 Char.SetDecisionMaker(49@, 47@)
@@ -1159,8 +1169,10 @@ Char.SetHeading(131@, 73.286)
 Char.SetDecisionMaker(131@, 55@)
 Char.PerformSequence(131@, 129@)
 Char.GiveWeapon(130@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(130@, 137@)
 Char.SetCurrentWeapon(130@, WeaponType.MicroUzi)
 Char.GiveWeapon(131@, WeaponType.MicroUzi, 30000)
+Char.SetHealth(131@, 137@)
 Char.SetCurrentWeapon(131@, WeaponType.MicroUzi)
 if 
   not Char.IsDead(34@)
@@ -1360,6 +1372,7 @@ Char.ClearTasksImmediately(87@)
 Char.SetCoordinatesDontWarpGang(87@, -2620.604, 1406.97, 6.1016)
 Char.SetHeading(87@, 277.7697)
 Char.GiveWeapon(87@, WeaponType.Pistol, 30000)
+Char.SetHealth(87@, 137@)
 Char.SetCurrentWeapon(87@, WeaponType.Pistol)
 Char.SetDecisionMaker(87@, 88@)
 Char.SetAccuracy(87@, 30)

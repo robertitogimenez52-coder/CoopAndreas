@@ -16,6 +16,14 @@ terminate_this_script
 
 :HEIST2_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+229@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        229@ += 30
+    end
+end
 Text.LoadMissionText('HEIST2')
 Stat.RegisterMissionGiven
 Camera.SetFadingColor(0, 0, 0)
@@ -860,11 +868,13 @@ Object.SetHeading(179@, 11.8154)
 Object.SetHeading(180@, 11.8154)
 163@ = Char.Create(24, 71, -826.3729, 1946.988, 6.0692)
 Char.GiveWeapon(163@, WeaponType.NightStick, 3000)
+Char.SetHealth(163@, 229@)
 Char.SetDropsWeaponsWhenDead(163@, False)
 Char.SetHeading(163@, 0.0)
 Char.SetSenseRange(163@, 10.0)
 164@ = Char.Create(24, 71, -823.3655, 1956.276, 6.04)
 Char.GiveWeapon(164@, WeaponType.NightStick, 3000)
+Char.SetHealth(164@, 229@)
 Char.SetDropsWeaponsWhenDead(164@, False)
 Char.SetHeading(164@, 301.2606)
 Char.SetSenseRange(164@, 10.0)
@@ -1237,11 +1247,13 @@ Char.Delete(164@)
 Char.MarkAsNoLongerNeeded(164@)
 163@ = Char.Create(24, 71, -826.3729, 1946.988, 6.0692)
 Char.GiveWeapon(163@, WeaponType.NightStick, 3000)
+Char.SetHealth(163@, 229@)
 Char.SetDropsWeaponsWhenDead(163@, False)
 Char.SetHeading(163@, 0.0)
 Char.SetSenseRange(163@, 10.0)
 164@ = Char.Create(24, 71, -823.3655, 1956.276, 6.04)
 Char.GiveWeapon(164@, WeaponType.NightStick, 3000)
+Char.SetHealth(164@, 229@)
 Char.SetDropsWeaponsWhenDead(164@, False)
 Char.SetHeading(164@, 301.2606)
 Char.SetSenseRange(164@, 10.0)

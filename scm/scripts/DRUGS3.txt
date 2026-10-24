@@ -16,6 +16,14 @@ terminate_this_script
 
 :DRUGS3_47
 $NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
+188@ = 100 // the enemies health, +30 for every network player
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        188@ += 30
+    end
+end
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('CRASH3')
@@ -378,6 +386,7 @@ Char.SetAccuracy(65@, 30)
 Char.SetHeading(66@, 249.77)
 Char.SetDecisionMaker(66@, 52@)
 Char.GiveWeapon(66@, WeaponType.Mp5, 9999)
+Char.SetHealth(66@, 188@)
 Char.SetAccuracy(66@, 30)
 67@ = Char.Create(24, 50, 2199.71, -2257.841, 12.597)
 Char.SetHeading(67@, 347.22)
@@ -1497,6 +1506,7 @@ Char.SetAccuracy(85@, 20)
 Char.SetHeading(87@, 224.58)
 Char.SetDecisionMaker(87@, 52@)
 Char.GiveWeapon(87@, WeaponType.Mp5, 99999)
+Char.SetHealth(87@, 188@)
 Char.SetAccuracy(87@, 20)
 88@ = Char.Create(24, 50, 2158.03, -2233.23, 12.59)
 Char.SetHeading(88@, 230.37)
@@ -2415,6 +2425,7 @@ goto_if_false @DRUGS3_16689
 Char.SetHeading(87@, 337.5533)
 Char.SetDecisionMaker(87@, 52@)
 Char.GiveWeapon(87@, WeaponType.Pistol, 99999)
+Char.SetHealth(87@, 188@)
 Task.KillCharOnFoot(87@, $scplayer)
 set_lvar_int_to_lvar_int 112@ = 87@
 gosub @DRUGS3_18926
