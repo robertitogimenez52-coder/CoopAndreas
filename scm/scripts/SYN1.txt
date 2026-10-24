@@ -3,6 +3,7 @@
 
 :SYN1
 script_name 'SYN1'
+Coop.EnableSyncingThisScript()
 gosub @SYN1_1424
 if 
   has_deatharrest_been_executed 
@@ -211,6 +212,7 @@ Car.StartPlayback(437@, 192)
 return 
 
 :SYN1_1424
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('SYN1')
 Stat.RegisterMissionGiven
 $onmission = 1
@@ -429,6 +431,7 @@ goto @SYN1_3506
 
 :SYN1_3538
 Char.SetCoordinates($scplayer, -2030.312, 148.0136, 27.8359)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 293.7756)
 Player.SetControl($player1, False)
 Task.UseMobilePhone($scplayer, True)
@@ -497,6 +500,13 @@ Char.StartFacialTalk(148@, 10000)
 :SYN1_3968
 Audio.PlayMissionAudio(332@)
 Text.PrintNow(152@(334@,60s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(152@(334@,60s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 336@ = 3
 
 :SYN1_3994
@@ -507,6 +517,13 @@ if
   Audio.HasMissionAudioFinished(332@)
 goto_if_false @SYN1_4150
 Text.ClearThisPrint(152@(334@,60s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(152@(334@,60s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   148@ <> 0
 goto_if_false @SYN1_4076
@@ -766,6 +783,7 @@ goto @SYN1_5324
 
 :SYN1_5348
 Char.SetCoordinates($scplayer, 387@, 388@, 389@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.GiveWeapon($scplayer, WeaponType.Camera, 30000)
 Streaming.LoadScene(387@, 388@, 389@)
 Streaming.LoadScene(402@, 403@, 404@)
@@ -825,6 +843,13 @@ Char.StartFacialTalk(148@, 10000)
 :SYN1_5636
 Audio.PlayMissionAudio(332@)
 Text.PrintNow(152@(334@,60s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(152@(334@,60s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 336@ = 3
 
 :SYN1_5662
@@ -835,6 +860,13 @@ if
   Audio.HasMissionAudioFinished(332@)
 goto_if_false @SYN1_5964
 Text.ClearThisPrint(152@(334@,60s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(152@(334@,60s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   148@ <> 0
 goto_if_false @SYN1_5744
@@ -912,6 +944,13 @@ goto_if_false @SYN1_6099
 Blip.SetCoordAppearance(379@, 1)
 151@ = Clock.GetGameTimer()
 Text.Print('SYN1_02', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_02', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 147@ = 11
 34@ = 1
 
@@ -958,6 +997,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @SYN1_6377
 Text.Print('SYN1_02', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_02', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SYN1_6377
 151@ = Clock.GetGameTimer()
@@ -1026,6 +1072,13 @@ if and
   not Char.LocateAnyMeansChar3D($scplayer, 376@, 8.0, 8.0, 8.0, False)
 goto_if_false @SYN1_6942
 Text.PrintNow('SYN1_15', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_15', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   41@ == 0
 goto_if_false @SYN1_6942
@@ -1085,6 +1138,13 @@ if
 goto_if_false @SYN1_7218
 Text.ClearPrints
 Text.Print('SYN1_06', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_06', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SYN1_14543
 
 :SYN1_7218
@@ -1097,6 +1157,13 @@ if
 goto_if_false @SYN1_7284
 Text.ClearPrints
 Text.Print('SYN1_06', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_06', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SYN1_14543
 
 :SYN1_7284
@@ -1105,6 +1172,13 @@ if
 goto_if_false @SYN1_7325
 Text.ClearPrints
 Text.Print('SYN1_08', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_08', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SYN1_14543
 
 :SYN1_7325
@@ -1146,6 +1220,13 @@ if and
   336@ == 0
 goto_if_false @SYN1_7551
 Text.PrintNow('SYN1_15', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_15', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.SetRadioChannel(RadioChannel.PlaybackFM)
 
 :SYN1_7551
@@ -1158,6 +1239,13 @@ if and
   336@ == 0
 goto_if_false @SYN1_7620
 Text.PrintNow('SYN1_07', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_07', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.SetRadioChannel(RadioChannel.PlaybackFM)
 
 :SYN1_7620
@@ -1215,6 +1303,13 @@ if
   336@ == 0
 goto_if_false @SYN1_7954
 Text.Print('SYN1_13', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_13', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 151@ = Clock.GetGameTimer()
 147@ = 5
 
@@ -1246,6 +1341,13 @@ Player.SetControl($player1, False)
 Blip.Remove(51@)
 52@ = Blip.AddForCoord(387@, 388@, 389@)
 Text.PrintNow('SYN1_14', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_14', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 34@ = 3
 if 
   Char.IsGroupMember(376@, $Players_Group)
@@ -1309,6 +1411,7 @@ Char.SetProofs(376@, True, True, True, True, True)
 Player.AlterWantedLevel($player1, 0)
 Blip.Remove(52@)
 Char.SetCoordinates($scplayer, 387@, 388@, 389@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.GiveWeapon($scplayer, WeaponType.Camera, 30000)
 Streaming.LoadScene(387@, 388@, 389@)
 Streaming.LoadScene(402@, 403@, 404@)
@@ -1329,6 +1432,13 @@ goto @SYN1_8702
 35@ = 0
 151@ = Clock.GetGameTimer()
 Text.PrintNow('SYN1_12', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_12', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SYN1_8761
 if 
@@ -1403,6 +1513,13 @@ goto_if_false @SYN1_9240
 
 :SYN1_9240
 Text.PrintNow('SYN1_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 3
 
 :SYN1_9263
@@ -1432,8 +1549,16 @@ goto_if_false @SYN1_9430
 Char.DetachFromCar($scplayer)
 Car.Delete(386@)
 Char.SetCoordinates($scplayer, 387@, 388@, 389@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 210.0)
 Text.PrintNow('SYN1_09', 7500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_09', 7500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SYN1_14543
 
 :SYN1_9430
@@ -1471,6 +1596,13 @@ goto @SYN1_9639
 
 :SYN1_9607
 Text.Print('SYN1_10', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_10', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(391@)
 goto_if_false @SYN1_9639
@@ -1480,6 +1612,13 @@ goto @SYN1_9678
 
 :SYN1_9646
 Text.Print('SYN1_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(391@)
 goto_if_false @SYN1_9678
@@ -1554,6 +1693,13 @@ goto_if_false @SYN1_10128
 
 :SYN1_10128
 Text.PrintNow('SYN1_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 6
 
 :SYN1_10151
@@ -1583,8 +1729,16 @@ goto_if_false @SYN1_10318
 Char.DetachFromCar($scplayer)
 Car.Delete(386@)
 Char.SetCoordinates($scplayer, 387@, 388@, 389@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 210.0)
 Text.PrintNow('SYN1_09', 7500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_09', 7500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SYN1_14543
 
 :SYN1_10318
@@ -1622,6 +1776,13 @@ goto @SYN1_10527
 
 :SYN1_10495
 Text.Print('SYN1_10', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_10', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(406@)
 goto_if_false @SYN1_10527
@@ -1631,6 +1792,13 @@ goto @SYN1_10566
 
 :SYN1_10534
 Text.Print('SYN1_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(406@)
 goto_if_false @SYN1_10566
@@ -1725,6 +1893,13 @@ goto_if_false @SYN1_11169
 
 :SYN1_11169
 Text.PrintNow('SYN1_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 9
 
 :SYN1_11192
@@ -1754,8 +1929,16 @@ goto_if_false @SYN1_11359
 Char.DetachFromCar($scplayer)
 Car.Delete(386@)
 Char.SetCoordinates($scplayer, 387@, 388@, 389@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 210.0)
 Text.PrintNow('SYN1_09', 7500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_09', 7500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SYN1_14543
 
 :SYN1_11359
@@ -1793,6 +1976,13 @@ goto @SYN1_11568
 
 :SYN1_11536
 Text.Print('SYN1_10', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_10', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(436@)
 goto_if_false @SYN1_11568
@@ -1802,6 +1992,13 @@ goto @SYN1_11607
 
 :SYN1_11575
 Text.Print('SYN1_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(436@)
 goto_if_false @SYN1_11607
@@ -1875,6 +2072,13 @@ goto_if_false @SYN1_12018
 
 :SYN1_12018
 Text.PrintNow('SYN1_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 12
 
 :SYN1_12041
@@ -1920,8 +2124,16 @@ goto_if_false @SYN1_12292
 Char.DetachFromCar($scplayer)
 Car.Delete(386@)
 Char.SetCoordinates($scplayer, 387@, 388@, 389@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 210.0)
 Text.PrintNow('SYN1_09', 7500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_09', 7500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SYN1_14543
 
 :SYN1_12292
@@ -1958,6 +2170,13 @@ goto @SYN1_12494
 
 :SYN1_12462
 Text.Print('SYN1_10', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_10', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(420@)
 goto_if_false @SYN1_12494
@@ -1967,6 +2186,13 @@ goto @SYN1_12533
 
 :SYN1_12501
 Text.Print('SYN1_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.HasBeenPhotographed(420@)
 goto_if_false @SYN1_12533
@@ -2039,6 +2265,7 @@ Camera.PointAtPoint(-2162.657, -2411.396, 32.193, SwitchType.JumpCut)
 Char.SetCoordinates(376@, -2169.03, -2409.327, 33.618)
 Char.SetHeading(376@, 232.4401)
 Char.SetCoordinates($scplayer, -2170.245, -2410.956, 33.2969)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 322.3848)
 340@ = Sequence.Open()
 Task.GoStraightToCoord(-1, -2169.03, -2409.327, 33.618, MoveState.Walk, -2)
@@ -2101,6 +2328,7 @@ if and
 goto_if_false @SYN1_13477
 Text.ClearPrints
 Char.WarpIntoCar($scplayer, 377@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.WarpIntoCarAsPassenger(376@, 377@, 0)
 Streaming.MarkModelAsNoLongerNeeded(575)
 Streaming.UnloadSpecialCharacter(4)
@@ -2427,6 +2655,13 @@ if and
   336@ == 0
 goto_if_false @SYN1_15096
 Text.PrintNow('SYN1_07', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_07', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SYN1_15096
 if 
@@ -2447,6 +2682,13 @@ if
   147@ == 5
 goto_if_false @SYN1_15210
 Text.Print('SYN1_13', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SYN1_13', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SYN1_15210
 367@ = 1
@@ -2569,6 +2811,13 @@ if
   42@ == 1
 goto_if_false @SYN1_15785
 Text.PrintNow('SYN1_02', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SYN1_02', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SYN1_15785
 368@ = 0

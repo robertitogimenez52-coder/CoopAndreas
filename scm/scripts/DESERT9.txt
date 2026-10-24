@@ -3,6 +3,7 @@
 
 :DESERT9
 script_name 'DESERT9'
+Coop.EnableSyncingThisScript()
 gosub @DESERT9_49
 
 :DESERT9_18
@@ -20,10 +21,18 @@ terminate_this_script
 
 :DESERT9_49
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('DSERT9')
 Game.SetWantedMultiplier(0.0)
 Game.SetScriptLimitToGangSize(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 $onmission = 1
 World.SwitchEntryExit('DESHOUS', False)
 150@ = 100.0
@@ -147,6 +156,13 @@ if
   71@ == 0
 goto_if_false @DESERT9_936
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Camera.DoFade(0, 1000)
 71@ = 1
 
@@ -398,6 +414,7 @@ Heli.SetBladesFullSpeed(34@)
 
 :DESERT9_3134
 Char.SetCoordinates($scplayer, 412.6561, 2530.908, 15.617)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 136.0)
 74@ = 25.6646
 75@ = 2504.646
@@ -427,6 +444,7 @@ if
   is_int_lvar_greater_than_int_lvar TIMERA > 86@
 goto_if_false @DESERT9_3485
 Char.SetCoordinates($scplayer, 403.0466, 2522.19, 15.4843)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Task.GoStraightToCoord($scplayer, 415.1068, 2528.624, 15.5375, MoveState.Run, -2)
 Streaming.LoadSceneInDirection(404.7372, 2524.857, 15.5671, 300.0)
 Camera.SetFixedPosition(404.7372, 2524.857, 15.5671, 0.0, 0.0, 0.0)
@@ -629,6 +647,13 @@ if
   71@ == 0
 goto_if_false @DESERT9_4626
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Streaming.RequestModel(592)
 Streaming.RequestModel(422)
 Streaming.RequestModel(165)
@@ -710,6 +735,7 @@ Task.PlayAnim(40@, "IDLE_ARMED", "PED", 4.0, True, False, False, False, 0)
 Task.PlayAnim(41@, "IDLE_ARMED", "PED", 4.0, True, False, False, False, 0)
 Task.PlayAnim(42@, "IDLE_ARMED", "PED", 4.0, True, False, False, False, 0)
 Char.SetCoordinates($scplayer, 412.6561, 2530.908, 15.617)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 136.0)
 Streaming.MarkModelAsNoLongerNeeded(461)
 Streaming.MarkModelAsNoLongerNeeded(422)
@@ -764,6 +790,13 @@ goto @DESERT9_5720
 71@ = 4
 Text.ClearPrints
 Text.Print('DES9_3', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_3', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT9_5745
 if 
@@ -776,6 +809,7 @@ Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(438.18, 2526.193, 17.1554, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(437.2076, 2526.339, 16.9735, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 426.895, 2529.479, 15.6483)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   not Car.IsDead(35@)
 goto_if_false @DESERT9_5883
@@ -783,6 +817,13 @@ Task.EnterCarAsDriver($scplayer, 35@, -2)
 
 :DESERT9_5883
 Text.Print('DES9_4', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_4', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   157@ == 0
 goto_if_false @DESERT9_5940
@@ -805,6 +846,13 @@ if
 goto_if_false @DESERT9_6209
 Text.ClearPrints
 Text.Print('DES9_44', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_44', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(35@)
 goto_if_false @DESERT9_6054
@@ -813,6 +861,7 @@ if
 goto_if_false @DESERT9_6054
 Char.ClearTasksImmediately($scplayer)
 Char.WarpIntoCar($scplayer, 35@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DESERT9_6054
 56@ = Object.Create(#KB_BARREL, 0.0, 0.0, 0.0)
@@ -848,6 +897,13 @@ Hud.SwitchWidescreen(False)
 Player.SetControl($player1, True)
 Text.ClearPrints
 Text.Print('DES9_A4', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_A4', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 68@ = 2
 
 :DESERT9_6282
@@ -1159,6 +1215,13 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @DESERT9_8057
 Char.SetAreaVisible($scplayer, 9)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 9)
+    end
+end
 
 :DESERT9_8057
 Char.Delete(44@)
@@ -1205,10 +1268,18 @@ if
   not Char.IsInAnyCar($scplayer)
 goto_if_false @DESERT9_8318
 Char.WarpIntoCar($scplayer, 35@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DESERT9_8318
 Text.ClearPrints
 Char.SetAreaVisible($scplayer, 9)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 9)
+    end
+end
 Char.SetVisible($scplayer, True)
 Car.StartPlayback(35@, 150)
 Car.SkipToEndAndStopPlayback(35@)
@@ -1216,6 +1287,7 @@ if
   not Char.IsInCar($scplayer, 35@)
 goto_if_false @DESERT9_8374
 Char.WarpIntoCar($scplayer, 35@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DESERT9_8374
 Streaming.LoadScene(331.8417, 1038.314, 1956.177)
@@ -1240,6 +1312,13 @@ goto @DESERT9_8485
 :DESERT9_8512
 Camera.DoFade(1, 600)
 Text.Print('DES9_A5', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_A5', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   65@ == 1
 goto_if_false @DESERT9_8574
@@ -1411,10 +1490,18 @@ if
 goto_if_false @DESERT9_9879
 Text.ClearPrints
 Text.Print('DES9_45', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_45', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.SetFixedPosition(317.5727, 1024.791, 1949.854, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(317.4102, 1023.809, 1949.95, SwitchType.JumpCut)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 317.9964, 1023.477, 1949.033)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 121.0)
 if 
   not Char.IsDead(44@)
@@ -1461,6 +1548,13 @@ Task.PlayAnim(44@, "THRW_BARL_THRW", "AIRPORT", 4.0, False, False, False, False,
 
 :DESERT9_10114
 Text.Print('DES9_46', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_46', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 71@ = 10
 set_lvar_int_to_lvar_int 86@ = TIMERA
 86@ += 1100
@@ -1504,6 +1598,7 @@ goto @DESERT9_10359
 
 :DESERT9_10339
 Char.SetCoordinates($scplayer, 318.1163, 1024.791, 1948.729)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DESERT9_10359
 Char.SetHeading($scplayer, 121.0)
@@ -1713,6 +1808,13 @@ if
   Char.IsDead(44@)
 goto_if_false @DESERT9_11577
 Text.Print('DES9_27', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_27', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 173@ = 1
 
 :DESERT9_11577
@@ -1728,11 +1830,32 @@ if
   178@ == 0
 goto_if_false @DESERT9_11679
 Text.Print('DES9_A1', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_A1', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES9_A2', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_A2', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT9_11695
 
 :DESERT9_11679
 Text.Print('DES9_26', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_26', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT9_11695
 173@ = 2
@@ -1778,6 +1901,13 @@ goto @DESERT9_11946
 :DESERT9_11894
 Text.ClearPrints
 Text.Print('DES9_39', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_39', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintBig('M_FAIL', 5000, TextStyle.Middle)
 gosub @DESERT9_21954
 Streaming.SetAreaVisible(0)
@@ -1794,6 +1924,13 @@ if and
 goto_if_false @DESERT9_12166
 Text.ClearPrints
 Text.Print('DES9_29', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_29', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintBig('M_FAIL', 5000, TextStyle.Middle)
 Pickup.Remove($para_pickup)
 wait 1000
@@ -1810,6 +1947,7 @@ goto @DESERT9_12053
 Streaming.SetAreaVisible(0)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 408.6996, 2538.272, 15.6057)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 139.0)
 gosub @DESERT9_21954
 wait 1500
@@ -1846,6 +1984,13 @@ goto @DESERT9_12219
 :DESERT9_12243
 Streaming.SetAreaVisible(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Streaming.LoadScene(125.1739, 1074.067, 12.0)
 Streaming.RequestModel(445)
 Streaming.RequestModel(91)
@@ -1867,6 +2012,7 @@ Hud.SwitchWidescreen(True)
 Player.SetControl($player1, False)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 122.3556, 1069.892, 99.6832)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 181@ = Car.Create(445, 119.3556, 1069.892, 13.665)
 182@ = Char.CreateAsPassenger(PedType.CivMale, 91, 181@, 0)
 Streaming.MarkModelAsNoLongerNeeded(91)
@@ -1875,6 +2021,7 @@ Streaming.MarkModelAsNoLongerNeeded(363)
 Streaming.MarkModelAsNoLongerNeeded(364)
 Car.SetHeading(181@, 180.0)
 Char.SetCoordinates($scplayer, 119.3, 1070.47, 189.3266)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetVelocity($scplayer, 0.0, 0.0, 0.0)
 Camera.DoFade(1, 1000)
 
@@ -1887,6 +2034,7 @@ goto @DESERT9_12537
 
 :DESERT9_12561
 Char.SetCoordinates($scplayer, 119.3, 1070.47, 80.3266)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetVelocity($scplayer, 0.0, 0.0, 0.0)
 
 :DESERT9_12601
@@ -2021,6 +2169,13 @@ if
 goto_if_false @DESERT9_13528
 Text.ClearPrints
 Text.Print('DES9_42', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_42', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.SetVisible($scplayer, False)
 Streaming.SetAreaVisible(0)
 34@ = Car.Create(592, 339.9034, 2499.805, 15.4884)
@@ -2184,6 +2339,13 @@ if
   is_int_lvar_greater_than_int_lvar TIMERA > 86@
 goto_if_false @DESERT9_14289
 Text.Print('DES9_32', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_32', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintBig('M_FAIL', 5000, TextStyle.Middle)
 Player.SetControl($player1, True)
 Camera.SetBehindPlayer
@@ -2214,6 +2376,7 @@ $x, $y, $z = Char.GetVelocity($scplayer)
 Car.StartPlayback(186@, 134)
 Car.SetPlaybackSpeed(186@, 0.5)
 Char.SetCoordinates($scplayer, 177.9967, 1099.621, 1977.491)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.0)
 Char.SetVelocity($scplayer, $x, -30.0, $z)
 Car.SetVisible(186@, True)
@@ -2355,6 +2518,13 @@ if
 goto_if_false @DESERT9_15571
 Text.ClearPrints
 Text.Print('DES9_42', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_42', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.SetVisible($scplayer, False)
 Streaming.SetAreaVisible(0)
 34@ = Car.Create(592, 339.9034, 2499.805, 15.4884)
@@ -2469,6 +2639,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Camera.DoFade(1, Fade.Out)
 Text.Print('DES9_32', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_32', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT9_21846
 goto @DESERT9_18
 
@@ -3085,6 +3262,13 @@ Task.FallAndGetUp($scplayer, False, 0)
 71@ = 0
 Text.ClearPrints
 Text.Print('DES9_42', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_42', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT9_20460
 return 
@@ -3207,6 +3391,13 @@ goto_if_false @DESERT9_21336
 Audio.PlayMissionAudio(625@)
 Text.ClearPrints
 Text.Print(502@(626@,40s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer(502@(626@,40s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 629@ += 1
 678@ = 0
 626@ += 1
@@ -3328,6 +3519,13 @@ goto_if_false @DESERT9_21768
 set_lvar_int_to_lvar_int 683@ = TIMERA
 683@ += 5000
 Text.Print('DES9_A9', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_A9', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 684@ = 1
 
 :DESERT9_21768
@@ -3340,6 +3538,13 @@ goto_if_false @DESERT9_21844
 set_lvar_int_to_lvar_int 683@ = TIMERA
 683@ += 4500
 Text.Print('DES9_A6', 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES9_A6', 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 684@ = 2
 
 :DESERT9_21844
@@ -3379,6 +3584,13 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @DESERT9_22033
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Streaming.SetAreaVisible(0)
 Char.SetVisible($scplayer, True)
 

@@ -3,6 +3,7 @@
 
 :MUSIC5
 script_name 'MUSIC5'
+Coop.EnableSyncingThisScript()
 gosub @MUSIC5_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @MUSIC5_16040
 terminate_this_script 
 
 :MUSIC5_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('STRAP4')
@@ -385,6 +387,7 @@ Streaming.RequestCarRecording(22)
 Streaming.RequestCarRecording(23)
 World.ClearArea(1, 2492.4, -1632.0, 12.4, 1.0)
 Char.SetCoordinates($scplayer, 2492.4, -1632.0, 12.4)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetFixedPosition(2483.0, -1649.8, 12.5, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2494.3, -1650.3, 16.6, SwitchType.JumpCut)
 Game.ShutAllCharsUp(True)
@@ -988,6 +991,13 @@ if
   105@ == 0
 goto_if_false @MUSIC5_7215
 Text.Print('STP4_02', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP4_02', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 106@ = 1
 
 :MUSIC5_7215
@@ -1370,6 +1380,13 @@ if
   105@ == 0
 goto_if_false @MUSIC5_9575
 Text.Print('STP4_03', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP4_03', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 106@ = 1
 
 :MUSIC5_9575
@@ -1461,6 +1478,7 @@ if
 goto_if_false @MUSIC5_10058
 World.ClearArea(1, 2475.8, -1663.6, 12.3, 1.0)
 Char.SetCoordinates($scplayer, 2475.8, -1663.6, 12.3)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MUSIC5_10058
 if 
@@ -1842,6 +1860,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Text.Print('STP4_04', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP4_04', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 500)
 
 :MUSIC5_13379
@@ -2124,12 +2149,20 @@ if
 goto_if_false @MUSIC5_14819
 Streaming.SetAreaVisible(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 
 :MUSIC5_14819
 Game.ShutAllCharsUp(True)
 World.ClearArea(1, 2484.9, -1649.2, 12.5, 160.0)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2484.2, -1666.2, 12.3)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 336.7)
 144@ = Sequence.Open()
 Task.GoStraightToCoord(-1, 2486.7, -1650.1, 12.3, MoveState.Walk, -1)
@@ -2255,6 +2288,7 @@ Char.Delete($sweet)
 Streaming.UnloadSpecialCharacter(1)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2486.6, -1649.9, 12.5)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 177.8)
 Game.ShutAllCharsUp(False)
 Player.SetControl($player1, True)
@@ -2281,6 +2315,13 @@ if
 goto_if_false @MUSIC5_15857
 Text.ClearPrints
 Text.PrintNow('STP4_06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP4_06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC5_15871
 
 :MUSIC5_15857
@@ -2299,6 +2340,13 @@ Blip.Remove($strap_contact_blip)
 $strap_contact_blip = Blip.AddSpriteForContactPoint($strap_blip_icon, $strap2X, $strap2Y, $strap2Z)
 Camera.DoFade(1, 500)
 Text.PrintNow('STP4_07', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP4_07', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $flag_strap_mission_counter += 1
 $strap4_mission_passed_once_flag = 1
 goto @MUSIC5_16038
@@ -2399,6 +2447,13 @@ if
 goto_if_false @MUSIC5_16443
 Text.ClearPrints
 Text.PrintNow('STP4_05', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP4_05', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 83@ = 1
 
 :MUSIC5_16443
@@ -2706,6 +2761,13 @@ goto @MUSIC5_18248
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(109@(107@,9s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(109@(107@,9s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 137@ = 0
 138@ = 0
 
@@ -2768,6 +2830,13 @@ if
 goto_if_false @MUSIC5_18526
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(109@(107@,9s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(109@(107@,9s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 137@ = 2
 
 :MUSIC5_18526
@@ -2782,6 +2851,13 @@ if
 goto_if_false @MUSIC5_18602
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow(109@(107@,9s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(109@(107@,9s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 138@ = 2
 
 :MUSIC5_18602
@@ -2795,6 +2871,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @MUSIC5_18667
 Text.ClearThisPrint(109@(107@,9s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(109@(107@,9s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 107@ += 1
 140@ = 2
 137@ = 0
@@ -2807,6 +2890,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @MUSIC5_18730
 Text.ClearThisPrint(109@(107@,9s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(109@(107@,9s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 107@ += 1
 140@ = 1
 138@ = 0

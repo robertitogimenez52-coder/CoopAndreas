@@ -3,6 +3,7 @@
 
 :MANSIO3
 script_name 'MANSIO3'
+Coop.EnableSyncingThisScript()
 gosub @MANSIO3_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @MANSIO3_6948
 terminate_this_script 
 
 :MANSIO3_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('MAN_3')
 Player.SetGroupToFollowAlways($player1, True)
 Game.CanTriggerGangWarWhenOnAMission(True)
@@ -128,6 +130,7 @@ Car.ChangeColor(60@, 0, 0)
 Car.SetHeading(60@, 181.4888)
 Car.SetTraction(60@, 2.0)
 Char.SetCoordinates($scplayer, 1251.541, -808.7633, 83.1484)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 109.0044)
 79@ = Blip.AddForCoord(2485.527, -1668.528, 12.3438)
 Blip.ChangeDisplay(79@, BlipDisplay.Neither)
@@ -136,6 +139,13 @@ Camera.RestoreJumpcut
 Streaming.LoadSceneInDirection(1251.541, -808.7633, 83.1484, 109.0044)
 gosub @MANSIO3_7345
 Text.PrintNow('MAN3_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSIO3_763
 if 
@@ -168,6 +178,13 @@ if
   62@ == 0
 goto_if_false @MANSIO3_959
 Text.PrintNow('MAN3_19', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_19', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSIO3_959
 if 
@@ -179,10 +196,24 @@ if or
   Char.IsInFlyingVehicle($scplayer)
 goto_if_false @MANSIO3_1027
 Text.PrintNow('MAN3_69', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_69', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MANSIO3_1043
 
 :MANSIO3_1027
 Text.PrintNow('MAN3_34', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_34', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSIO3_1043
 if and
@@ -287,6 +318,7 @@ if
   not Char.IsInCar($scplayer, $car)
 goto_if_false @MANSIO3_1571
 Char.WarpIntoCar($scplayer, $car)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MANSIO3_1571
 58@ = Blip.AddForChar($sweet)
@@ -331,6 +363,13 @@ goto @MANSIO3_1823
 
 :MANSIO3_1807
 Text.PrintNow('MAN3_08', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_08', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSIO3_1823
 if 
@@ -393,6 +432,13 @@ if and
   59@ == 5
 goto_if_false @MANSIO3_2226
 Text.PrintNow('MAN3_05', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_05', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 59@ = 0
 if 
   not Char.IsDead($ryder)
@@ -414,6 +460,13 @@ if
   Char.IsDead($sweet)
 goto_if_false @MANSIO3_2290
 Text.PrintNow('MAN3_11', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_11', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MANSIO3_6722
 
 :MANSIO3_2290
@@ -440,6 +493,13 @@ goto @MANSIO3_2482
 
 :MANSIO3_2421
 Text.PrintNow('MAN3_03', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_03', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.ChangeDisplay(58@, BlipDisplay.Both)
 Blip.ChangeDisplay(56@, BlipDisplay.Neither)
 if 
@@ -548,6 +608,13 @@ Streaming.LoadSceneInDirection(2424.184, -1679.58, 12.7653, 322.7617)
 Camera.SetFixedPosition(2427.227, -1681.12, 13.891, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2427.808, -1680.306, 13.8707, SwitchType.JumpCut)
 Text.PrintNow('MAN3_20', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_20', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @MANSIO3_7345
 wait 1000
 TIMERB = 0
@@ -570,6 +637,13 @@ goto @MANSIO3_3263
 Camera.SetFixedPosition(2507.984, -1652.199, 15.6974, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2508.892, -1651.913, 15.3924, SwitchType.JumpCut)
 Text.PrintNow('MAN3_21', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_21', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :MANSIO3_3398
@@ -601,6 +675,7 @@ goto @MANSIO3_3556
 
 :MANSIO3_3536
 Char.SetCoordinates($scplayer, 2506.059, -1671.968, 12.379)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MANSIO3_3556
 Camera.SetBehindPlayer
@@ -655,6 +730,13 @@ if
   64@ == 3
 goto_if_false @MANSIO3_4151
 Text.PrintNow('MAN3_22', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_22', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 41@ = Char.Create(17, 29, 2482.087, -1696.119, 12.5267)
 Char.SetHeading(41@, 0.095)
 35@ = Blip.AddForChar(41@)
@@ -717,6 +799,13 @@ Task.PlayAnimNonInterruptable($sweet, "PRTIAL_HNDSHK_01", "GANGS", 4.0, False, F
 
 :MANSIO3_4416
 Text.PrintNow('MAN3_33', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_33', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 4000
 Zone.SetGangStrength('GAN1', GangType.Grove, 40)
 Zone.SetGangStrength('GAN1', GangType.Ballas, 0)
@@ -736,6 +825,13 @@ if and
   81@ == 0
 goto_if_false @MANSIO3_4567
 Text.PrintNow('MAN3_29', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_29', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 81@ = 1
 
 :MANSIO3_4567
@@ -774,6 +870,13 @@ goto_if_false @MANSIO3_4795
 Game.CanTriggerGangWarWhenOnAMission(False)
 Game.SetGangWarsActive(False)
 Text.PrintNow('MAN3_31', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_31', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Blip.DoesExist(79@)
 goto_if_false @MANSIO3_4788
@@ -790,6 +893,13 @@ if
   Char.IsDead($sweet)
 goto_if_false @MANSIO3_4841
 Text.PrintNow('MAN3_11', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_11', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MANSIO3_6722
 
 :MANSIO3_4841
@@ -829,6 +939,13 @@ if
   70@ == 0
 goto_if_false @MANSIO3_5133
 Text.PrintNow('MAN3_03', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_03', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.ChangeDisplay(58@, BlipDisplay.Both)
 Blip.ChangeDisplay(34@, BlipDisplay.Neither)
 Blip.ChangeDisplay(35@, BlipDisplay.Neither)
@@ -911,6 +1028,13 @@ if
   74@ == 0
 goto_if_false @MANSIO3_5454
 Text.PrintNow('MAN3_28', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_28', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 77@ = 1
 goto @MANSIO3_5461
@@ -943,6 +1067,7 @@ goto @MANSIO3_5647
 
 :MANSIO3_5607
 Char.SetCoordinates($scplayer, 2512.761, -1672.52, 12.5034)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetCoordinates($sweet, 2514.788, -1673.938, 12.6861)
 
 :MANSIO3_5647
@@ -990,6 +1115,13 @@ goto @MANSIO3_5963
 :MANSIO3_5989
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('MAN3_BA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_BA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :MANSIO3_6016
@@ -1019,6 +1151,13 @@ goto @MANSIO3_6081
 :MANSIO3_6107
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('MAN3_BB', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_BB', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead($sweet)
 goto_if_false @MANSIO3_6184
@@ -1055,6 +1194,13 @@ goto @MANSIO3_6256
 :MANSIO3_6282
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('MAN3_BC', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_BC', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead($scplayer)
 goto_if_false @MANSIO3_6359
@@ -1091,6 +1237,13 @@ goto @MANSIO3_6431
 :MANSIO3_6457
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('MAN3_BD', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_BD', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :MANSIO3_6484
@@ -1127,6 +1280,13 @@ goto @MANSIO3_6594
 :MANSIO3_6620
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('MAN3_BE', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_BE', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :MANSIO3_6647
@@ -1298,6 +1458,7 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @MANSIO3_7441
 Char.SetCoordinates($scplayer, 1522.09, -1662.082, 12.5469)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 175.5419)
 Camera.SetBehindPlayer
 
@@ -1314,6 +1475,7 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @MANSIO3_7519
 Char.SetCoordinates($scplayer, 2503.688, -1671.453, 12.3707)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 255.1807)
 Camera.SetBehindPlayer
 
@@ -1337,6 +1499,13 @@ Task.PlayAnimNonInterruptable($sweet, "PRTIAL_HNDSHK_01", "GANGS", 4.0, False, F
 
 :MANSIO3_7673
 Text.PrintNow('MAN3_33', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN3_33', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 4000
 gosub @MANSIO3_7293
 
@@ -1378,6 +1547,13 @@ if and
 goto_if_false @MANSIO3_7876
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(86@s, 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(86@s, 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 82@ = 1
 
 :MANSIO3_7876
@@ -1387,6 +1563,13 @@ if and
 goto_if_false @MANSIO3_7914
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint(86@s)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(86@s, $NETWORK_PLAYER[$temp_int])
+    end
+end
 82@ = 2
 
 :MANSIO3_7914

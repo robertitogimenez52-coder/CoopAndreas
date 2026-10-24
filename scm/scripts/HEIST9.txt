@@ -3,6 +3,7 @@
 
 :HEIST9
 script_name 'HEIST9'
+Coop.EnableSyncingThisScript()
 gosub @HEIST9_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @HEIST9_44948
 terminate_this_script 
 
 :HEIST9_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 if 
   $d5_bronze_generator_unlocked == 1
 goto_if_false @HEIST9_72
@@ -328,6 +330,13 @@ if
 goto_if_false @HEIST9_2690
 gosub @HEIST9_50388
 Text.PrintNow('HM9_1B', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1B', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 Hud.ClearTimer($h9_safe_timer)
 
@@ -410,6 +419,13 @@ Char.StopFacialTalk($scplayer)
 
 :HEIST9_3090
 Text.PrintNow('HM9_28', 9000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_28', 9000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead($scplayer)
 goto_if_false @HEIST9_3129
@@ -467,6 +483,13 @@ if and
 goto_if_false @HEIST9_3491
 Game.SetRelationship(RelationshipType.Hate, PedType.CivMale, PedType.Player1)
 Text.PrintNow('HM9_99', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_99', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 300@ = 1
 goto @HEIST9_3506
 
@@ -479,6 +502,13 @@ if
   not Player.IsWearing($player1, "CROUPIER", BodyPart.SpecialCostume)
 goto_if_false @HEIST9_3557
 Text.PrintNow('HM9_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_3557
@@ -489,6 +519,13 @@ if and
 goto_if_false @HEIST9_3619
 gosub @HEIST9_50388
 Text.PrintNow('HM9_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_3619
@@ -500,6 +537,13 @@ if and
   243@ == 0
 goto_if_false @HEIST9_3713
 Text.PrintNow('HM9_54', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_54', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 243@ = 1
 
 :HEIST9_3713
@@ -543,6 +587,13 @@ gosub @HEIST9_50602
 
 :HEIST9_3911
 Text.PrintNow('HM9_48', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_48', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_3934
@@ -553,6 +604,13 @@ if and
 goto_if_false @HEIST9_3994
 gosub @HEIST9_50388
 Text.PrintNow('HM9_15', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_15', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_3994
@@ -623,6 +681,13 @@ if
 goto_if_false @HEIST9_4481
 gosub @HEIST9_50388
 Text.PrintNow('HM9_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_4481
@@ -632,6 +697,13 @@ if and
 goto_if_false @HEIST9_4534
 gosub @HEIST9_50388
 Text.PrintNow('HM9_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_4534
@@ -749,6 +821,13 @@ Char.ShutUpForScriptedSpeech($scplayer, False)
 
 :HEIST9_5156
 Text.PrintNow('HM9_2', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_2', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 215@ = 0
 
 :HEIST9_5179
@@ -761,6 +840,13 @@ if
 goto_if_false @HEIST9_5282
 gosub @HEIST9_50388
 Text.PrintNow('HM9_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_5282
@@ -786,6 +872,13 @@ Char.SetHeading(111@, 359.346)
 Camera.SetFixedPosition(2152.125, 1606.502, 1006.716, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2151.135, 1606.365, 1006.719, SwitchType.JumpCut)
 Text.PrintNow('HE8_CA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_CA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19010, 1)
 
@@ -822,6 +915,13 @@ Task.PlayAnim($scplayer, "IDLE_CHAT", "PED", 1.0, False, False, False, False, -1
 
 :HEIST9_5631
 Text.PrintNow('HE8_CB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_CB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19011, 1)
 
@@ -851,6 +951,13 @@ goto @HEIST9_5695
 
 :HEIST9_5745
 Text.PrintNow('HE8_CC', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_CC', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19012, 1)
 
@@ -880,6 +987,13 @@ goto @HEIST9_5809
 
 :HEIST9_5859
 Text.PrintNow('HE8_CD', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_CD', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19013, 1)
 
@@ -909,6 +1023,13 @@ goto @HEIST9_5923
 
 :HEIST9_5973
 Text.PrintNow('HE8_CE', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_CE', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19014, 1)
 
@@ -944,6 +1065,13 @@ Task.PlayAnim($scplayer, "IDLE_TIRED", "PED", 1.0, False, False, False, False, -
 
 :HEIST9_6140
 Text.PrintNow('HE8_CF', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_CF', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19015, 1)
 
@@ -1235,6 +1363,13 @@ if
   Char.LocateAnyMeans3D($scplayer, 0, 2254.543, 1706.5, 1.1746, 1.2, 1.2, 1.2)
 goto_if_false @HEIST9_8065
 Text.PrintNow('HM9_36', 1000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_36', 1000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_8065
 if and
@@ -1264,6 +1399,13 @@ if
 goto_if_false @HEIST9_8243
 gosub @HEIST9_50388
 Text.PrintNow('HM9_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_8243
@@ -1272,6 +1414,13 @@ if
 goto_if_false @HEIST9_8296
 gosub @HEIST9_50388
 Text.PrintNow('HM9_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_8296
@@ -1280,6 +1429,13 @@ if
 goto_if_false @HEIST9_8349
 gosub @HEIST9_50388
 Text.PrintNow('HM9_37', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_37', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_8349
@@ -1470,6 +1626,13 @@ goto @HEIST9_9435
 
 :HEIST9_9489
 Text.PrintNow('HE8_FB', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_FB', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19025, 1)
 
@@ -1512,6 +1675,13 @@ World.ClearArea(1, 2143.266, 1618.145, 999.9764, 10.0)
 Camera.SetFixedPosition(2142.75, 1617.836, 1001.143, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2142.997, 1618.803, 1001.197, SwitchType.JumpCut)
 Text.PrintNow('HE8_FC', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_FC', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19026, 1)
 
@@ -1541,6 +1711,13 @@ goto @HEIST9_9822
 
 :HEIST9_9872
 Text.PrintNow('HE8_FD', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_FD', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19027, 1)
 
@@ -1570,6 +1747,13 @@ goto @HEIST9_9936
 
 :HEIST9_9986
 Text.PrintNow('HE8_FE', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_FE', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19028, 1)
 
@@ -1631,6 +1815,13 @@ Particle.KillNow(139@)
 
 :HEIST9_10337
 Text.PrintNow('HM9_12', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_12', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(108@)
 45@ = Blip.AddForCoord(2168.173, 1616.986, 998.97)
 Blip.SetEntryExit(45@, 2196.635, 1676.841, 10.0)
@@ -1768,6 +1959,13 @@ Char.StopFacialTalk($scplayer)
 
 :HEIST9_11126
 Text.PrintNow('HM9_49', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_49', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 246@ = 10
 TIMERB = 0
 
@@ -1960,6 +2158,13 @@ if and
   249@ == 4
 goto_if_false @HEIST9_12249
 Text.PrintNow('HM9_51', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_51', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 249@ = 5
 
 :HEIST9_12249
@@ -1977,6 +2182,13 @@ if and
   Char.IsInCar($scplayer, 46@)
 goto_if_false @HEIST9_12426
 Text.PrintNow('HM9_5', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_5', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 50@ = 1
 38@ = 6
 211@ = 1
@@ -1997,6 +2209,13 @@ if and
 goto_if_false @HEIST9_12486
 gosub @HEIST9_50388
 Text.PrintNow('HM9_13', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_13', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_12486
@@ -2020,6 +2239,13 @@ if and
   95@ == 1
 goto_if_false @HEIST9_12630
 Text.PrintNow('HM9_23', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_23', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.ChangeDisplay(47@, BlipDisplay.Both)
 Blip.ChangeDisplay(90@, BlipDisplay.Neither)
 95@ = 0
@@ -2259,6 +2485,13 @@ Car.FreezePosition(51@, True)
 
 :HEIST9_13980
 Text.PrintNow('HE8_KA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19042, 1)
 
@@ -2358,6 +2591,13 @@ Sequence.Clear(53@)
 
 :HEIST9_14557
 Text.PrintNow('HE8_KB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19043, 1)
 
@@ -2387,6 +2627,13 @@ goto @HEIST9_14621
 
 :HEIST9_14671
 Text.PrintNow('HE8_KC', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KC', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19044, 1)
 
@@ -2416,6 +2663,13 @@ goto @HEIST9_14735
 
 :HEIST9_14785
 Text.PrintNow('HE8_KD', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KD', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19045, 1)
 
@@ -2447,6 +2701,13 @@ goto @HEIST9_14849
 Camera.SetFixedPosition(2219.653, 1584.915, 1001.211, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2220.18, 1585.746, 1001.034, SwitchType.JumpCut)
 Text.PrintNow('HE8_KE', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KE', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19046, 1)
 
@@ -2561,6 +2822,13 @@ Task.TurnCharToFaceChar($scplayer, 54@)
 
 :HEIST9_15484
 Text.PrintNow('HE8_KF', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KF', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19047, 1)
 
@@ -2600,6 +2868,13 @@ Task.TurnCharToFaceChar(54@, $scplayer)
 Camera.SetFixedPosition(2216.963, 1581.526, 1000.579, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2217.403, 1582.416, 1000.465, SwitchType.JumpCut)
 Text.PrintNow('HE8_KG', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KG', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19048, 1)
 
@@ -2629,6 +2904,13 @@ goto @HEIST9_15747
 
 :HEIST9_15797
 Text.PrintNow('HE8_KH', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_KH', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19049, 1)
 
@@ -2916,6 +3198,13 @@ goto @HEIST9_17984
 
 :HEIST9_17968
 Text.PrintNow('HM9_14', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_14', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_17984
 if 
@@ -3417,6 +3706,13 @@ if and
   105@ == 1
 goto_if_false @HEIST9_21203
 Text.PrintNow('HM9_21', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_21', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 105@ = 2
 TIMERB = 0
 
@@ -3426,6 +3722,13 @@ if and
   105@ == 2
 goto_if_false @HEIST9_21252
 Text.PrintNow('HM9_1G', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1G', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 105@ = 3
 
 :HEIST9_21252
@@ -3443,6 +3746,13 @@ Char.Delete(315@(58@,5i))
   58@ >= 3
 goto_if_false @HEIST9_21295
 Text.PrintNow('HM9_1E', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1E', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 367@ = 2
 TIMERA = 0
 
@@ -3657,6 +3967,13 @@ Char.SetProofs(54@(58@,4i), False, True, True, True, False)
   58@ >= 4
 goto_if_false @HEIST9_22612
 Text.PrintNow('HM9_22', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_22', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 38@ = 13
 228@ = Blip.AddForObject(171@)
 Blip.SetEntryExit(228@, 2196.635, 1676.841, 10.0)
@@ -3666,6 +3983,13 @@ goto @HEIST9_22802
 
 :HEIST9_22758
 Text.PrintNow('HM9_PK', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_PK', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 299@ = Blip.AddForPickup(214@)
 Blip.SetEntryExit(299@, 2196.635, 1676.841, 10.0)
 
@@ -3728,6 +4052,13 @@ Blip.Remove(299@)
 
 :HEIST9_23137
 Text.PrintNow('HM9_22', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_22', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 38@ = 13
 228@ = Blip.AddForObject(171@)
 Blip.SetEntryExit(228@, 2196.635, 1676.841, 10.0)
@@ -3765,6 +4096,13 @@ Blip.ChangeDisplay(233@, BlipDisplay.Both)
 
 :HEIST9_23388
 Text.PrintNow('HM9_56', 1000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_56', 1000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_23404
 252@ = 0
@@ -4063,6 +4401,13 @@ Pickup.Remove(214@)
 
 :HEIST9_25605
 Text.PrintNow('HM9_40', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_40', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_25621
 if 
@@ -4113,6 +4458,13 @@ Camera.SetFixedPosition(2140.489, 1617.689, 993.7817, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2140.831, 1618.629, 993.7844, SwitchType.JumpCut)
 wait 1000
 Text.PrintNow('HE8_QA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_QA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19083, 1)
 
@@ -4141,6 +4493,13 @@ goto @HEIST9_26045
 
 :HEIST9_26088
 Text.PrintNow('HE8_QC', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_QC', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19085, 1)
 
@@ -4192,6 +4551,13 @@ goto @HEIST9_26276
 
 :HEIST9_26319
 Text.PrintNow('HE8_QB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_QB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19084, 1)
 
@@ -4246,6 +4612,13 @@ wait 500
 371@ = Particle.Create("EXPLOSION_SMALL", 2144.533, 1626.747, 996.0, 1)
 Particle.PlayAndKill(371@)
 Text.PrintNow('HE8_RA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_RA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19086, 1)
 
@@ -4282,6 +4655,13 @@ Char.SetHeading($scplayer, 359.3881)
 :HEIST9_26862
 gosub @HEIST9_46306
 Text.PrintNow('HM9_58', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_58', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 61@ = Object.Create(#CJ_MONEY_BAG, 2146.27, 1636.314, 992.5683)
 Object.SetAreaVisible(61@, 1)
 Object.SetHeading(61@, 268.4277)
@@ -4582,6 +4962,13 @@ Char.SetHeading($scplayer, 181.8141)
 :HEIST9_29262
 gosub @HEIST9_46358
 Text.PrintNow('HM9_57', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_57', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 2000
 Camera.SetFixedPosition(2140.785, 1619.831, 993.4654, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2141.078, 1618.876, 993.4291, SwitchType.JumpCut)
@@ -4788,6 +5175,13 @@ if
   not is_int_lvar_equal_to_int_lvar 148@(58@,5i) == 142@(58@,5i)
 goto_if_false @HEIST9_30610
 Text.PrintNow('HM9_44', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_44', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_30610
 58@ += 1
@@ -5111,6 +5505,13 @@ if
 goto_if_false @HEIST9_32923
 gosub @HEIST9_50388
 Text.PrintNow('HM9_63', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_63', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_32923
@@ -5119,6 +5520,13 @@ if
 goto_if_false @HEIST9_32969
 gosub @HEIST9_50388
 Text.PrintNow('HM9_60', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_60', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_32969
@@ -5127,6 +5535,13 @@ if
 goto_if_false @HEIST9_33015
 gosub @HEIST9_50388
 Text.PrintNow('HM9_60', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_60', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_33015
@@ -5142,6 +5557,13 @@ if
   not is_int_lvar_equal_to_int_lvar 148@(58@,5i) == 142@(58@,5i)
 goto_if_false @HEIST9_33117
 Text.PrintNow('HM9_44', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_44', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_33117
 58@ += 1
@@ -5171,6 +5593,13 @@ if
   Char.LocateAnyMeans3D($scplayer, 0, 2220.205, 1585.422, 998.9717, 10.0, 10.0, 10.0)
 goto_if_false @HEIST9_33349
 Text.PrintNow('HM9_1F', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1F', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_33349
 if and
@@ -5265,6 +5694,13 @@ Task.PlayAnim(97@, "IDLE_CHAT", "PED", 1.0, True, False, False, False, -1)
 
 :HEIST9_33946
 Text.PrintNow('HE8_UA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_UA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19104, 1)
 
@@ -5294,6 +5730,13 @@ goto @HEIST9_34010
 
 :HEIST9_34060
 Text.PrintNow('HE8_UB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_UB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19105, 1)
 
@@ -5580,6 +6023,13 @@ Char.SetDecisionMaker(335@(58@,15i), 245@)
   58@ >= 8
 goto_if_false @HEIST9_35585
 Text.PrintNow('HM9_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 84@ = Blip.AddForCoord(2156.188, 1597.98, 998.9766)
 Blip.SetEntryExit(84@, 2196.635, 1676.841, 10.0)
 38@ = 17
@@ -5878,6 +6328,13 @@ Player.SetControl($player1, True)
 
 :HEIST9_37658
 Text.PrintNow('HM9_45', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_45', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 153@ = 1
 
 :HEIST9_37681
@@ -6072,6 +6529,13 @@ Camera.SetInterpolationParameters(0.0, 8000)
 Camera.SetFixedPosition(2307.409, 1599.532, 118.4341, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2306.749, 1600.164, 118.0293, SwitchType.Interpolation)
 Text.PrintNow('HM9_25', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_25', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 3000
 if 
   not Car.IsDead(377@)
@@ -6244,14 +6708,35 @@ Camera.SetInterpolationParameters(0.0, 6000)
 Camera.SetFixedPosition(2293.709, 1832.279, 41.1442, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2294.057, 1833.15, 40.7979, SwitchType.Interpolation)
 Text.PrintNow('HM9_24', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_24', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 6000
 gosub @HEIST9_46306
 Text.PrintNow('HM9_1H', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1H', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_40507
 
 :HEIST9_40471
 102@ = Blip.AddForCoord(365.5647, 2536.76, 15.6637)
 Text.PrintNow('HM9_X', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_X', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_40507
 if 
@@ -6272,6 +6757,13 @@ if
 goto_if_false @HEIST9_40613
 102@ = Blip.AddForCoord(365.5647, 2536.76, 15.6637)
 Text.PrintNow('HM9_1J', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1J', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_40613
 Blip.Remove(247@)
@@ -6311,6 +6803,13 @@ if
 goto_if_false @HEIST9_40820
 102@ = Blip.AddForCoord(365.5647, 2536.76, 15.6637)
 Text.PrintNow('HM9_1J', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1J', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_40820
 Blip.Remove(247@)
@@ -6350,6 +6849,13 @@ goto_if_false @HEIST9_41059
 Blip.Remove(247@)
 102@ = Blip.AddForCoord(365.5647, 2536.76, 15.6637)
 Text.PrintNow('HM9_1J', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_1J', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 307@ = 1
 
 :HEIST9_41059
@@ -6539,6 +7045,13 @@ Car.SwitchSiren(280@, True)
 :HEIST9_42453
 gosub @HEIST9_46358
 Text.PrintNow('HE8_ZA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_ZA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19128, 1)
 
@@ -6573,6 +7086,13 @@ goto @HEIST9_42604
 
 :HEIST9_42630
 Text.PrintNow('HE8_ZB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_ZB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19129, 1)
 
@@ -6602,6 +7122,13 @@ Task.PlayAnim(97@, "KO_SHOT_FACE", "PED", 4.0, False, False, False, True, -1)
 
 :HEIST9_42775
 Text.PrintNow('ZER1_DB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ZER1_DB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(44620, 1)
 
@@ -6629,6 +7156,13 @@ Camera.SetInterpolationParameters(0.0, 3000)
 Camera.SetFixedPosition(348.9764, 2538.029, 16.6197, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(348.743, 2539.001, 16.6362, SwitchType.Interpolation)
 Text.PrintNow('WUZX_BR', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZX_BR', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(44443, 1)
 
@@ -6653,6 +7187,13 @@ goto @HEIST9_42999
 :HEIST9_43025
 wait 1000
 Text.PrintNow('WUZX_AK', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZX_AK', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(44410, 1)
 
@@ -6743,6 +7284,13 @@ Camera.PointAtPoint(180@(58@,4f), 184@(58@,4f), 188@(58@,4f), SwitchType.JumpCut
 wait 4000
 gosub @HEIST9_50388
 Text.PrintNow('HM9_9', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_9', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST9_44468
 
 :HEIST9_43621
@@ -6861,6 +7409,13 @@ if
   not is_int_lvar_equal_to_int_lvar 148@(58@,5i) == 142@(58@,5i)
 goto_if_false @HEIST9_44289
 Text.PrintNow('HM9_44', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_44', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST9_44289
 58@ += 1
@@ -6887,6 +7442,13 @@ Blip.Remove(90@)
 90@ = Blip.AddForCoord(2220.543, 1572.625, 998.9531)
 Blip.SetEntryExit(90@, 2196.635, 1676.841, 10.0)
 Text.PrintNow('HM9_8', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_8', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 52@ = 1
 
 :HEIST9_44466
@@ -7396,11 +7958,25 @@ Char.SetHeading(97@, 4.8671)
 Task.UseMobilePhone(97@, True)
 gosub @HEIST9_46358
 Text.PrintNow('HM9_46', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_46', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 2000
 Camera.SetDarknessEffect(False, 0)
 wait 2000
 gosub @HEIST9_46306
 Text.PrintNow('HM9_8', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM9_8', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 105@ = 1
 200@ = 1
 
@@ -7493,6 +8069,13 @@ Task.PlayAnim($scplayer, "IDLE_CHAT", "PED", 1.0, False, False, False, False, -1
 
 :HEIST9_47667
 Text.PrintNow('HE8_ZA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_ZA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19128, 1)
 
@@ -7516,6 +8099,13 @@ goto @HEIST9_47731
 
 :HEIST9_47757
 Text.PrintNow('HE8_ZB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_ZB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19129, 1)
 
@@ -7539,6 +8129,13 @@ goto @HEIST9_47821
 
 :HEIST9_47847
 Text.PrintNow('HE8_ZC', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_ZC', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(65535, 1)
 
@@ -7562,6 +8159,13 @@ goto @HEIST9_47913
 
 :HEIST9_47939
 Text.PrintNow('HE8_ZD', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_ZD', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19130, 1)
 
@@ -7669,6 +8273,13 @@ gosub @HEIST9_46289
 Camera.SetFixedPosition(2216.721, 1579.81, 1000.833, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2217.382, 1580.538, 1000.654, SwitchType.JumpCut)
 Text.PrintNow('HE8_UA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_UA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19104, 1)
 
@@ -7698,6 +8309,13 @@ goto @HEIST9_48637
 
 :HEIST9_48687
 Text.PrintNow('HE8_UB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE8_UB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(19105, 1)
 
@@ -8033,6 +8651,13 @@ Char.SetCoordinatesDontWarpGang($scplayer, 2185.739, 1677.396, 10.0946)
 :HEIST9_50542
 Char.SetHeading($scplayer, 88.4776)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 
@@ -8074,6 +8699,13 @@ if and
 goto_if_false @HEIST9_50711
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(288@s, 20000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(288@s, 20000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 231@ = 1
 
 :HEIST9_50711
@@ -8083,6 +8715,13 @@ if and
 goto_if_false @HEIST9_50749
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint(288@s)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(288@s, $NETWORK_PLAYER[$temp_int])
+    end
+end
 231@ = 2
 
 :HEIST9_50749

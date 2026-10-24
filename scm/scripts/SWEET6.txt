@@ -3,8 +3,7 @@
 
 :SWEET6
 script_name 'SWEET6'
-Coop.AddChatMessage("{ffff00}[CoopAndreas Warning]{ffffff} This mission is currently unsupported and not recommended to play!")
-Coop.AddChatMessage("{ffff00}[CoopAndreas Warning]{ffffff} It may cause desyncs, crashes, or other unexpected behavior!")
+Coop.EnableSyncingThisScript()
 
 gosub @SWEET6_47
 if 
@@ -18,6 +17,7 @@ terminate_this_script
 
 :SWEET6_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 34@ = 0
 35@ = 0
@@ -347,6 +347,7 @@ if
 goto_if_false @SWEET6_2034
 Streaming.LoadScene(2519.575, -1677.88, 13.7661)
 Char.SetCoordinates($scplayer, 2519.575, -1677.88, 13.7661)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 107.8934)
 Hud.SwitchWidescreen(False)
 Player.SetControl($player1, True)
@@ -363,6 +364,13 @@ goto @SWEET6_1967
 
 :SWEET6_1991
 Text.Print('S6_01', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('S6_01', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 105@ = Blip.AddForCoord(2653.016, -2009.172, 12.5547)
 35@ += 1
 
@@ -476,6 +484,7 @@ World.ClearArea(1, 2648.941, -2017.247, 12.5625, 15.0)
 World.ClearArea(1, 2643.875, -2029.439, 12.5547, 15.0)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2641.743, -2015.496, 12.6446)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 214.4731)
 World.SetPedDensityMultiplier(0.0)
 World.SetCarDensityMultiplier(0.0)
@@ -683,6 +692,7 @@ goto_if_false @SWEET6_4173
 Camera.SetFixedPosition(2640.2, -2018.059, 14.3965, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2641.135, -2017.758, 14.2101, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 2642.658, -2015.291, 12.5947)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 181.4479)
 if 
   not Char.IsDead(79@)
@@ -1016,6 +1026,7 @@ if
 goto_if_false @SWEET6_6219
 Char.ClearTasksImmediately($scplayer)
 Char.WarpIntoCar($scplayer, 71@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.StartPlayback(71@, 552)
 Car.PausePlayback(71@)
 35@ += 1
@@ -1046,7 +1057,7 @@ if
   not Car.IsDead(71@)
 goto_if_false @SWEET6_6372
 if or
-  not Car.IsOnScreen(71@)
+  not Coop.IsCarOnAnyPlayersScreen(71@)
   TIMERA > 3000
 goto_if_false @SWEET6_6372
 35@ += 1
@@ -1079,6 +1090,7 @@ Char.Delete(79@)
 :SWEET6_6479
 Char.ClearTasksImmediately($scplayer)
 Char.WarpIntoCar($scplayer, 71@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   Car.IsPlaybackGoingOn(71@)
 goto_if_false @SWEET6_6513
@@ -1117,6 +1129,13 @@ Blip.Remove(105@)
 105@ = Blip.AddForCoord(2645.112, -2045.745, 12.607)
 Garage.Activate('MODLAST')
 Text.PrintNow('S6_38', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_38', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :SWEET6_6719
@@ -1150,6 +1169,13 @@ goto_if_false @SWEET6_6879
 106@ = Blip.AddForCar(71@)
 Blip.SetAsFriendly(106@, True)
 Text.PrintNow('S6_23', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_23', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SWEET6_6879
 goto @SWEET6_6970
@@ -1160,6 +1186,13 @@ if
 goto_if_false @SWEET6_6918
 Blip.Remove(106@)
 Text.ClearThisPrint('S6_23')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('S6_23', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SWEET6_6918
 if 
@@ -1167,6 +1200,13 @@ if
 goto_if_false @SWEET6_6970
 105@ = Blip.AddForCoord(2645.112, -2045.745, 12.607)
 Text.PrintNow('S6_38', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_38', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SWEET6_6970
 if 
@@ -1287,6 +1327,13 @@ if
   Char.IsInCar($scplayer, 71@)
 goto_if_false @SWEET6_7559
 Text.PrintNow('S6_03', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_03', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SWEET6_7559
 
 :SWEET6_7559
@@ -1463,6 +1510,13 @@ if
   not Blip.DoesExist(106@)
 goto_if_false @SWEET6_8903
 Text.PrintNow('S6_35', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_35', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 106@ = Blip.AddForCar(71@)
 Blip.SetAsFriendly(106@, True)
 
@@ -1474,6 +1528,13 @@ if
   not Blip.DoesExist(105@)
 goto_if_false @SWEET6_8962
 Text.PrintNow('S6_03', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_03', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 105@ = Blip.AddForCoord(1793.068, -1904.254, 12.3989)
 
 :SWEET6_8962
@@ -2325,6 +2386,13 @@ if
   950 > 44@
 goto_if_false @SWEET6_15556
 Text.PrintNow('S6_32', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_32', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = 1
 43@ = 7
 
@@ -2333,6 +2401,13 @@ goto @SWEET6_15593
 
 :SWEET6_15563
 Text.PrintNow('S6_32', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_32', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = 1
 43@ = 7
 
@@ -2360,6 +2435,13 @@ if
   Char.HasBeenDamagedByChar(80@(43@,22i), $scplayer)
 goto_if_false @SWEET6_15732
 Text.PrintNow('S6_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = 1
 43@ = 22
 
@@ -2368,6 +2450,13 @@ goto @SWEET6_15769
 
 :SWEET6_15739
 Text.PrintNow('S6_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = 1
 43@ = 22
 
@@ -3292,6 +3381,7 @@ if
   not Car.IsDead(71@)
 goto_if_false @SWEET6_21256
 Char.WarpIntoCar($scplayer, 71@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Task.PlayAnim($scplayer, "SIT_RELAXED", "LOWRIDER", 4.0, True, False, False, True, -1)
 
 :SWEET6_21256
@@ -3908,6 +3998,7 @@ if
   not Car.IsDead(71@)
 goto_if_false @SWEET6_26208
 Char.WarpIntoCar($scplayer, 71@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Task.PlayAnim($scplayer, "SIT_RELAXED", "LOWRIDER", 4.0, True, False, False, True, -1)
 
 :SWEET6_26208
@@ -4331,6 +4422,13 @@ goto @SWEET6_28482
 
 :SWEET6_28459
 Text.PrintNow('S6_33', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_33', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 37@ = 1
 
 :SWEET6_28482
@@ -4361,6 +4459,13 @@ if
   Car.IsDead(71@)
 goto_if_false @SWEET6_28607
 Text.PrintNow('S6_34', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('S6_34', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 37@ = 1
 
 :SWEET6_28607
@@ -5465,6 +5570,7 @@ if
 goto_if_false @SWEET6_36296
 Char.ClearTasksImmediately($scplayer)
 Char.WarpIntoCar($scplayer, 71@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :SWEET6_36296
 43@ = 0

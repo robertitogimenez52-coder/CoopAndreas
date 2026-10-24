@@ -3,6 +3,7 @@
 
 :CAT1
 script_name 'CAT1'
+Coop.EnableSyncingThisScript()
 gosub @CAT1_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @CAT1_32644
 terminate_this_script 
 
 :CAT1_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Camera.DoFade(0, Fade.Out)
 34@ = 0
@@ -562,6 +564,7 @@ if
   not Char.IsInAnyCar($scplayer)
 goto_if_false @CAT1_3908
 Char.SetCoordinates($scplayer, 259.9737, -78.3268, 0.6181)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 38.3173)
 goto @CAT1_3938
 
@@ -2082,6 +2085,7 @@ if
   not Car.IsDead(82@)
 goto_if_false @CAT1_13291
 Char.WarpIntoCar($scplayer, 82@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CAT1_13291
 43@ = 0
@@ -2497,7 +2501,7 @@ if
   not Car.IsDead(79@(43@,4i))
 goto_if_false @CAT1_15988
 if 
-  not Car.IsOnScreen(79@(43@,4i))
+  not Coop.IsCarOnAnyPlayersScreen(79@(43@,4i))
 goto_if_false @CAT1_15988
 if 
   not Char.IsOnScreen(72@(43@,4i))
@@ -2604,6 +2608,13 @@ if
   147@ > 30000
 goto_if_false @CAT1_16585
 Text.PrintNow('CAT108', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT108', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 147@ = 0
 
 :CAT1_16585
@@ -2639,6 +2650,13 @@ if
   Char.IsDead($catalina)
 goto_if_false @CAT1_16841
 Text.PrintNow('LOSE2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOSE2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 37@ = 1
 
 :CAT1_16841
@@ -2847,6 +2865,13 @@ Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 Char.Delete($catalina)
 Text.PrintNow('LOSE', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOSE', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 37@ = 1
 return 
 
@@ -2857,6 +2882,13 @@ goto_if_false @CAT1_18227
 Game.SetCreateRandomGangMembers(True)
 94@ = Blip.AddForCoord($catX, $catY, $catZ)
 Text.PrintNow('CAT112', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT112', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 World.SetPedDensityMultiplier(1.0)
 World.SetCarDensityMultiplier(1.0)
 150@ = 0
@@ -3956,6 +3988,13 @@ if
   not Char.IsGroupMember($catalina, $Players_Group)
 goto_if_false @CAT1_25779
 Text.Print('LEFTC', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LEFTC', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Blip.DoesExist(87@)
 goto_if_false @CAT1_25758
@@ -4027,6 +4066,13 @@ if
   Char.IsDead($catalina)
 goto_if_false @CAT1_26082
 Text.PrintNow('LOSE2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOSE2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 37@ = 1
 
 :CAT1_26082
@@ -4271,7 +4317,7 @@ if
   130@(163@,3f) > 100.0
 goto_if_false @CAT1_27844
 if 
-  not Car.IsOnScreen(79@(163@,4i))
+  not Coop.IsCarOnAnyPlayersScreen(79@(163@,4i))
 goto_if_false @CAT1_27844
 if 
   Car.IsPlaybackGoingOn(79@(163@,4i))
@@ -4290,7 +4336,7 @@ if
   130@(163@,3f) > 100.0
 goto_if_false @CAT1_27959
 if 
-  not Car.IsOnScreen(79@(163@,4i))
+  not Coop.IsCarOnAnyPlayersScreen(79@(163@,4i))
 goto_if_false @CAT1_27959
 if 
   Car.IsPlaybackGoingOn(79@(163@,4i))
@@ -4352,7 +4398,7 @@ if
   StuckCarCheck.IsCarStuck(79@(163@,4i))
 goto_if_false @CAT1_28380
 if 
-  not Car.IsOnScreen(79@(163@,4i))
+  not Coop.IsCarOnAnyPlayersScreen(79@(163@,4i))
 goto_if_false @CAT1_28380
 if 
   not Char.LocateAnyMeansCar3D($scplayer, 79@(163@,4i), 40.0, 40.0, 5.0, False)

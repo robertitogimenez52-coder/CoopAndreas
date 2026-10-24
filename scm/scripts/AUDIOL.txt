@@ -91,6 +91,13 @@ if
   not is_lvar_text_label_equal_to_text_label 5@s == 'DUMMY'
 goto_if_false @AUDIOL_484
 Text.PrintNow(5@s, 10000, 1)
+for $temp_int = 0 to 2 // the subtitles of the mission dialogues
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(5@s, 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :AUDIOL_484
 8@ += 1
@@ -155,6 +162,13 @@ if
   not is_lvar_text_label_equal_to_text_label 5@s == 'DUMMY'
 goto_if_false @AUDIOL_730
 Text.ClearThisPrint(5@s)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(5@s, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :AUDIOL_730
 $audio_line_is_active = 0

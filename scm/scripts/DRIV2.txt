@@ -3,6 +3,7 @@
 
 :DRIV2
 script_name 'DRIV2'
+Coop.EnableSyncingThisScript()
 gosub @DRIV2_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :DRIV2_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('FARLIE2')
 $onmission = 1
 wait 0
@@ -167,6 +169,7 @@ goto @DRIV2_889
 :DRIV2_928
 Streaming.LoadScene(-2625.26, 1407.32, 5.62)
 Char.SetCoordinates($scplayer, -2625.26, 1407.32, 5.62)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 224.0)
 Garage.ChangeType('TBON', GarageType.ForScriptToOpenAndClose)
 Camera.SetBehindPlayer
@@ -198,6 +201,13 @@ Path.SwitchRoadsOff(-2014.82, 181.4, -13.0, -1614.82, 581.4, 47.0)
 184@ = Blip.AddForCoord(-1814.82, 381.4, 17.09)
 Blip.SetCoordAppearance(184@, 1)
 Text.PrintNow('DRV3_11', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_11', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DRIV2_1281
 wait 0
@@ -354,6 +364,13 @@ Object.Delete(39@)
 Object.Delete(40@)
 Object.Delete(41@)
 Text.PrintNow('DRV3_9', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_9', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV2_12867
 
 :DRIV2_2209
@@ -471,10 +488,24 @@ if
   192@ > 1
 goto_if_false @DRIV2_2883
 Text.PrintNow('DRV3_5', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_5', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV2_2899
 
 :DRIV2_2883
 Text.PrintNow('DRV3_6', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_6', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DRIV2_2899
 gosub @DRIV2_8280
@@ -518,6 +549,13 @@ if and
 goto_if_false @DRIV2_3191
 185@ = Blip.AddForCoord(93@, 94@, 95@)
 Text.PrintNow('DRV3_10', 7000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_10', 7000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 166@ = 1
 
 :DRIV2_3191
@@ -546,6 +584,13 @@ gosub @DRIV2_11715
 
 :DRIV2_3340
 Text.PrintNow('DRV3_7', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_7', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV2_12867
 
 :DRIV2_3363
@@ -554,6 +599,13 @@ if
   157@ == 1
 goto_if_false @DRIV2_3411
 Text.PrintNow('DRV3_8', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_8', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV2_12867
 
 :DRIV2_3411
@@ -562,6 +614,13 @@ if
   158@ == 1
 goto_if_false @DRIV2_3459
 Text.PrintNow('DRV3_9', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_9', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV2_12867
 
 :DRIV2_3459
@@ -799,6 +858,13 @@ Object.Delete(38@(119@,4i))
 Blip.Remove(180@(119@,4i))
 Sound.AddOneOffSound(65535, 42@(119@,4f), 46@(119@,4f), 50@(119@,4f))
 Text.PrintNow('DRV3_4', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_4', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 123@(119@,4i) = 1
 $d2_num_packages_collected += 1
 goto @DRIV2_5666
@@ -808,6 +874,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @DRIV2_5626
 Text.PrintNow('DRV3_3', 1, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_3', 1, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 168@ = 1
 goto @DRIV2_5666
 
@@ -816,6 +889,13 @@ if
   168@ == 1
 goto_if_false @DRIV2_5666
 Text.PrintNow('DRV3_3', 1, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_3', 1, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 168@ = 1
 
 :DRIV2_5666
@@ -834,6 +914,13 @@ Object.Delete(38@(119@,4i))
 Blip.Remove(180@(119@,4i))
 Sound.AddOneOffSound(65535, 42@(119@,4f), 46@(119@,4f), 50@(119@,4f))
 Text.PrintNow('DRV3_4', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_4', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 123@(119@,4i) = 1
 $d2_num_packages_collected += 1
 
@@ -853,6 +940,13 @@ Object.Delete(38@(119@,4i))
 Blip.Remove(180@(119@,4i))
 Sound.AddOneOffSound(65535, 42@(119@,4f), 46@(119@,4f), 50@(119@,4f))
 Text.PrintNow('DRV3_4', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_4', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 123@(119@,4i) = 1
 $d2_num_packages_collected += 1
 
@@ -1357,6 +1451,7 @@ if
   not Char.IsInAnyCar($scplayer)
 goto_if_false @DRIV2_9301
 Char.SetCoordinates($scplayer, -1771.94, 336.35, 8.94)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 49.66)
 
 :DRIV2_9301
@@ -1490,6 +1585,7 @@ goto @DRIV2_10154
 
 :DRIV2_10134
 Char.SetCoordinates($scplayer, -1820.72, 382.73, 16.04)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DRIV2_10154
 Char.SetHeading($scplayer, 326.45)
@@ -1513,6 +1609,13 @@ if and
   170@ <> 1
 goto_if_false @DRIV2_10309
 Text.PrintNow('DRV3_2', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_2', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 170@ = 1
 
 :DRIV2_10309
@@ -1592,6 +1695,7 @@ Char.WarpFromCarToCoord($scplayer, -1819.01, 386.28, 6.58)
 
 :DRIV2_10750
 Char.WarpIntoCar($scplayer, 35@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DRIV2_10758
 gosub @DRIV2_4560
@@ -1599,6 +1703,13 @@ if
   170@ <> 1
 goto_if_false @DRIV2_10799
 Text.PrintNow('DRV3_2', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV3_2', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DRIV2_10799
 119@ = 0
@@ -1719,6 +1830,7 @@ goto @DRIV2_11430
 :DRIV2_11377
 Car.Delete(35@)
 Char.SetCoordinates($scplayer, 93@, 94@, 95@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 10.0)
 Task.GoStraightToCoord($scplayer, -2625.96, 1417.82, 6.15, MoveState.Walk, -1)
 
@@ -1763,6 +1875,7 @@ goto @DRIV2_11583
 Char.HideWeaponForScriptedCutscene($scplayer, False)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -2624.28, 1410.93, 6.15)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 194.52)
 Hud.SwitchWidescreen(False)
 Camera.SetBehindPlayer
@@ -1962,6 +2075,7 @@ Streaming.SetAreaVisible(121@)
 Streaming.RequestCollision(96@, 97@)
 Streaming.LoadScene(96@, 97@, 196@)
 Char.SetCoordinates($scplayer, 96@, 97@, 196@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   Char.IsInAnyCar($scplayer)
 goto_if_false @DRIV2_12811

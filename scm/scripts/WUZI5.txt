@@ -3,6 +3,7 @@
 
 :WUZI5
 script_name 'WUZI5'
+Coop.EnableSyncingThisScript()
 gosub @WUZI5_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @WUZI5_20753
 terminate_this_script 
 
 :WUZI5_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('WUZI4')
@@ -129,6 +131,7 @@ Char.SetLoadCollisionFlag(35@, True)
 Char.SetDecisionMaker(35@, 158@)
 World.ClearArea(1, -2168.4, 639.0, 69.9, 1.0)
 Char.SetCoordinates($scplayer, -2168.4, 639.0, 69.9)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 189.4)
 Streaming.LoadScene(-2168.4, 639.0, 69.9)
 
@@ -471,6 +474,7 @@ Char.HideWeaponForScriptedCutscene($scplayer, True)
 Char.DetachFromCar($scplayer)
 World.ClearArea(1, -2351.7, 1487.4, 1.0, 1.0)
 Char.SetCoordinates($scplayer, -2351.7, 1487.4, 1.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 113@ = 4
 115@ = 2
 116@ = 5
@@ -567,6 +571,7 @@ Char.SetCurrentWeapon($scplayer, WeaponType.Knife)
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(1, -2351.7, 1487.4, 0.0, 1.0)
 Char.SetCoordinates($scplayer, -2351.7, 1487.4, -1.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 318.0)
 if 
   not Char.IsDead(36@)
@@ -688,6 +693,13 @@ if
   113@ == 0
 goto_if_false @WUZI5_4355
 Text.PrintNow('WUZ4_02', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_02', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 114@ = 1
 
 :WUZI5_4355
@@ -731,6 +743,7 @@ goto @WUZI5_20666
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(1, -2323.2, 1530.2, 16.9, 1.0)
 Char.SetCoordinates($scplayer, -2323.2, 1530.2, 16.9)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 3.3)
 Char.ClearTasksImmediately($scplayer)
 if 
@@ -991,9 +1004,17 @@ Object.Delete(71@)
 Streaming.MarkModelAsNoLongerNeeded(#KMB_CONTAINER_RED)
 World.ClearArea(1, -2323.1, 1531.7, 16.3, 1.0)
 Char.SetCoordinates($scplayer, -2323.1, 1531.7, 16.3)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 85.2)
 Text.ClearPrints
 Text.PrintNow('WUZ4_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(80@)
 80@ = Blip.AddForCoord(-2437.6, 1541.5, 6.4)
 Car.MarkAsNoLongerNeeded(34@)
@@ -1217,6 +1238,7 @@ Char.HideWeaponForScriptedCutscene($scplayer, True)
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(1, -2435.6, 1551.1, 4.0, 1.0)
 Char.SetCoordinates($scplayer, -2435.6, 1551.1, 4.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 280.8)
 Camera.DoFade(1, 500)
 
@@ -1532,6 +1554,7 @@ Char.SetHeading(45@, 90.0)
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(1, -2435.6, 1551.1, 4.0, 1.0)
 Char.SetCoordinates($scplayer, -2435.6, 1551.1, 4.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 280.8)
 Game.ShutAllCharsUp(False)
 Char.HideWeaponForScriptedCutscene($scplayer, False)
@@ -1542,6 +1565,13 @@ Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Text.ClearPrints
 Text.PrintNow('WUZ4_05', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_05', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   92@ == 1
 goto_if_false @WUZI5_10867
@@ -1607,6 +1637,13 @@ if
 goto_if_false @WUZI5_11155
 Text.ClearPrints
 Text.PrintNow('WUZ4_03', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_03', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @WUZI5_20666
 
 :WUZI5_11155
@@ -1623,6 +1660,7 @@ Char.ExplodeHead(45@)
 
 :WUZI5_11209
 Char.SetCoordinates($scplayer, -2374.0, 1551.0, 2.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :WUZI5_11229
 if 
@@ -1753,6 +1791,13 @@ if
   999 <= 160@
 goto_if_false @WUZI5_12134
 Text.PrintNow('WUZ4_09', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_09', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI5_12134
 91@ = 4
@@ -1818,6 +1863,7 @@ gosub @WUZI5_24711
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(1, -2373.9, 1552.1, 1.1, 1.0)
 Char.SetCoordinates($scplayer, -2373.9, 1552.1, 1.1)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 267.0)
 Camera.SetFixedPosition(-2375.0, 1547.2, 2.0, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-2370.9, 1555.3, 2.7, SwitchType.JumpCut)
@@ -1930,6 +1976,7 @@ Sequence.Clear(156@)
 :WUZI5_13504
 World.ClearArea(1, -2376.1, 1552.5, 1.1, 1.0)
 Char.SetCoordinates($scplayer, -2376.1, 1552.5, 1.1)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 264.4)
 Char.HideWeaponForScriptedCutscene($scplayer, True)
 Camera.SetFixedPosition(-2376.9, 1554.3, 2.0, 0.0, 0.0, 0.0)
@@ -2250,6 +2297,13 @@ Player.MakeGangReappear
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Text.PrintNow('BRIDGE', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('BRIDGE', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   92@ == 1
 goto_if_false @WUZI5_16177
@@ -2288,6 +2342,13 @@ if
 goto_if_false @WUZI5_16290
 Text.ClearPrints
 Text.PrintNow('WUZ4_03', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_03', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @WUZI5_20666
 
 :WUZI5_16290
@@ -2334,6 +2395,7 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 World.ClearArea(1, -2466.9, 1546.9, 22.7, 30.0)
 World.ClearArea(1, -2478.4, 1539.0, 29.5, 1.0)
 Char.SetCoordinates($scplayer, -2478.4, 1539.0, 29.5)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Player.SetControl($player1, False)
 Hud.SwitchWidescreen(True)
@@ -2432,6 +2494,7 @@ goto_if_false @WUZI5_17511
 gosub @WUZI5_26535
 World.ClearArea(1, 140@, 141@, 142@, 1.0)
 Char.SetCoordinates($scplayer, 140@, 141@, 142@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 315.0)
 if 
   not Char.IsDead(65@)
@@ -2545,6 +2608,7 @@ Char.ClearTasksImmediately(65@)
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(1, -2475.5, 1546.7, 32.2, 1.0)
 Char.SetCoordinates($scplayer, -2475.5, 1546.7, 32.2)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 315.0)
 
 :WUZI5_18102
@@ -2665,6 +2729,13 @@ Blip.SetAsFriendly(80@, True)
 
 :WUZI5_18772
 Text.PrintNow('WUZ4_11', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_11', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 91@ = 0
 TIMERA = 0
 90@ = 6
@@ -2684,6 +2755,13 @@ if
 goto_if_false @WUZI5_18908
 Text.ClearPrints
 Text.PrintNow('WUZ4_03', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_03', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @WUZI5_20666
 
 :WUZI5_18908
@@ -2767,6 +2845,7 @@ Char.WarpIntoCar(62@, 55@)
 
 :WUZI5_19451
 Char.WarpIntoCar($scplayer, 53@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 113@ = 11
 115@ = 0
 gosub @WUZI5_26535
@@ -2833,6 +2912,13 @@ Blip.Remove(80@)
 80@ = Blip.AddForCoord(-2329.1, 1528.7, 0.0)
 Text.ClearPrints
 Text.PrintNow('WUZ4_02', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_02', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 103@ = 1
 
 :WUZI5_19797
@@ -2876,6 +2962,7 @@ goto @WUZI5_20666
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(1, -2323.2, 1530.2, 16.9, 1.0)
 Char.SetCoordinates($scplayer, -2323.2, 1530.2, 16.9)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 3.3)
 Char.ClearTasksImmediately($scplayer)
 156@ = Sequence.Open()
@@ -2899,6 +2986,7 @@ if
 goto_if_false @WUZI5_20652
 World.ClearArea(1, -2323.6, 1531.9, 16.3, 1.0)
 Char.SetCoordinates($scplayer, -2323.6, 1531.9, 16.3)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 95.3)
 Object.Delete(71@)
 Blip.Remove(80@)
@@ -2910,6 +2998,13 @@ if
 goto_if_false @WUZI5_20363
 80@ = Blip.AddForCoord(-2437.9, 1551.9, 16.3)
 Text.PrintNow('WUZ4_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI5_20363
 if 
@@ -2923,6 +3018,13 @@ if
 goto_if_false @WUZI5_20439
 80@ = Blip.AddForChar(45@)
 Text.PrintNow('WUZ4_05', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_05', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI5_20439
 goto @WUZI5_20486
@@ -2933,6 +3035,13 @@ if
 goto_if_false @WUZI5_20486
 80@ = Blip.AddForObject(79@)
 Text.PrintNow('WUZ4_09', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_09', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI5_20486
 if 
@@ -2946,6 +3055,13 @@ Blip.ChangeScale(80@, 1)
 
 :WUZI5_20535
 Text.PrintNow('BRIDGE', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('BRIDGE', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI5_20551
 if 
@@ -2959,6 +3075,13 @@ Blip.SetAsFriendly(80@, True)
 
 :WUZI5_20600
 Text.PrintNow('WUZ4_11', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_11', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI5_20616
 Streaming.MarkModelAsNoLongerNeeded(#KMB_CONTAINER_RED)
@@ -3062,6 +3185,13 @@ if
 goto_if_false @WUZI5_21104
 Text.ClearPrints
 Text.PrintNow('WUZ4_07', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_07', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 93@ = 1
 
 :WUZI5_21104
@@ -3070,6 +3200,13 @@ if
 goto_if_false @WUZI5_21145
 Text.ClearPrints
 Text.PrintNow('WUZ4_08', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WUZ4_08', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 93@ = 1
 
 :WUZI5_21145
@@ -4021,6 +4158,13 @@ goto @WUZI5_28048
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(117@(115@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(117@(115@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 136@ = 0
 137@ = 0
 
@@ -4049,6 +4193,13 @@ goto @WUZI5_28174
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(117@(115@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(117@(115@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 136@ = 0
 137@ = 0
 
@@ -4077,6 +4228,13 @@ goto @WUZI5_28300
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(117@(115@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(117@(115@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 136@ = 0
 137@ = 0
 
@@ -4123,6 +4281,13 @@ if
 goto_if_false @WUZI5_28499
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(117@(115@,6s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(117@(115@,6s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 136@ = 2
 
 :WUZI5_28499
@@ -4137,6 +4302,13 @@ if
 goto_if_false @WUZI5_28575
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow(117@(115@,6s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(117@(115@,6s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 137@ = 2
 
 :WUZI5_28575
@@ -4150,6 +4322,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @WUZI5_28640
 Text.ClearThisPrint(117@(115@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(117@(115@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 115@ += 1
 139@ = 2
 136@ = 0
@@ -4162,6 +4341,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @WUZI5_28703
 Text.ClearThisPrint(117@(115@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(117@(115@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 115@ += 1
 139@ = 1
 137@ = 0

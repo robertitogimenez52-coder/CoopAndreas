@@ -3,6 +3,7 @@
 
 :MAF4
 script_name 'MAF4'
+Coop.EnableSyncingThisScript()
 gosub @MAF4_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :MAF4_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 wait 0
 Text.LoadMissionText('DSERT8')
 Weather.ForceNow(WeatherType.SunnyDesert)
@@ -59,6 +61,7 @@ Cutscene.Clear
 World.ClearArea(0, 419.4488, 2529.914, 15.6219, 0.5)
 Streaming.LoadScene(419.4488, 2529.914, 15.6219)
 Char.SetCoordinates($scplayer, 419.4488, 2529.914, 15.6219)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.0)
 Camera.SetBehindPlayer
 Camera.DoFade(1, 1500)
@@ -267,9 +270,11 @@ Car.GivePaintjob(107@, 0)
 106@ = Char.CreateAsPassenger(PedType.Special, 290, 107@, 0)
 Char.SetDecisionMaker(106@, 159@)
 Char.WarpIntoCar($scplayer, 107@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetFixedPosition(49.8744, 1900.289, 17.7833, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(48.9571, 1899.896, 17.8444, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 36.09, 1921.04, 18.93)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 268.5112)
 Streaming.LoadScene(106.9, -1923.21, 18.35)
 World.ClearArea(1, 82.775, 1917.325, 17.733, 150.0)
@@ -355,6 +360,13 @@ if
 goto_if_false @MAF4_2442
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DES8_LA', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_LA', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_2325
 if 
@@ -367,6 +379,13 @@ goto @MAF4_2325
 Audio.LoadMissionAudio(13643, 1)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('TRUX_AS', 2500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRUX_AS', 2500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_2378
 if 
@@ -418,6 +437,13 @@ Task.LookAtVehicle($scplayer, 107@, 5000)
 :MAF4_2595
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DES8_LC', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_LC', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_2615
 if 
@@ -715,7 +741,15 @@ Camera.PointAtPoint(311.7959, 1807.022, 26.2183, SwitchType.JumpCut)
 Streaming.LoadSceneInDirection(312.659, 1806.521, 26.272, 60.2)
 Camera.DoFade(1, 100)
 Text.PrintNow('DST8_1', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_1', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.SetCoordinates($scplayer, 69.91, 1916.007, 16.648)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 273.363)
 TIMERA = 0
 
@@ -728,6 +762,13 @@ goto @MAF4_6898
 
 :MAF4_6928
 Text.PrintNow('DST8_18', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_18', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.SetFixedPosition(232.5476, 1911.022, 34.7955, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(231.9904, 1910.261, 34.4617, SwitchType.JumpCut)
 TIMERA = 0
@@ -755,8 +796,29 @@ goto @MAF4_7090
 Camera.SetFixedPosition(120.4534, 1943.522, 29.8174, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(120.5729, 1942.533, 29.7278, SwitchType.JumpCut)
 Text.PrintNow('DST8_19', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_19', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DST8_47', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DST8_47', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DST8_48', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DST8_48', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MAF4_7226
@@ -840,6 +902,13 @@ Char.SetDecisionMaker(130@, 162@)
 Camera.SetFixedPosition(113.0058, 1934.089, 18.245, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(113.0995, 1933.112, 18.4334, SwitchType.JumpCut)
 Text.PrintNow('DST8_21', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_21', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MAF4_8009
@@ -856,6 +925,13 @@ Camera.ResetNewScriptables
 Camera.PersistPos(True)
 Camera.SetVectorMove(112.0028, 1893.846, 19.5192, 112.0028, 1893.846, 35.5192, 6000, True)
 Text.PrintNow('DST8_22', 6500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_22', 6500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MAF4_8156
@@ -906,6 +982,7 @@ Char.SetHeading($scplayer, 273.363)
 
 :MAF4_8372
 Char.SetCoordinates($scplayer, 69.91, 1916.007, 16.648)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 273.363)
 Char.Delete(106@)
 Car.Delete(107@)
@@ -1295,7 +1372,21 @@ Streaming.UnloadSpecialCharacter(1)
 Streaming.MarkModelAsNoLongerNeeded(483)
 227@ = Blip.AddForCoord(211.604, 1811.091, 20.8)
 Text.PrintNow('DST8_38', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_38', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DST8_7', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DST8_7', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Audio.LoadMissionAudio(13600, 2)
 164@ = 5
@@ -1336,10 +1427,18 @@ goto @MAF4_13589
 
 :MAF4_13613
 Char.SetCoordinates($scplayer, 296.348, 2474.277, 15.477)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 359.722)
 Camera.SetBehindPlayer
 Camera.DoFade(1, 500)
 Text.PrintNow('DST8_41', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_41', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_13668
 if 
@@ -1363,6 +1462,13 @@ if
   not Char.IsInArea2D($scplayer, 0, 52.5, 1952.11, 295.92, 1775.93)
 goto_if_false @MAF4_13803
 Text.PrintNow('DST8_39', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_39', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 194@ = 1
 
 :MAF4_13803
@@ -1390,10 +1496,18 @@ goto @MAF4_13918
 
 :MAF4_13942
 Char.SetCoordinates($scplayer, 296.348, 2474.277, 15.477)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 359.722)
 Camera.SetBehindPlayer
 Camera.DoFade(1, 500)
 Text.PrintNow('DST8_40', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_40', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_13997
 if 
@@ -1431,6 +1545,13 @@ goto_if_false @MAF4_14255
 Blip.Remove(227@)
 227@ = Blip.AddForCoord(214.0, 1872.0, 12.14)
 Text.PrintNow('DST8_8', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_8', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 Audio.ReportMissionAudioEventAtPosition(213.85, 1874.68, 14.12, 1007)
 179@ = 1
@@ -1514,6 +1635,13 @@ Audio.ReportMissionAudioEventAtPosition(213.85, 1874.68, 14.12, 1008)
 Blip.Remove(227@)
 227@ = Blip.AddForCoord(211.604, 1811.091, 20.8)
 Text.PrintNow('DST8_9', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_9', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 179@ = 0
 180@ = 0
 180@ = 0
@@ -1861,6 +1989,13 @@ if
   196@ == 3
 goto_if_false @MAF4_16862
 Text.PrintNow('DST8_14', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_14', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 196@ = 4
 
 :MAF4_16862
@@ -1958,11 +2093,13 @@ if
   Char.LocateAnyMeans2D($scplayer, 0, 225.0, 1859.0, 5.0, 5.0)
 goto_if_false @MAF4_17496
 Char.SetCoordinates($scplayer, 224.44, 1859.34, 12.14)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 6.82)
 goto @MAF4_17526
 
 :MAF4_17496
 Char.SetCoordinates($scplayer, 214.14, 1872.388, 12.14)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 267.68)
 
 :MAF4_17526
@@ -2046,6 +2183,13 @@ skip_cutscene_start_internal @MAF4_19024
 Camera.SetFixedPosition(278.6251, 1812.837, 4.8301, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(279.2745, 1813.558, 5.0711, SwitchType.JumpCut)
 Text.PrintNow('DST8_42', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_42', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MAF4_18632
@@ -2060,6 +2204,13 @@ Streaming.LoadSceneInDirection(255.93, 1838.05, 7.73, 142.0)
 Camera.SetFixedPosition(252.5037, 1836.242, 8.5554, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(252.0391, 1835.363, 8.4453, SwitchType.JumpCut)
 Text.PrintNow('DST8_43', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_43', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MAF4_18758
@@ -2088,6 +2239,13 @@ Camera.SetFixedPosition(217.0121, 1822.658, 6.4205, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(216.015, 1822.672, 6.4959, SwitchType.JumpCut)
 Char.Delete(131@)
 Text.PrintNow('DST8_44', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_44', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MAF4_18994
@@ -2105,6 +2263,13 @@ Player.SetControl($player1, True)
 Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 Text.PrintNow('DST8_45', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_45', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ReportMissionAudioEventAtPosition(0.0, 0.0, 0.0, 1005)
 TIMERB = 0
 203@ = 1
@@ -2558,6 +2723,13 @@ if
 goto_if_false @MAF4_22967
 Char.ClearTasks($scplayer)
 Text.PrintNow('DES8_21', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_21', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Game.SetArea51SamSite(False)
 Player.SetControl($player1, True)
 185@ = 2
@@ -2590,6 +2762,13 @@ if
   Char.LocateAnyMeans3D($scplayer, 0, 287.0, 1870.0, 9.0, 6.0, 6.0, 6.0)
 goto_if_false @MAF4_23247
 Text.PrintNow('DST8_46', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_46', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 133@ = Char.Create(24, 70, 276.57, 1854.53, 7.75)
 Char.SetHeading(133@, 175.15)
 Char.SetDecisionMaker(133@, 159@)
@@ -2619,12 +2798,26 @@ goto_if_false @MAF4_23412
 Audio.AttachMissionAudioToChar(MissionAudioSlot.Slot2, 133@)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('DES8_AA', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_AA', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_23412
 145@ = Pickup.Create(#KEYCARD, 3, 276.57, 1854.53, 8.75)
 Char.SetDecisionMaker(133@, 161@)
 229@ = Blip.AddForPickup(145@)
 Text.Print('DST8_25', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DST8_25', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 186@ = 2
 
 :MAF4_23475
@@ -2634,6 +2827,13 @@ goto @MAF4_23537
 145@ = Pickup.Create(#KEYCARD, 3, 276.57, 1854.53, 8.75)
 229@ = Blip.AddForPickup(145@)
 Text.PrintNow('DST8_25', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_25', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 186@ = 2
 
 :MAF4_23537
@@ -2648,6 +2848,13 @@ if
 goto_if_false @MAF4_23611
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('DST8_25')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('DST8_25', $NETWORK_PLAYER[$temp_int])
+    end
+end
 204@ = 1
 
 :MAF4_23611
@@ -2676,6 +2883,13 @@ goto @MAF4_23808
 
 :MAF4_23792
 Text.PrintNow('DST8_24', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_24', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_23808
 if 
@@ -2822,6 +3036,13 @@ Blip.Remove(228@)
 Blip.SetAlwaysDisplayOnZoomedRadar(228@, True)
 Text.ClearPrints
 Text.PrintNow('DST8_34', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_34', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 184@ = 5
 
 :MAF4_25042
@@ -2852,6 +3073,7 @@ Player.SetControl($player1, False)
 Hud.SwitchWidescreen(True)
 Clock.SetTimeOfDay(9, 0)
 Char.SetCoordinates($scplayer, 268.591, 1884.469, -31.0869)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.99)
 Task.Jetpack($scplayer)
 Camera.SetFixedPosition(268.5177, 1886.297, -29.5611, 0.0, 0.0, 0.0)
@@ -2861,6 +3083,13 @@ Streaming.RequestModel(352)
 Streaming.RequestModel(483)
 Streaming.LoadSpecialCharacter('TRUTH', 1)
 Text.PrintNow('DST8_26', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_26', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_25351
 if or
@@ -3201,6 +3430,13 @@ goto @MAF4_28031
 Blip.Remove(228@)
 228@ = Blip.AddForCoord(-794.8, 2425.184, 156.124)
 Text.PrintNow('DST8_35', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DST8_35', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 107@ = Car.Create(483, -783.169, 2430.03, 156.23)
 Car.FreezePositionAndDontLoadCollision(107@, True)
 Car.SetHeading(107@, 171.04)
@@ -3290,6 +3526,7 @@ goto @MAF4_28695
 
 :MAF4_28719
 Char.SetCoordinates($scplayer, -791.178, 2425.34, 156.16)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 256.615)
 Char.ClearTasksImmediately($scplayer)
 190@ = 3
@@ -3304,6 +3541,13 @@ Char.SetCurrentWeapon($scplayer, WeaponType.Unarmed)
 Camera.DoFade(1, 250)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('TRUX_BH', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRUX_BH', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_28864
 if 
@@ -3318,6 +3562,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(41432, 1)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('DES8_MB', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_MB', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Task.PlayAnim($scplayer, "IDLE_CHAT", "PED", 4.0, False, False, False, False, -1)
 
 :MAF4_28961
@@ -3342,6 +3593,13 @@ goto @MAF4_29003
 :MAF4_29029
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DES8_MC', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_MC', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_29049
 if 
@@ -3376,6 +3634,13 @@ goto @MAF4_29163
 :MAF4_29189
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('DES8_MD', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_MD', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_29209
 if 
@@ -3394,6 +3659,13 @@ goto @MAF4_29235
 :MAF4_29261
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DES8_ME', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES8_ME', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_29281
 if 
@@ -3454,6 +3726,13 @@ if
   not is_lvar_text_label_equal_to_text_label 154@s == 'DUMMY'
 goto_if_false @MAF4_29541
 Text.PrintNow(154@s, 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(154@s, 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MAF4_29541
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)

@@ -3,6 +3,7 @@
 
 :DESERT6
 script_name 'DESERT6'
+Coop.EnableSyncingThisScript()
 gosub @DESERT6_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :DESERT6_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 75@ = 0
 76@ = 0
@@ -204,6 +206,13 @@ if
   35@ == 0
 goto_if_false @DESERT6_1228
 Text.PrintNow('DES6_00', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_00', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT6_6258
 81@ = 1
 gosub @DESERT6_7633
@@ -380,9 +389,16 @@ if
   500.0 > 72@
 goto_if_false @DESERT6_2331
 if 
-  Camera.IsPointOnScreen(159@, 160@, 161@, 5.0)
+  Coop.IsPointOnAnyPlayersScreen(159@, 160@, 161@, 5.0)
 goto_if_false @DESERT6_2331
 Text.PrintNow('DES6_09', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_09', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 168@ = 1
 169@ = 1
 set_lvar_int_to_lvar_int 144@ = 46@
@@ -457,6 +473,13 @@ if and
   79@ <> 2
 goto_if_false @DESERT6_2707
 Text.PrintNow('DES6_06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 167@ = 1
 
 :DESERT6_2707
@@ -474,6 +497,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @DESERT6_2820
 Text.PrintNow('AREA51', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AREA51', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 180@ = 1
 
 :DESERT6_2820
@@ -512,6 +542,13 @@ if
   35@ == 0
 goto_if_false @DESERT6_3201
 Text.PrintNow('DES6_10', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_10', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 137@ = 46@
 137@ += 5000
 153@ = -76.4228
@@ -618,6 +655,13 @@ if
   500.0 > 72@
 goto_if_false @DESERT6_3730
 Text.PrintNow('DES6_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 170@ = 1
 171@ = 1
 set_lvar_int_to_lvar_int 145@ = 46@
@@ -632,10 +676,24 @@ if
 goto_if_false @DESERT6_3792
 171@ = 0
 Text.ClearThisPrint('DES6_11')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('DES6_11', $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT6_3808
 
 :DESERT6_3792
 Text.PrintNow('DES6_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT6_3808
 if 
@@ -675,6 +733,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @DESERT6_4076
 Text.PrintNow('AREA51', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AREA51', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 180@ = 1
 
 :DESERT6_4076
@@ -750,6 +815,13 @@ if
   79@ <> 2
 goto_if_false @DESERT6_4520
 Text.PrintNow('DES6_07', 1000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_07', 1000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT6_4520
 goto @DESERT6_4574
@@ -794,6 +866,13 @@ add_int_lvar_to_int_lvar 141@ += 50@
 165@ = 0
 140@ = 0
 Text.ClearThisPrint('DES6_07')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('DES6_07', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot3)
 goto @DESERT6_4829
 
@@ -1212,6 +1291,13 @@ goto @DESERT6_7323
 :DESERT6_7221
 Audio.PlayMissionAudio(78@)
 Text.PrintNow(101@(82@,11s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(101@(82@,11s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 87@(78@,3i) = 3
 return 
 goto @DESERT6_7323
@@ -1584,6 +1670,7 @@ if
 goto_if_false @DESERT6_9531
 World.ClearArea(1, -2246.706, -2539.1, 30.7512, 25.0)
 Char.SetCoordinates($scplayer, -2246.706, -2539.1, 30.7512)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 144.5365)
 35@ = 2
 goto @DESERT6_9548
@@ -1599,6 +1686,7 @@ if
 goto_if_false @DESERT6_9620
 World.ClearArea(1, 384.4035, 2449.35, 15.4921, 25.0)
 Char.SetCoordinates($scplayer, 384.4035, 2449.35, 15.4921)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 7.1386)
 
 :DESERT6_9620
@@ -1707,6 +1795,7 @@ Blip.SetAsFriendly(133@, True)
 World.ClearArea(0, 331.9908, 2533.767, 15.8044, 0.5)
 Streaming.LoadScene(331.9908, 2533.767, 15.8044)
 Char.SetCoordinates($scplayer, 331.9908, 2533.767, 15.8044)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 48.4743)
 Camera.SetBehindPlayer
 Weather.ForceNow(WeatherType.ExtraSunnyDesert)
@@ -1766,14 +1855,35 @@ switch_start 45@ total_jumps 3 default_jump 0 @DESERT6_10457 jumps 1 @DESERT6_10
 
 :DESERT6_10388
 Text.PrintNow('DES6_99', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_99', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT6_10457
 
 :DESERT6_10411
 Text.PrintNow('DES6_98', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_98', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT6_10457
 
 :DESERT6_10434
 Text.PrintNow('DES6_97', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES6_97', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT6_10457
 
 :DESERT6_10457

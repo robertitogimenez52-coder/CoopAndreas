@@ -3,6 +3,7 @@
 
 :DES3
 script_name 'DES3'
+Coop.EnableSyncingThisScript()
 gosub @DES3_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :DES3_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 34@ = 0
 35@ = 0
@@ -427,12 +429,20 @@ Skip.SetUp(-426.8536, 2213.783, 41.4297, 9.9101)
 
 :DES3_3173
 Char.SetCoordinates($scplayer, -688.7614, 946.5271, 12.0312)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 94.6779)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Weather.Force(WeatherType.ExtraSunnyDesert)
 101@ = Blip.AddForCoord(-429.025, 2226.223, 41.4297)
 Text.Print('AIR1_13', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('AIR1_13', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Streaming.RequestModel(568)
 Streaming.RequestModel(471)
 Streaming.RequestModel(468)
@@ -590,6 +600,7 @@ Hud.SwitchWidescreen(True)
 Player.SetControl($player1, False)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -433.0047, 2230.246, 40.4297)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 341.959)
 Task.GoStraightToCoord($scplayer, -432.3058, 2234.375, 41.4697, MoveState.Walk, 5000)
 Camera.DoFade(1, 500)
@@ -742,6 +753,7 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearPrints
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -432.3058, 2234.375, 41.4697)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 341.959)
 Car.MarkAsNoLongerNeeded($car)
 Camera.ResetNewScriptables
@@ -761,6 +773,13 @@ goto_if_false @DES3_5260
 97@ = Pickup.CreateWithAmmo(359, 3, 40, -431.3719, 2240.132, 42.6177)
 106@ = Blip.AddForPickup(97@)
 Text.PrintNow('AIR1_15', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_15', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 35@ += 1
 
@@ -776,6 +795,13 @@ Blip.Remove(106@)
 Blip.Remove(101@)
 101@ = Blip.AddForCoord(-804.5877, 2377.843, 151.7558)
 Text.PrintNow('AIR1_16', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_16', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Streaming.RequestAnimation("BOMBER")
 
 :DES3_5358
@@ -1011,6 +1037,7 @@ Char.HideWeaponForScriptedCutscene($scplayer, True)
 World.ClearArea(1, -800.611, 2404.788, 155.168, 5.0)
 World.ClearArea(1, -800.8441, 2408.354, 155.4525, 5.0)
 Char.SetCoordinates($scplayer, -800.611, 2404.788, 155.168)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 342.2393)
 Task.GoStraightToCoord($scplayer, -800.8441, 2408.354, 155.4525, MoveState.Walk, 10000)
 Camera.SetFixedPosition(-797.7917, 2403.735, 157.1193, 0.0, 0.0, 0.0)
@@ -1103,6 +1130,7 @@ Camera.SetFixedPosition(-779.9253, 2418.338, 157.8122, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-778.9708, 2418.629, 157.7476, SwitchType.JumpCut)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -786.2731, 2416.113, 156.0893)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 284.998)
 Task.GoStraightToCoord($scplayer, -782.2095, 2417.027, 156.1289, MoveState.Walk, 5000)
 Camera.ResetNewScriptables
@@ -1639,6 +1667,7 @@ Camera.ResetNewScriptables
 Char.ClearTasksImmediately($scplayer)
 Streaming.LoadScene(-806.467, 2420.75, 155.9102)
 Char.SetCoordinates($scplayer, -806.467, 2420.75, 155.9102)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 190.8497)
 if 
   Car.DoesExist(77@)
@@ -1696,6 +1725,7 @@ gosub @DES3_23443
 gosub @DES3_17557
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -789.7678, 2416.916, 156.022)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 190.8497)
 Player.SetControl($player1, True)
 Camera.SetBehindPlayer
@@ -1711,6 +1741,13 @@ set_lvar_int_to_constant 110@ = 0
 Weather.ForceNow(WeatherType.ExtraSunnyDesert)
 $pheli_health = 100
 Text.PrintNow('AIR1_06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Hud.DisplayCounterWithString($pheli_health, CounterDisplay.Bar, 'AIR1_17')
 if 
   not Car.IsDead(71@)
@@ -2200,6 +2237,13 @@ if
   35@ == 0
 goto_if_false @DES3_14308
 Text.PrintNow('AIR1_09', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_09', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Streaming.RequestModel(487)
 Streaming.RequestModel(61)
 Streaming.RequestModel(355)
@@ -2289,6 +2333,7 @@ Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(269.6016, 2868.464, 15.2584, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(269.2238, 2869.373, 15.0806, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 265.7708, 2873.078, 13.4336)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 266.1126)
 set_var_text_label s$audio_string = 'DES3_CA'
 set_var_int_to_constant $audio_sound_file = 13213
@@ -2373,6 +2418,13 @@ if
   35@ == 7
 goto_if_false @DES3_15195
 Text.PrintNow('AIR1_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = Blip.AddForCoord(-394.8462, 2226.622, 41.4259)
 198@ = 0
 35@ += 1
@@ -2433,6 +2485,13 @@ if
   TIMERA > 60000
 goto_if_false @DES3_15594
 Text.PrintNow('AIR1_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :DES3_15594
@@ -2453,6 +2512,7 @@ goto @DES3_15637
 :DES3_15661
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -389.8034, 2230.742, 41.4297)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 Camera.SetInFrontOfPlayer
 Camera.RestoreJumpcut
@@ -2489,6 +2549,13 @@ $des3_heat = 100
 Hud.DisplayCounterWithString($des3_heat, CounterDisplay.Bar, 'AIR1_12')
 132@ = 1
 Text.PrintNow('AIR1_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DES3_15906
 if 
@@ -2535,6 +2602,13 @@ goto_if_false @DES3_16195
 set_lvar_int_to_constant 109@ = 99
 112@ = 0
 Text.PrintNow('AIR1_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 2
 Hud.ClearCounter($des3_heat)
 
@@ -2543,6 +2617,13 @@ goto @DES3_16230
 
 :DES3_16202
 Text.PrintNow('AIR1_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 2
 Hud.ClearCounter($des3_heat)
 
@@ -2607,6 +2688,13 @@ if
 goto_if_false @DES3_16505
 37@ = 1
 Text.PrintNow('AIR1_08', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('AIR1_08', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DES3_16505
 if 

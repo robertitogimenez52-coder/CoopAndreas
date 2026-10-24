@@ -3,6 +3,7 @@
 
 :STEAL1
 script_name 'STEAL1'
+Coop.EnableSyncingThisScript()
 gosub @STEAL1_581
 if 
   has_deatharrest_been_executed 
@@ -72,6 +73,7 @@ World.ClearArea(1, 450@, 451@, 452@, 5.0)
 449@ = Car.Create(602, 450@, 451@, 452@)
 Car.SetHeading(449@, 453@)
 Char.WarpIntoCar($scplayer, 449@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 return 
 
 :STEAL1_439
@@ -97,6 +99,7 @@ return
 
 :STEAL1_581
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 wait 0
 34@ = 0
@@ -286,6 +289,13 @@ if
 goto_if_false @STEAL1_1981
 Audio.PlayMissionAudio(402@)
 Text.PrintNow(370@(400@,6s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(370@(400@,6s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 401@ = 3
 
 :STEAL1_1981
@@ -296,6 +306,13 @@ if
   Audio.HasMissionAudioFinished(402@)
 goto_if_false @STEAL1_2098
 Text.ClearThisPrint(370@(400@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(370@(400@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   402@ == 1
 goto_if_false @STEAL1_2063
@@ -563,6 +580,7 @@ Char.WarpFromCarToCoord($scplayer, -2030.672, 179.1596, 28.9611)
 Car.SetCoordinates(449@, -2028.827, 178.4434, 27.8516)
 Car.SetHeading(449@, 266.8448)
 Char.WarpIntoCar($scplayer, 449@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :STEAL1_3786
 Audio.LoadMissionAudio(45400, 3)
@@ -619,6 +637,13 @@ if
 goto_if_false @STEAL1_4090
 Player.SetControl($player1, True)
 Text.Print('STL1_03', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STL1_03', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 StuckCarCheck.AddWithWarp(435@, 1.0, 2000, True, True, True, 2)
 Task.CarDriveToCoord(443@, 435@, 126@, 186@, 246@, 35.0, DriveMode.Normal, 0, DrivingMode.AvoidCars)
 34@ = 2
@@ -629,6 +654,13 @@ if
 goto_if_false @STEAL1_4131
 Text.ClearPrints
 Text.PrintNow('STL1_07', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_07', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL1_7641
 
 :STEAL1_4131
@@ -694,7 +726,7 @@ if
   is_int_var_greater_than_int_var $st1_route > $st1_final_dest
 goto_if_false @STEAL1_4667
 if 
-  not Car.IsOnScreen(435@)
+  not Coop.IsCarOnAnyPlayersScreen(435@)
 goto_if_false @STEAL1_4667
 349@, 350@, 351@ = Char.GetCoordinates($scplayer)
 87@ = Math.GetDistanceBetweenCoords2D(438@, 439@, 349@, 350@)
@@ -702,6 +734,13 @@ if
   87@ > 200.0
 goto_if_false @STEAL1_4667
 Text.PrintNow('STL1_09', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_09', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL1_7641
 
 :STEAL1_4667
@@ -772,6 +811,13 @@ Text.ClearPrints
 Char.ClearTasks(443@)
 Car.SetCruiseSpeed(435@, 0.0)
 Text.PrintNow('STL1_05', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_05', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 StuckCarCheck.Remove(435@)
 Blip.Remove(436@)
 436@ = Blip.AddForCar(435@)
@@ -820,6 +866,13 @@ if
   52@ == 0
 goto_if_false @STEAL1_5453
 Text.Print('STL1_03', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STL1_03', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 52@ = 1
 
 :STEAL1_5453
@@ -858,6 +911,13 @@ if
   51@ == 1
 goto_if_false @STEAL1_5703
 Text.PrintNow('STL1_02', 12000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_02', 12000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 51@ = 2
 
 :STEAL1_5703
@@ -865,12 +925,26 @@ if
   128 > 65@
 goto_if_false @STEAL1_5737
 Text.PrintNow('STL1_10', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_10', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL1_5737
 if 
   is_int_lvar_equal_to_int_lvar 65@ == 69@
 goto_if_false @STEAL1_5779
 Text.PrintNow('STL1_09', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_09', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL1_7641
 
 :STEAL1_5779
@@ -893,13 +967,13 @@ if
   82@ > 2000
 goto_if_false @STEAL1_5904
 if 
-  not Car.IsOnScreen(435@)
+  not Coop.IsCarOnAnyPlayersScreen(435@)
 goto_if_false @STEAL1_5904
 40@ = 0
 
 :STEAL1_5904
 if 
-  not Car.IsOnScreen(435@)
+  not Coop.IsCarOnAnyPlayersScreen(435@)
 goto_if_false @STEAL1_5934
 40@ = 0
 goto @STEAL1_5934
@@ -933,6 +1007,13 @@ if
 goto_if_false @STEAL1_6152
 Blip.Remove(436@)
 Text.PrintNow('STL1_06', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_06', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 53@ = Blip.AddForCoord(352@, 353@, 354@)
 Garage.ChangeType('HBGDSFS', GarageType.ForScriptToOpenAndClose)
 Streaming.RequestCarRecording(171)
@@ -1074,12 +1155,27 @@ goto @STEAL1_6930
 :STEAL1_6972
 Streaming.LoadSceneInDirection(-2690.908, 206.6429, 7.2879, 88.2793)
 Char.SetCoordinates($scplayer, -2691.164, 206.6478, 3.3359)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetFixedPosition(-2689.916, 206.5855, 7.399, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-2690.908, 206.6429, 7.2879, SwitchType.JumpCut)
 Camera.DoFade(1, 500)
 Text.PrintNow('JAP_MOD', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('JAP_MOD', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 6000
 Text.PrintNow('WANG_C', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WANG_C', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 6000
 Camera.DoFade(0, 500)
 
@@ -1100,6 +1196,7 @@ goto @STEAL1_7121
 Streaming.LoadSceneInDirection(459@, 460@, 461@, 462@)
 461@ -= 1.0
 Char.SetCoordinates($scplayer, 459@, 460@, 461@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 462@)
 Camera.DoFade(1, 500)
 Camera.SetBehindPlayer
@@ -1122,6 +1219,7 @@ goto_if_false @STEAL1_7409
 Hud.SwitchWidescreen(False)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -2032.471, 176.6342, 27.8359)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.Delete(435@)
 Char.SetHeading($scplayer, 267.9)
 Camera.SetBehindPlayer
@@ -1153,12 +1251,26 @@ if
   35@ == 0
 goto_if_false @STEAL1_7565
 Text.PrintNow('STL1_11', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_11', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.IsInCar($scplayer, 435@)
 goto_if_false @STEAL1_7565
 Blip.Remove(436@)
 Blip.Remove(53@)
 Text.PrintNow('STL1_06', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL1_06', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 53@ = Blip.AddForCoord(352@, 353@, 354@)
 35@ = 1
 

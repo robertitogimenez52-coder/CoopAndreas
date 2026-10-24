@@ -3,6 +3,7 @@
 
 :HEIST4
 script_name 'HEIST4'
+Coop.EnableSyncingThisScript()
 gosub @HEIST4_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @HEIST4_13235
 terminate_this_script 
 
 :HEIST4_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('HEIST4')
@@ -21,6 +23,7 @@ wait 0
 Streaming.SetAreaVisible(10)
 Char.SetHasUsedEntryExit($scplayer, 2016.422, 1017.102, 10.0)
 Char.SetCoordinates($scplayer, 2033.974, 1017.29, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 288.0)
 34@ = Player.GetGroup($player1)
 Player.SetGroupRecruitment($player1, False)
@@ -370,6 +373,7 @@ Char.SetDecisionMaker(276@, 61@)
 Streaming.MarkModelAsNoLongerNeeded(117)
 Streaming.MarkModelAsNoLongerNeeded(50)
 Char.SetCoordinates($scplayer, 2028.875, 1006.87, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 265.0)
 World.ClearArea(0, 2033.974, 1017.29, 9.8203, 1000.0)
 wait 1000
@@ -491,6 +495,13 @@ Char.EnableSpeech($scplayer)
 Char.Delete(276@)
 Text.ClearPrints
 Text.PrintNow('HEI4_01', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_01', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 TIMERB = 0
 60@ = 2
@@ -544,6 +555,13 @@ if
 goto_if_false @HEIST4_4097
 Audio.PlayMissionAudio(194@)
 Text.Print(137@(196@,19s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer(137@(196@,19s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 198@ = 3
 
 :HEIST4_4097
@@ -554,6 +572,13 @@ if
   Audio.HasMissionAudioFinished(194@)
 goto_if_false @HEIST4_4221
 Text.ClearThisPrint(137@(196@,19s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(137@(196@,19s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   194@ == 1
 goto_if_false @HEIST4_4179
@@ -680,6 +705,13 @@ if
 goto_if_false @HEIST4_4881
 Text.ClearPrints
 Text.PrintNow('HEI4_06', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_06', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST4_4881
 if 
@@ -687,6 +719,13 @@ if
 goto_if_false @HEIST4_4917
 Text.ClearPrints
 Text.PrintNow('HEI4_08', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_08', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST4_4917
 if 
@@ -694,6 +733,13 @@ if
 goto_if_false @HEIST4_4960
 Text.ClearPrints
 Text.PrintNow('HEI4_09', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_09', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :HEIST4_4960
@@ -808,7 +854,21 @@ if
 goto_if_false @HEIST4_5544
 Text.ClearPrints
 Text.ClearThisPrint('HEI4_01')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HEI4_01', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintNow('HEI4_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Hud.DisplayTimerWithString($hst4_deliverytimer, TimerDirection.Down, 'HEI4_12')
 131@ = 1
 60@ = 3
@@ -829,6 +889,13 @@ if
 goto_if_false @HEIST4_5631
 Text.ClearPrints
 Text.PrintNow('HEI4_10', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_10', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST4_13162
 
 :HEIST4_5631
@@ -891,6 +958,13 @@ if
   273@ <> 4
 goto_if_false @HEIST4_6012
 Text.PrintNow('HEI4_02', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_02', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST4_6012
 266@(48@,4i) = 1
@@ -918,6 +992,13 @@ if
   Char.LocateInCarCar2D($scplayer, 244@, 30.0, 30.0, False)
 goto_if_false @HEIST4_6251
 Text.PrintNow('HEI4_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST4_6251
 if 
@@ -968,6 +1049,13 @@ TIMERB = 0
 266@(48@,4i) = 2
 Blip.Remove(35@)
 Text.ClearThisPrint('HEI4_02')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HEI4_02', $NETWORK_PLAYER[$temp_int])
+    end
+end
 43@ = 0
 
 :HEIST4_6632
@@ -1035,6 +1123,13 @@ goto @HEIST4_7029
 
 :HEIST4_7006
 Text.PrintNow('HEI4_04', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_04', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST4_13162
 
 :HEIST4_7029
@@ -1047,6 +1142,13 @@ goto @HEIST4_7066
 Blip.Remove(35@)
 Blip.ChangeColor(283@(43@,4i), BlipColor.Green)
 Text.PrintNow('HEI4_03', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_03', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST4_7098
 43@ += 1
@@ -1082,6 +1184,13 @@ goto @HEIST4_7377
 
 :HEIST4_7354
 Text.PrintNow('HEI4_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST4_13162
 
 :HEIST4_7377
@@ -1104,10 +1213,10 @@ if or
   StuckCarCheck.IsCarStuck(244@)
 goto_if_false @HEIST4_7581
 if 
-  not Car.IsOnScreen(244@)
+  not Coop.IsCarOnAnyPlayersScreen(244@)
 goto_if_false @HEIST4_7581
 if 
-  not Camera.IsPointOnScreen(204@(47@,20f), 224@(47@,20f), 6.0, 4.0)
+  not Coop.IsPointOnAnyPlayersScreen(204@(47@,20f), 224@(47@,20f), 6.0, 4.0)
 goto_if_false @HEIST4_7581
 World.ClearArea(0, 204@(47@,20f), 224@(47@,20f), 7.0, 10.0)
 Car.SetCoordinates(244@, 204@(47@,20f), 224@(47@,20f), 10.0)
@@ -1118,6 +1227,13 @@ goto @HEIST4_7632
 
 :HEIST4_7588
 Text.PrintNow('HEI4_05', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_05', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(115@)
 goto_if_false @HEIST4_7625
@@ -1316,6 +1432,7 @@ Char.Delete(115@)
 Hud.SwitchWidescreen(False)
 Char.ClearTasks($scplayer)
 Char.SetCoordinates($scplayer, 1014.013, 1902.325, 9.8125)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 59.0)
 Camera.RestoreJumpcut
 Camera.SetBehindPlayer
@@ -1340,6 +1457,13 @@ if
   Car.IsDead(279@(90@,4i))
 goto_if_false @HEIST4_9096
 Text.PrintNow('HEI4_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI4_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST4_13162
 
 :HEIST4_9096

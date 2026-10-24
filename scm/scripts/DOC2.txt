@@ -3,6 +3,7 @@
 
 :DOC2
 script_name 'DOC2'
+Coop.EnableSyncingThisScript()
 gosub @DOC2_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @DOC2_13757
 terminate_this_script 
 
 :DOC2_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 131@ = 0
 $d2_instance_health = 40
 $d2_anim_rnd = 0
@@ -330,6 +332,7 @@ if
 goto_if_false @DOC2_3864
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2162.498, 1434.396, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 358.0)
 
 :DOC2_3864
@@ -349,6 +352,13 @@ Camera.DoFade(1, Fade.Out)
 135@ = 2
 wait 1000
 Text.PrintNow('DOC2_X', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_X', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_4024
@@ -399,6 +409,13 @@ Text.ClearPrints
 gosub @DOC2_14020
 Camera.SetBehindPlayer
 Text.PrintNow('DOC2_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DOC2_4228
 if and
@@ -654,6 +671,13 @@ Char.StartFacialTalk(95@, 2000)
 :DOC2_6014
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_AA', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_AA', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_6217
 
 :DOC2_6041
@@ -676,6 +700,13 @@ Char.StartFacialTalk(95@, 2000)
 :DOC2_6102
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_AC', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_AC', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_6217
 
 :DOC2_6129
@@ -698,6 +729,13 @@ Char.StartFacialTalk(95@, 2000)
 :DOC2_6190
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_AG', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_AG', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_6217
 
 :DOC2_6217
@@ -791,6 +829,13 @@ goto @DOC2_6602
 
 :DOC2_6663
 Text.PrintNow('DOC2_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_6686
@@ -812,6 +857,13 @@ if
   134@ == 1
 goto_if_false @DOC2_6781
 Text.PrintNow('DOC2_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DOC2_6781
 Text.ClearPrints
@@ -865,6 +917,13 @@ if
   not Char.LocateAnyMeans3D($scplayer, 0, 2149.407, 1431.497, 9.8203, 100.0, 100.0, 100.0)
 goto_if_false @DOC2_7090
 Text.PrintNow('DOC2_10', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_10', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_13046
 
 :DOC2_7090
@@ -886,6 +945,13 @@ if
   89@ == 1
 goto_if_false @DOC2_7210
 Text.PrintNow('DOC2_19', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_19', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.ChangeDisplay(35@, BlipDisplay.Both)
 Blip.ChangeDisplay(92@, BlipDisplay.Neither)
 89@ = 0
@@ -905,6 +971,13 @@ if and
   112@ == 2
 goto_if_false @DOC2_7324
 Text.PrintNow('DOC2_11', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_11', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 112@ = 0
 
 :DOC2_7324
@@ -943,6 +1016,13 @@ goto @DOC2_7573
 :DOC2_7599
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_BA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_BA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_7754
 
 :DOC2_7626
@@ -959,6 +1039,13 @@ goto @DOC2_7637
 :DOC2_7663
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_BB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_BB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_7754
 
 :DOC2_7690
@@ -975,6 +1062,13 @@ goto @DOC2_7701
 :DOC2_7727
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_BC', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_BC', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_7754
 
 :DOC2_7754
@@ -1170,6 +1264,13 @@ goto_if_false @DOC2_8838
 Streaming.RemoveAnimation("ON_LOOKERS")
 wait 1000
 Text.PrintNow('DOC2_06', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_06', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :DOC2_9058
@@ -1255,6 +1356,13 @@ if
 goto_if_false @DOC2_9570
 124@ = 6
 Text.PrintNow('DOC2_19', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_19', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 117@ = 1
 
 :DOC2_9570
@@ -1265,6 +1373,13 @@ if
   117@ == 1
 goto_if_false @DOC2_9618
 Text.PrintNow('DOC2_20', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_20', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 117@ = 0
 
 :DOC2_9618
@@ -1602,6 +1717,13 @@ goto @DOC2_11607
 :DOC2_11633
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_FA', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_FA', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.SetInterpolationParameters(0.0, 6000)
 Camera.SetFixedPosition(1872.495, 2243.844, 14.0672, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1872.971, 2243.143, 13.5352, SwitchType.Interpolation)
@@ -1634,6 +1756,13 @@ goto @DOC2_11782
 :DOC2_11808
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_FB', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_FB', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_11835
@@ -1679,6 +1808,13 @@ goto @DOC2_11957
 :DOC2_11983
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_FC', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_FC', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_12010
@@ -1708,6 +1844,13 @@ goto @DOC2_12071
 :DOC2_12097
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_FD', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_FD', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_12124
@@ -1753,6 +1896,13 @@ goto @DOC2_12246
 :DOC2_12272
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_FE', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_FE', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_12299
@@ -1782,6 +1932,13 @@ goto @DOC2_12360
 :DOC2_12386
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_FF', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_FF', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_12413
@@ -1841,6 +1998,13 @@ goto @DOC2_12649
 :DOC2_12675
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('DOGG_FG', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOGG_FG', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :DOC2_12702
@@ -1938,10 +2102,24 @@ if
   5 > 91@
 goto_if_false @DOC2_13160
 Text.PrintNow('DOC2_09', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_09', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DOC2_13176
 
 :DOC2_13160
 Text.PrintNow('DOC2_10', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_10', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DOC2_13176
 if 
@@ -1954,6 +2132,13 @@ if or
   $d2_instance_health == 0
 goto_if_false @DOC2_13231
 Text.PrintNow('DOC2_10', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DOC2_10', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DOC2_13231
 return 
@@ -2264,6 +2449,13 @@ if and
 goto_if_false @DOC2_14950
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(127@s, 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(127@s, 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = 1
 
 :DOC2_14950
@@ -2273,6 +2465,13 @@ if and
 goto_if_false @DOC2_14988
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint(127@s)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(127@s, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = 2
 
 :DOC2_14988

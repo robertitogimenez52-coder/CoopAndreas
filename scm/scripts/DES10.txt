@@ -10,9 +10,11 @@ gosub @DES10_4515
 terminate_this_script 
 
 :DES10_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 script_name 'DES10'
+Coop.EnableSyncingThisScript()
 wait 0
 Text.LoadMissionText('DSERT10')
 Weather.ForceNow(WeatherType.ExtraSunnyDesert)
@@ -58,6 +60,7 @@ Cutscene.Clear
 World.ClearArea(0, 419.4488, 2529.914, 15.6219, 0.5)
 Streaming.LoadScene(419.4488, 2529.914, 15.6219)
 Char.SetCoordinates($scplayer, 419.4488, 2529.914, 15.6219)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.0)
 Camera.SetBehindPlayer
 Camera.DoFade(1, 1500)
@@ -136,6 +139,7 @@ Game.SwitchRandomTrains(False)
 World.ClearArea(0, 419.4488, 2529.914, 15.6219, 0.5)
 Streaming.LoadScene(419.4488, 2529.914, 15.6219)
 Char.SetCoordinates($scplayer, 419.4488, 2529.914, 15.6219)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.0)
 Camera.SetBehindPlayer
 Pad.SetPlayerEnterCarButton($player1, False)
@@ -158,6 +162,13 @@ Car.LockDoors(58@, CarLock.Locked)
 Train.SetSpeed(58@, 5.0)
 Train.SetCruiseSpeed(58@, 5.0)
 Text.PrintNow('DE10_01', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DE10_01', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $x, $y, $z = Car.GetCoordinates(58@)
 $z += 10.0
 44@ = 0
@@ -279,6 +290,13 @@ if
   Char.LocateAnyMeansCar2D($scplayer, 58@, 150.0, 150.0, False)
 goto_if_false @DES10_2780
 Text.PrintNow('DE10_06', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DE10_06', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 109@ += 1
 
 :DES10_2780
@@ -352,6 +370,13 @@ Object.AttachToCar(78@(44@,3i), 63@, -0.0485, 5.578, -0.0661, 0.0, 0.0, 90.1967)
 Object.SetCollision(78@(44@,3i), False)
 81@(44@,3i) = Blip.AddForObject(78@(44@,3i))
 Text.PrintNow('DE10_02', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DE10_02', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.LoadMissionAudio(40600, 3)
 if 
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot3)
@@ -366,6 +391,13 @@ goto @DES10_3393
 :DES10_3357
 Object.MarkAsNoLongerNeeded(78@(44@,3i))
 Text.PrintNow('DE10_03', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DE10_03', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 104@(44@,3i) += 1
 
 :DES10_3393
@@ -394,6 +426,13 @@ goto_if_false @DES10_3660
 Object.Delete(78@(44@,3i))
 Audio.ClearMissionAudio(MissionAudioSlot.Slot3)
 Text.PrintNow('DE10_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DE10_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(81@(44@,3i))
 81@(44@,3i) = Blip.AddForCoord(408.7383, 2515.838, 15.4918)
 104@(44@,3i) += 1
@@ -454,6 +493,7 @@ Cutscene.Clear
 World.ClearArea(0, 402.8737, 2531.582, 15.5558, 0.5)
 Streaming.LoadScene(402.8737, 2531.582, 15.5558)
 Char.SetCoordinates($scplayer, 402.8737, 2531.582, 15.5558)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 224.0)
 Camera.SetBehindPlayer
 Player.SetControl($player1, True)
@@ -477,6 +517,13 @@ if
   not Char.LocateAnyMeansCar2D($scplayer, 58@, 300.0, 300.0, False)
 goto_if_false @DES10_4105
 Text.PrintNow('DE10_05', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DE10_05', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DES10_4112
 
 :DES10_4105

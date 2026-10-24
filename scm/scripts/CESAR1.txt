@@ -3,6 +3,7 @@
 
 :CESAR1
 script_name 'CESAR1'
+Coop.EnableSyncingThisScript()
 gosub @CESAR1_1165
 if 
   has_deatharrest_been_executed 
@@ -157,6 +158,7 @@ return
 
 :CESAR1_1165
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 wait 0
 Text.LoadMissionText('CESAR1')
@@ -288,6 +290,13 @@ if
 goto_if_false @CESAR1_2073
 Audio.PlayMissionAudio(113@)
 Text.PrintNow(59@(111@,17s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(59@(111@,17s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 112@ = 3
 
 :CESAR1_2073
@@ -298,6 +307,13 @@ if
   Audio.HasMissionAudioFinished(113@)
 goto_if_false @CESAR1_2190
 Text.ClearThisPrint(59@(111@,17s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(59@(111@,17s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   113@ == 1
 goto_if_false @CESAR1_2155
@@ -347,6 +363,13 @@ if
   Car.IsDead(125@)
 goto_if_false @CESAR1_2370
 Text.PrintNow('CES1_09', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CES1_09', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CESAR1_4957
 
 :CESAR1_2370
@@ -361,6 +384,7 @@ if and
   not Char.IsDead($scplayer)
 goto_if_false @CESAR1_2481
 Char.WarpIntoCar($scplayer, $cs1_player_car)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Text.ClearPrints
 43@ = Clock.GetGameTimer()
 gosub @CESAR1_203
@@ -453,6 +477,13 @@ Player.SetControl($player1, True)
 Hud.SwitchWidescreen(False)
 35@ = 1
 Text.PrintNow('CES1_04', 5000, 2)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CES1_04', 5000, 2, $NETWORK_PLAYER[$temp_int])
+    end
+end
 39@ = 2
 46@ = Clock.GetGameTimer()
 36@ = 3
@@ -555,6 +586,13 @@ goto_if_false @CESAR1_3746
 Blip.Remove(126@)
 124@ = Blip.AddForCoord(56@, 57@, 58@)
 Text.PrintNow('CES1_05', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CES1_05', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 39@ = 5
 38@ = 1
 
@@ -704,6 +742,13 @@ if
   $cs1_random_dialogue == 8
 goto_if_false @CESAR1_4652
 Text.PrintNow('CES1_04', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CES1_04', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 47@ = Clock.GetGameTimer()
 set_lvar_int_to_lvar_int 48@ = 47@
 sub_int_lvar_from_int_lvar 48@ -= 46@
@@ -816,6 +861,13 @@ if
   Car.IsDead($cs1_player_car)
 goto_if_false @CESAR1_5146
 Text.PrintNow('CES1_08', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CES1_08', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 34@ = 666
 
 :CESAR1_5146
@@ -858,6 +910,13 @@ if
   34@ == 1
 goto_if_false @CESAR1_5353
 Text.PrintNow('CES1_06', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CES1_06', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CESAR1_5353
 if 
@@ -884,6 +943,13 @@ goto_if_false @CESAR1_5499
 Blip.Remove(124@)
 124@ = Blip.AddForCoord(56@, 57@, 58@)
 Text.PrintNow('CES1_05', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CES1_05', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CESAR1_5499
 Blip.Remove(116@)

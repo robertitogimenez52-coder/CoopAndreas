@@ -3,6 +3,7 @@
 
 :SCRASH3
 script_name 'SCRASH3'
+Coop.EnableSyncingThisScript()
 gosub @SCRASH3_47
 if 
   has_deatharrest_been_executed 
@@ -14,7 +15,15 @@ gosub @SCRASH3_18272
 terminate_this_script 
 
 :SCRASH3_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.ClearThisPrint('M_FAIL')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('M_FAIL', $NETWORK_PLAYER[$temp_int])
+    end
+end
 $onmission = 1
 $playing_scrash1 = 1
 Stat.RegisterMissionGiven
@@ -106,6 +115,13 @@ wait 500
 Camera.DoFade(1, 1000)
 281@ = 0
 Text.Print('VAL_5', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_5', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH3_636
 wait 0
@@ -217,6 +233,13 @@ if
   not Player.IsWearing($player1, "VALET", BodyPart.SpecialCostume)
 goto_if_false @SCRASH3_1254
 Text.Print('VAL_B1', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_B1', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_1254
@@ -250,6 +273,13 @@ goto @SCRASH3_1472
 :SCRASH3_1442
 gosub @SCRASH3_17374
 Text.Print('VAL_9', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_9', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_1472
@@ -281,6 +311,13 @@ goto_if_false @SCRASH3_1638
 Text.ClearPrints
 gosub @SCRASH3_17374
 Text.Print('VAL_A35', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A35', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_1638
@@ -428,6 +465,13 @@ if
   not Camera.GetFadingStatus
 goto_if_false @SCRASH3_2587
 Text.PrintNow('VAL_6', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_6', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 71@ = TIMERA
 71@ += 6000
 70@ = 6
@@ -455,6 +499,7 @@ if
   not Char.IsInAnyCar($scplayer)
 goto_if_false @SCRASH3_2722
 Char.SetCoordinates($scplayer, -1747.198, 909.9226, 23.8906)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 5.6727)
 goto @SCRASH3_2756
 
@@ -471,6 +516,13 @@ Camera.RestoreJumpcut
 Hud.SwitchWidescreen(False)
 Player.SetControl($player1, True)
 Text.PrintNow('VAL_A25', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_A25', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 65@ = 2
 $dont_clear_valets = 1
 if 
@@ -504,6 +556,13 @@ if and
   94@ == 1
 goto_if_false @SCRASH3_3048
 Text.Print('VAL_B3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_B3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH3_3048
 if 
@@ -520,6 +579,13 @@ if and
 goto_if_false @SCRASH3_3176
 Text.ClearPrints
 Text.Print('VAL_B4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_B4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_3176
@@ -555,6 +621,13 @@ if and
   24.8629 > $z
 goto_if_false @SCRASH3_3410
 Text.Print('VAL_A22', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A22', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $tell_player_to_kill_valet = 1
 Game.SetWantedMultiplier(-1.0)
 
@@ -571,7 +644,21 @@ if or
   $z > 24.8629
 goto_if_false @SCRASH3_3534
 Text.Print('VAL_A23', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A23', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('VAL_A24', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A24', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $tell_player_to_kill_valet = 0
 Game.SetWantedMultiplier(1.0)
 
@@ -593,6 +680,13 @@ goto_if_false @SCRASH3_3704
 74@ = Pickup.Create(#CLOTHESP, 3, 96@, 97@, 98@)
 64@ = Blip.AddForPickup(74@)
 Text.PrintNow('VAL_8', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_8', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 65@ = 3
 goto @SCRASH3_3751
 
@@ -603,6 +697,13 @@ Blip.Remove(63@)
 Text.ClearPrints
 gosub @SCRASH3_17374
 Text.PrintNow('VAL_9', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_9', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_3751
@@ -686,6 +787,13 @@ goto_if_false @SCRASH3_4227
 Text.ClearPrints
 gosub @SCRASH3_17374
 Text.PrintNow('VAL_B5', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_B5', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_4227
@@ -711,6 +819,13 @@ goto_if_false @SCRASH3_4381
 Audio.SetMusicDoesFade(True)
 Text.ClearPrints
 Text.PrintNow('VAL_A32', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_A32', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(57@)
 57@ = Blip.AddForCoord(-1759.026, 960.4122, 23.8905)
 65@ = 4
@@ -844,7 +959,21 @@ if
 goto_if_false @SCRASH3_5375
 skip_cutscene_start_internal @SCRASH3_5729
 Text.PrintNow('VAL_12', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_12', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('VAL_13', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_13', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 71@ = TIMERA
 71@ += 3500
 72@ = 5
@@ -933,6 +1062,7 @@ Char.Delete(37@)
 
 :SCRASH3_5865
 Char.SetCoordinates($scplayer, -1759.631, 960.4594, 23.8905)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 194.1832)
 Streaming.RequestCollision(-1748.402, 909.7514)
 Streaming.LoadScene(-1748.402, 909.7514, 23.8906)
@@ -954,6 +1084,13 @@ Camera.RestoreJumpcut
 Hud.SwitchWidescreen(False)
 Text.ClearPrints
 Text.Print('VAL_A27', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A27', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_var_int_to_constant $valet_task[0] = 2
 set_var_int_to_constant $valet_task[1] = 2
 $force_a_one_off_car = Math.RandomIntInRange(1, 3)
@@ -970,6 +1107,13 @@ goto_if_false @SCRASH3_6127
 Text.ClearPrints
 gosub @SCRASH3_17374
 Text.Print('VAL_40', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_40', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_6127
@@ -1002,7 +1146,7 @@ if
   107@ == 0
 goto_if_false @SCRASH3_6430
 if 
-  not Camera.IsPointOnScreen(-1709.886, 899.3372, 23.7422, 5.0)
+  not Coop.IsPointOnAnyPlayersScreen(-1709.886, 899.3372, 23.7422, 5.0)
 goto_if_false @SCRASH3_6430
 if 
   not Char.IsInArea3D($scplayer, 0, -1709.886, 899.3372, 23.7422, 20.0, 20.0, 20.0)
@@ -1017,7 +1161,7 @@ if
   107@ == 0
 goto_if_false @SCRASH3_6593
 if 
-  not Camera.IsPointOnScreen(-1674.725, 933.5232, 23.7365, 5.0)
+  not Coop.IsPointOnAnyPlayersScreen(-1674.725, 933.5232, 23.7365, 5.0)
 goto_if_false @SCRASH3_6593
 if 
   not Char.IsInArea3D($scplayer, 0, -1674.725, 933.5232, 23.7365, 20.0, 20.0, 20.0)
@@ -1032,7 +1176,7 @@ if
   107@ == 0
 goto_if_false @SCRASH3_6756
 if 
-  not Camera.IsPointOnScreen(-1791.158, 877.27, 23.75, 5.0)
+  not Coop.IsPointOnAnyPlayersScreen(-1791.158, 877.27, 23.75, 5.0)
 goto_if_false @SCRASH3_6756
 if 
   not Char.IsInArea3D($scplayer, 0, -1791.158, 877.27, 23.75, 20.0, 20.0, 20.0)
@@ -1108,6 +1252,13 @@ if
 goto_if_false @SCRASH3_7164
 gosub @SCRASH3_17374
 Text.Print('VAL_A1', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A1', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_7164
@@ -1117,6 +1268,13 @@ goto_if_false @SCRASH3_7212
 Text.ClearPrints
 gosub @SCRASH3_17374
 Text.Print('VAL_34', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_34', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_7212
@@ -1150,6 +1308,13 @@ if and
   79@ <> -1
 goto_if_false @SCRASH3_7462
 Text.Print('VAL_A28', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A28', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(60@)
 60@ = Blip.AddForCar($sc3_missioncar)
 Blip.Remove(57@)
@@ -1171,6 +1336,13 @@ if
 goto_if_false @SCRASH3_7568
 gosub @SCRASH3_17374
 Text.Print('VAL_A29', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A29', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_7568
@@ -1199,6 +1371,13 @@ if or
   not Char.IsDead($valet[0])
 goto_if_false @SCRASH3_7740
 Text.PrintNow('VAL_49', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VAL_49', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH3_7740
 Blip.Remove(57@)
@@ -1282,6 +1461,13 @@ if
 goto_if_false @SCRASH3_8396
 Text.ClearPrints
 Text.Print('VAL_15', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_15', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 65@ = 7
 Blip.Remove(57@)
 Blip.Remove(59@)
@@ -1319,6 +1505,13 @@ Blip.SetAsFriendly(60@, True)
 Blip.ChangeDisplay(59@, BlipDisplay.Neither)
 Text.ClearPrints
 Text.Print('VAL_29', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_29', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH3_8569
 if 
@@ -1433,6 +1626,7 @@ if
   not Car.IsDead($sc3_missioncar)
 goto_if_false @SCRASH3_9322
 Char.WarpIntoCar($scplayer, $sc3_missioncar)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :SCRASH3_9322
 Camera.SetBehindPlayer
@@ -1445,7 +1639,21 @@ Blip.ChangeDisplay(59@, BlipDisplay.BlipOnly)
 65@ = 8
 Text.ClearPrints
 Text.Print('VAL_20', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_20', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('VAL_A31', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A31', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetControl($player1, True)
 
 :SCRASH3_9417
@@ -1460,6 +1668,13 @@ Blip.Remove(59@)
 59@ = Blip.AddForCoord(-2033.626, 178.856, 27.8359)
 Text.ClearPrints
 Text.Print('VAL_51', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_51', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH3_9533
 if 
@@ -1517,6 +1732,7 @@ if
   not Car.IsDead($sc3_missioncar)
 goto_if_false @SCRASH3_9877
 Char.WarpIntoCar($scplayer, $sc3_missioncar)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :SCRASH3_9877
 Camera.SetBehindPlayer
@@ -1538,7 +1754,21 @@ Blip.ChangeDisplay(59@, BlipDisplay.BlipOnly)
 65@ = 8
 Text.ClearPrints
 Text.Print('VAL_20', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_20', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('VAL_A31', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A31', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetControl($player1, True)
 
 :SCRASH3_9997
@@ -1552,6 +1782,13 @@ if
   Car.Locate3D($sc3_missioncar, 1, -1780.069, 970.9553, 23.75, 3.0, 3.0, 3.0)
 goto_if_false @SCRASH3_10127
 Text.Print('VAL_32', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_32', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(59@)
 59@ = Blip.AddForCoord(-1688.214, 987.1218, 16.5855)
 65@ = 9
@@ -1566,6 +1803,13 @@ goto_if_false @SCRASH3_10195
 Text.ClearPrints
 gosub @SCRASH3_17374
 Text.Print('VAL_47', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_47', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_10195
@@ -1592,6 +1836,13 @@ Hud.ClearTimer($sc3_countdown)
 67@ = 0
 Text.ClearPrints
 Text.Print('VAL_A30', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A30', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 65@ = 30
 113@ = Char.Create(24, 189, -1772.809, 977.8892, 22.6614)
 Char.SetOnlyDamagedByPlayer(113@, True)
@@ -1656,6 +1907,13 @@ goto_if_false @SCRASH3_10937
 Text.ClearPrints
 gosub @SCRASH3_17374
 Text.Print('VAL_A34', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_A34', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_10937
@@ -1680,6 +1938,13 @@ if
 goto_if_false @SCRASH3_11099
 gosub @SCRASH3_17374
 Text.Print('VAL_B2', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_B2', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH3_18128
 
 :SCRASH3_11099
@@ -1697,6 +1962,13 @@ if
 goto_if_false @SCRASH3_11215
 65@ = 7
 Text.Print('VAL_31', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_31', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(59@)
 59@ = Blip.AddForCoord(-2045.252, 178.7994, 27.8359)
 
@@ -1731,6 +2003,7 @@ goto @SCRASH3_11473
 
 :SCRASH3_11453
 Char.SetCoordinates($scplayer, -1741.792, 939.731, 23.8906)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :SCRASH3_11473
 Char.SetHeading($scplayer, 270.0)
@@ -1809,6 +2082,7 @@ goto @SCRASH3_11905
 
 :SCRASH3_11885
 Char.SetCoordinates($scplayer, -1741.792, 939.731, 23.8906)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :SCRASH3_11905
 Char.SetHeading($scplayer, 40.0)
@@ -2295,6 +2569,7 @@ if
   not Car.IsDead($sc3_missioncar)
 goto_if_false @SCRASH3_15094
 Char.WarpIntoCar($scplayer, $sc3_missioncar)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :SCRASH3_15094
 wait 1000
@@ -2317,6 +2592,13 @@ Blip.ChangeDisplay(59@, BlipDisplay.BlipOnly)
 65@ = 8
 Text.ClearPrints
 Text.Print('VAL_33', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('VAL_33', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH3_15198
 if 
@@ -2574,6 +2856,13 @@ goto_if_false @SCRASH3_17001
 Audio.PlayMissionAudio(278@)
 Text.ClearPrints
 Text.Print(155@(281@,40s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer(155@(281@,40s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 280@ += 1
 330@ = 0
 281@ += 1
@@ -2784,6 +3073,7 @@ if
   not Car.IsDead($car)
 goto_if_false @SCRASH3_17994
 Char.WarpIntoCar($scplayer, $car)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 goto @SCRASH3_18042
 
 :SCRASH3_17994

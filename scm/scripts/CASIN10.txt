@@ -3,6 +3,7 @@
 
 :CASIN10
 script_name 'CASIN10'
+Coop.EnableSyncingThisScript()
 gosub @CASIN10_294
 if 
   has_deatharrest_been_executed 
@@ -43,6 +44,7 @@ return
 
 :CASIN10_294
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 36@ = 0
 43@ = 0
@@ -102,6 +104,7 @@ Text.LoadMissionText('CASIN10')
 wait 0
 World.ClearArea(1, 2163.589, 1682.247, 9.86, 1.0)
 Char.SetCoordinates($scplayer, 2163.589, 1682.247, 9.86)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 80.0)
 Char.SetCurrentWeapon($scplayer, WeaponType.Unarmed)
 $iTerminateAllAmbience = 1
@@ -204,6 +207,7 @@ goto @CASIN10_1251
 :CASIN10_1277
 World.ClearArea(1, 2163.589, 1682.247, 9.86, 1.0)
 Char.SetCoordinates($scplayer, 2163.589, 1682.247, 9.86)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 80.0)
 Char.ShutUpForScriptedSpeech($scplayer, True)
 Streaming.LoadScene(2163.589, 1682.247, 9.86)
@@ -257,6 +261,13 @@ if
 goto_if_false @CASIN10_1934
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('CAS11AA', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS11AA', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk($scplayer, 999999)
 Task.PlayAnimNonInterruptable($scplayer, "IDLE_CHAT", "PED", 4.0, True, False, False, False, -1)
 goto @CASIN10_1953
@@ -265,6 +276,13 @@ goto @CASIN10_1953
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASIN10_1953
 if 
@@ -275,6 +293,13 @@ if
   Char.IsDead(107@)
 goto_if_false @CASIN10_2018
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 goto @CASIN10_2023
 
@@ -286,6 +311,13 @@ if
   Char.IsDead(108@)
 goto_if_false @CASIN10_2062
 Text.PrintNow('CM10_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2062
@@ -293,6 +325,13 @@ if
   Char.IsDead(109@)
 goto_if_false @CASIN10_2101
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2101
@@ -300,6 +339,13 @@ if
   Car.IsDead(111@)
 goto_if_false @CASIN10_2140
 Text.PrintNow('CM10_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2140
@@ -309,6 +355,13 @@ goto_if_false @CASIN10_2175
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASIN10_2175
 goto @CASIN10_1953
@@ -316,10 +369,24 @@ goto @CASIN10_1953
 :CASIN10_2182
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('CAS11AA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StopFacialTalk($scplayer)
 Audio.LoadMissionAudio(7202, 1)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('CAS11AB', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS11AB', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk($scplayer, 999999)
 
 :CASIN10_2239
@@ -332,6 +399,13 @@ if
   Char.IsDead(107@)
 goto_if_false @CASIN10_2308
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 goto @CASIN10_2313
 
@@ -343,6 +417,13 @@ if
   Char.IsDead(108@)
 goto_if_false @CASIN10_2352
 Text.PrintNow('CM10_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2352
@@ -350,6 +431,13 @@ if
   Char.IsDead(109@)
 goto_if_false @CASIN10_2391
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2391
@@ -357,6 +445,13 @@ if
   Car.IsDead(111@)
 goto_if_false @CASIN10_2430
 Text.PrintNow('CM10_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2430
@@ -366,6 +461,13 @@ goto_if_false @CASIN10_2465
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASIN10_2465
 goto @CASIN10_2239
@@ -374,6 +476,13 @@ goto @CASIN10_2239
 Char.ClearTasks($scplayer)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StopFacialTalk($scplayer)
 Audio.LoadMissionAudio(7203, 2)
 if 
@@ -381,12 +490,26 @@ if
 goto_if_false @CASIN10_2593
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('CAS11AC', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS11AC', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(107@, 999999)
 Task.PlayAnimNonInterruptable(107@, "IDLE_CHAT", "PED", 4.0, True, False, False, False, -1)
 goto @CASIN10_2616
 
 :CASIN10_2593
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2616
@@ -401,7 +524,21 @@ goto_if_false @CASIN10_2697
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2697
@@ -409,6 +546,13 @@ if
   Char.IsDead(108@)
 goto_if_false @CASIN10_2736
 Text.PrintNow('CM10_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2736
@@ -416,6 +560,13 @@ if
   Char.IsDead(109@)
 goto_if_false @CASIN10_2775
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2775
@@ -423,6 +574,13 @@ if
   Car.IsDead(111@)
 goto_if_false @CASIN10_2814
 Text.PrintNow('CM10_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2814
@@ -431,6 +589,13 @@ goto @CASIN10_2616
 :CASIN10_2821
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('CAS11AC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(107@)
 goto_if_false @CASIN10_2869
@@ -440,6 +605,13 @@ goto @CASIN10_2892
 
 :CASIN10_2869
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2892
@@ -449,14 +621,35 @@ goto_if_false @CASIN10_2955
 Task.LookAtChar(109@, $scplayer, -2)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('CAS11AD', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS11AD', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(109@, 999999)
 goto @CASIN10_2997
 
 :CASIN10_2955
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_2997
@@ -468,6 +661,13 @@ if
   Char.IsDead(107@)
 goto_if_false @CASIN10_3055
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3055
@@ -475,6 +675,13 @@ if
   Char.IsDead(108@)
 goto_if_false @CASIN10_3094
 Text.PrintNow('CM10_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3094
@@ -484,7 +691,21 @@ goto_if_false @CASIN10_3152
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3152
@@ -492,6 +713,13 @@ if
   Car.IsDead(111@)
 goto_if_false @CASIN10_3191
 Text.PrintNow('CM10_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3191
@@ -500,6 +728,13 @@ goto @CASIN10_2997
 :CASIN10_3198
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('CAS11AD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11AD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(109@)
 goto_if_false @CASIN10_3246
@@ -509,6 +744,13 @@ goto @CASIN10_3269
 
 :CASIN10_3246
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3269
@@ -523,6 +765,13 @@ goto @CASIN10_3344
 
 :CASIN10_3321
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3344
@@ -530,6 +779,13 @@ if
   Char.IsDead(107@)
 goto_if_false @CASIN10_3383
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3383
@@ -537,6 +793,13 @@ if
   Char.IsDead(109@)
 goto_if_false @CASIN10_3422
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3422
@@ -544,6 +807,13 @@ if
   Char.IsDead(108@)
 goto_if_false @CASIN10_3461
 Text.PrintNow('CM10_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3461
@@ -551,6 +821,13 @@ goto @CASIN10_3491
 
 :CASIN10_3468
 Text.PrintNow('CM10_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3491
@@ -564,6 +841,13 @@ if
   Char.IsDead(107@)
 goto_if_false @CASIN10_3569
 Text.PrintNow('CM10_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3569
@@ -571,6 +855,13 @@ if
   Char.IsDead(108@)
 goto_if_false @CASIN10_3608
 Text.PrintNow('CM10_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3608
@@ -578,6 +869,13 @@ if
   Char.IsDead(109@)
 goto_if_false @CASIN10_3647
 Text.PrintNow('CM10_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3647
@@ -585,6 +883,13 @@ if
   Car.IsDead(111@)
 goto_if_false @CASIN10_3686
 Text.PrintNow('CM10_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3686
@@ -601,6 +906,13 @@ goto @CASIN10_3776
 
 :CASIN10_3753
 Text.PrintNow('CM10_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_3776
@@ -648,6 +960,7 @@ goto @CASIN10_3974
 Player.MakeGangReappear
 World.ClearArea(1, 2163.589, 1682.247, 9.86, 1.0)
 Char.SetCoordinates($scplayer, 2163.589, 1682.247, 9.86)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 80.0)
 Char.Delete(107@)
 Char.Delete(108@)
@@ -682,6 +995,13 @@ Game.SetPoliceIgnorePlayer($player1, False)
 
 :CASIN10_4237
 Text.PrintNow('CM10_1', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_1', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = Blip.AddForCoord(1707.828, 1606.639, 9.055)
 World.ClearArea(0, 1707.828, 1606.639, 9.055, 2.0)
 
@@ -701,6 +1021,13 @@ goto @CASIN10_4297
 :CASIN10_4378
 Blip.Remove(35@)
 Text.PrintNow('CM10_10', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_10', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 World.ClearArea(1, 1479.714, 1758.306, 12.098, 2.0)
 112@ = Car.Create(519, 1479.714, 1758.306, 12.098)
 Car.SetOnlyDamagedByPlayer(112@, True)
@@ -717,6 +1044,13 @@ if
   Car.IsDead(112@)
 goto_if_false @CASIN10_4545
 Text.PrintNow('CM10_17', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_17', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(34@)
 goto @CASIN10_15190
 
@@ -732,12 +1066,26 @@ goto @CASIN10_4610
 
 :CASIN10_4582
 Text.PrintNow('CM10_17', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_17', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(34@)
 goto @CASIN10_15190
 
 :CASIN10_4610
 Blip.Remove(34@)
 Text.PrintNow('CM10_18', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_18', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 126@ = Blip.AddForCoord(7500.0, 2478.34, 200.0)
 TIMERA = 0
 
@@ -751,6 +1099,13 @@ if
   Car.IsDead(112@)
 goto_if_false @CASIN10_4764
 Text.PrintNow('CM10_17', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_17', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 goto @CASIN10_4988
 
@@ -772,6 +1127,13 @@ if
   129@ == 1
 goto_if_false @CASIN10_4913
 Text.PrintNow('CM10_18', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_18', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 126@ = Blip.AddForCoord(7500.0, 2478.34, 200.0)
 Blip.Remove(34@)
 $blob_flag = 1
@@ -788,6 +1150,13 @@ Blip.Remove(126@)
 34@ = Blip.AddForCar(112@)
 Blip.SetAsFriendly(34@, True)
 Text.PrintNow('IN_VEH', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('IN_VEH', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 129@ = 1
 
@@ -849,6 +1218,13 @@ goto @CASIN10_5194
 :CASIN10_5225
 Streaming.SetAreaVisible(1)
 Char.SetAreaVisible($scplayer, 1)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 1)
+    end
+end
 Streaming.RequestCollision(-811.999, 457.027)
 Streaming.LoadSceneInDirection(-811.999, 457.027, 1356.622, 82.0)
 Streaming.LoadAllModelsNow
@@ -864,6 +1240,7 @@ goto @CASIN10_5375
 Char.SetProofs($scplayer, True, True, True, True, True)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -813.833, 459.11, 998.989)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASIN10_5375
 Camera.SetBehindPlayer
@@ -1293,6 +1670,7 @@ Char.Delete(122@)
 :CASIN10_8307
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -783.104, 490.814, 1375.235)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 8.832)
 Streaming.LoadSceneInDirection(-783.104, 490.814, 1375.235, 8.832)
 Camera.SetFixedPosition(-787.9748, 493.9206, 1375.796, 0.0, 0.0, 0.0)
@@ -1365,6 +1743,13 @@ if
 goto_if_false @CASIN10_8809
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('CAS11DA', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS11DA', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(73@, 999999)
 Char.ShutUpForScriptedSpeech(73@, True)
 goto @CASIN10_8845
@@ -1398,6 +1783,13 @@ goto @CASIN10_8845
 
 :CASIN10_8930
 Text.ClearThisPrint('CAS11DA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11DA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(73@)
 goto_if_false @CASIN10_8983
@@ -1416,6 +1808,13 @@ goto_if_false @CASIN10_9015
 :CASIN10_9015
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('CAS11DB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS11DB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk($scplayer, 999999)
 Char.ShutUpForScriptedSpeech($scplayer, True)
 Camera.SetFixedPosition(-785.9136, 497.3071, 1375.579, 0.0, 0.0, 0.0)
@@ -1520,6 +1919,13 @@ goto @CASIN10_9671
 
 :CASIN10_9724
 Text.ClearThisPrint('CAS11DB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS11DB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StopFacialTalk($scplayer)
 Char.ShutUpForScriptedSpeech($scplayer, False)
 79@ = Sequence.Open()
@@ -1547,6 +1953,7 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Hud.SwitchWidescreen(False)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -780.806, 495.717, 1375.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 100.0)
 Task.ToggleDuck($scplayer, True)
 Task.PlayAnimNonInterruptable($scplayer, "WEAPON_CROUCH", "PED", 1000.0, False, False, False, False, -1)
@@ -1607,6 +2014,7 @@ goto_if_false @CASIN10_10229
 :CASIN10_10229
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -780.806, 495.717, 1375.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 100.0)
 Camera.RestoreJumpcut
 
@@ -1738,6 +2146,13 @@ goto_if_false @CASIN10_10884
 
 :CASIN10_10884
 Text.PrintNow('CM10_2', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_2', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASIN10_10900
 if 
@@ -2206,6 +2621,13 @@ goto @CASIN10_13977
 Streaming.SetAreaVisible(0)
 Game.SetIsInStadium(False)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Text.ClearHelp
 Text.ClearPrints
 112@ = Car.Create(519, 7500.0, 2478.34, 200.0)
@@ -2215,6 +2637,7 @@ Car.SetProofs(112@, True, True, True, True, True)
 Car.SetHeading(112@, 110.0)
 Plane.SetUndercarriageUp(112@, True)
 Char.WarpIntoCar($scplayer, 112@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.StartPlayback(112@, 601)
 Camera.SetFixedPosition(8867.637, 1581.89, 193.188, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(8867.605, 1582.883, 193.0727, SwitchType.JumpCut)
@@ -2242,6 +2665,13 @@ if
   Car.IsDead(112@)
 goto_if_false @CASIN10_14281
 Text.PrintNow('CM10_17', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_17', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_14281
@@ -2311,10 +2741,24 @@ goto @CASIN10_14599
 
 :CASIN10_14576
 Text.PrintNow('CM10_17', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_17', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 
 :CASIN10_14599
 Text.PrintNow('CM10_19', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_19', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = Blip.AddForCoord(1477.225, 1640.364, 9.86)
 Game.SetAlwaysDraw3DMarkers(True)
 131@ = 0
@@ -2337,6 +2781,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearPrints
 Text.PrintNow('CM10_17', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_17', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASIN10_15190
 goto @CASIN10_15152
 
@@ -2357,6 +2808,13 @@ if
   129@ == 1
 goto_if_false @CASIN10_15021
 Text.PrintNow('CM10_19', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CM10_19', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = Blip.AddForCoord(1477.225, 1640.364, 9.86)
 Blip.Remove(113@)
 $blob_flag = 1
@@ -2378,6 +2836,13 @@ Blip.Remove(130@)
 113@ = Blip.AddForCar(112@)
 Blip.SetAsFriendly(34@, True)
 Text.PrintNow('IN_VEH', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('IN_VEH', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 129@ = 1
 
@@ -3342,6 +3807,13 @@ if
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
 goto_if_false @CASIN10_20513
 Text.PrintNow($casino10_chat(131@,17s), 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($casino10_chat(131@,17s), 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 132@ = 2
 

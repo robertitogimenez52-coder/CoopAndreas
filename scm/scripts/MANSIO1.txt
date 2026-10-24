@@ -3,6 +3,7 @@
 
 :MANSIO1
 script_name 'MANSIO1'
+Coop.EnableSyncingThisScript()
 gosub @MANSIO1_47
 if 
   has_deatharrest_been_executed 
@@ -15,8 +16,10 @@ terminate_this_script
 
 :MANSIO1_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Char.SetCoordinates($scplayer, 2175.412, 1681.548, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 Char.SetHasUsedEntryExit($scplayer, 2233.5, 1712.8, 10.0)
 Text.LoadMissionText('MAN_1')
@@ -73,6 +76,13 @@ goto @MANSIO1_293
 
 :MANSIO1_320
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 96@ = Car.Create(592, 2144.0, 1600.0, 50.0)
 Car.SetHeading(96@, 180.0)
 Audio.SetRadioChannel(RadioChannel.UserTracks)
@@ -80,6 +90,7 @@ Plane.SetUndercarriageUp(96@, True)
 Car.FreezePosition(96@, True)
 Car.SetAreaVisible(96@, 0)
 Char.WarpIntoCar($scplayer, 96@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 49@ = 0
 Weather.ForceNow(WeatherType.ExtraSunnyDesert)
 Clock.SetTimeOfDay(6, 0)
@@ -164,6 +175,7 @@ goto @MANSIO1_847
 
 :MANSIO1_827
 Char.SetCoordinates($scplayer, 1598.951, -785.327, 350.1654)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MANSIO1_847
 Char.FreezePosition($scplayer, True)
@@ -271,6 +283,7 @@ Object.SetHeading(128@, 90.0)
 Object.FreezePosition(128@, True)
 Char.FreezePosition($scplayer, False)
 Char.SetCoordinates($scplayer, 1594.393, -784.7317, 349.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 36.9506)
 131@ = Char.Create(24, 117, 1595.303, -783.4741, 349.0)
 Char.SetHeading(131@, 205.0)
@@ -598,6 +611,7 @@ $SLOT_status[1] = -2
 
 :MANSIO1_4199
 Char.SetCoordinates($scplayer, 1096.562, -825.7372, 85.9453)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   49@ == 0
 goto_if_false @MANSIO1_4244
@@ -1157,6 +1171,13 @@ Pad.SetPlayerFireButton($player1, True)
 Hud.DisplayRadar(True)
 Hud.Display(True)
 Text.PrintNow('MAN1_03', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_03', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 47@ = Blip.AddForCoord(1290.491, -788.3314, 95.4531)
 157@ += 1
 
@@ -1212,6 +1233,13 @@ goto @MANSIO1_8101
 
 :MANSIO1_8078
 Text.PrintNow('MAN1_04', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_04', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 157@ = 4
 
 :MANSIO1_8101
@@ -1219,6 +1247,13 @@ goto @MANSIO1_8131
 
 :MANSIO1_8108
 Text.PrintNow('MAN1_04', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_04', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 157@ = 3
 
 :MANSIO1_8131
@@ -1269,10 +1304,24 @@ if
   168@ == 0
 goto_if_false @MANSIO1_8361
 Text.PrintNow('MAN1_06', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_06', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MANSIO1_8377
 
 :MANSIO1_8361
 Text.PrintNow('MAN1_05', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_05', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSIO1_8377
 Player.ClearWantedLevel($player1)
@@ -1358,11 +1407,25 @@ if and
   210@ <> -1
 goto_if_false @MANSIO1_9051
 Text.PrintNow('MAN1_09', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_09', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 157@ = 8
 goto @MANSIO1_9074
 
 :MANSIO1_9051
 Text.PrintNow('MAN1_10', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_10', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 157@ = 7
 
 :MANSIO1_9074
@@ -1376,6 +1439,13 @@ if and
   210@ <> -1
 goto_if_false @MANSIO1_9143
 Text.PrintNow('MAN1_09', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_09', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 157@ = 8
 
 :MANSIO1_9143
@@ -1948,10 +2018,24 @@ if and
   210@ <> -1
 goto_if_false @MANSIO1_12865
 Text.PrintNow('MAN1_07', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_07', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MANSIO1_12881
 
 :MANSIO1_12865
 Text.PrintNow('MAN1_08', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_08', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSIO1_12881
 149@(43@,3i) += 1
@@ -3081,6 +3165,7 @@ Camera.PointAtPoint(1267.786, -781.8895, 1092.5, SwitchType.JumpCut)
 Hud.SwitchWidescreen(True)
 Player.SetControl($player1, False)
 Char.SetCoordinates($scplayer, 1267.785, -781.2607, 1090.898)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 185.363)
 157@ = 0
 if 
@@ -3956,6 +4041,13 @@ if
   515@ == 0
 goto_if_false @MANSIO1_26621
 Text.PrintNow('MAN1_21', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_21', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 515@ = 1
 
 :MANSIO1_26621
@@ -4169,6 +4261,13 @@ switch_start 43@ total_jumps 4 default_jump 0 @MANSIO1_28930 jumps 0 @MANSIO1_28
 
 :MANSIO1_28283
 Text.PrintNow('MAN1_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 415@ = 1
 set_lvar_int_to_lvar_int 416@ = 43@
 TIMERB = 0
@@ -4224,6 +4323,13 @@ goto @MANSIO1_28930
 
 :MANSIO1_28610
 Text.PrintNow('MAN1_20', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_20', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 415@ = 1
 set_lvar_int_to_lvar_int 416@ = 43@
 TIMERB = 0
@@ -5306,6 +5412,13 @@ if
   515@ == 0
 goto_if_false @MANSIO1_35333
 Text.PrintNow('MAN1_21', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_21', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 515@ = 1
 
 :MANSIO1_35333
@@ -5320,6 +5433,13 @@ World.SwitchEntryExit('MDDOGS', True)
 47@ = Blip.AddForCoord(1298.74, -795.9946, 1083.008)
 Blip.SetEntryExit(47@, 1258.338, -785.4264, 91.0313)
 Text.PrintNow('MAN1_22', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_22', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.SetCoordinates(328@, 1261.031, -815.666, 83.1484)
 Char.SetHeading(328@, 65.0097)
 Char.SetAreaVisible(328@, 0)
@@ -5539,6 +5659,7 @@ Blip.Remove(329@)
 
 :MANSIO1_36938
 Char.SetCoordinates($scplayer, 1268.7, -813.0891, 83.1484)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 Camera.ResetNewScriptables
 Camera.SetShakeSimulationSimple(1, 50000.0, 0.5)
@@ -5635,6 +5756,13 @@ goto_if_false @MANSIO1_37517
 
 :MANSIO1_37517
 Text.PrintNow('MAN1_23', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_23', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetControl($player1, True)
 Hud.SwitchWidescreen(False)
 Camera.ResetNewScriptables
@@ -5741,6 +5869,13 @@ goto @MANSIO1_38000
 :MANSIO1_38024
 skip_cutscene_start_internal @MANSIO1_38115
 Text.PrintNow('MAN1_30', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN1_30', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MANSIO1_38054
@@ -5847,6 +5982,13 @@ if
   52@ == 1
 goto_if_false @MANSIO1_38558
 Text.PrintNow(53@s, 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(53@s, 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSIO1_38558
 return 

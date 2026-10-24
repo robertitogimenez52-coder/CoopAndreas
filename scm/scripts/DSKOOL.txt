@@ -3,6 +3,7 @@
 
 :DSKOOL
 script_name 'DSKOOL'
+Coop.EnableSyncingThisScript()
 gosub @DSKOOL_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @DSKOOL_24618
 terminate_this_script 
 
 :DSKOOL_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 if 
   $driving_test_passed == 0
@@ -137,6 +139,7 @@ Player.SetControl($player1, False)
 Hud.SwitchWidescreen(True)
 Char.HideWeaponForScriptedCutscene($scplayer, True)
 Char.SetCoordinates($scplayer, -2031.7, -116.4, 1034.2)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 86.9)
 Streaming.RequestModel(50)
 Streaming.LoadAllModelsNow
@@ -262,7 +265,15 @@ $mission_selection = 13
 :DSKOOL_1616
 Streaming.SetAreaVisible(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Char.SetCoordinates($scplayer, -2035.4, -119.1, 33.2)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Streaming.LoadScene(-2035.4, -119.1, 33.2)
 Audio.LoadMissionAudio(3800, 3)
 
@@ -618,10 +629,18 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot3)
 Text.ClearPrints
 World.ClearExtraColors(True)
 Char.SetAreaVisible($scplayer, 3)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 3)
+    end
+end
 Streaming.SetAreaVisible(3)
 Streaming.RequestCollision(-2031.1, -118.2)
 Streaming.LoadScene(-2031.1, -118.2, 1034.2)
 Char.SetCoordinates($scplayer, -2029.7, -115.5, 1034.2)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 if 
   not Car.IsDead($instructor_car)
@@ -742,6 +761,13 @@ $finish_rightx = Car.GetOffsetInWorldCoords($finish_righty, $perfect_positionz, 
 Text.ClearPrints
 Text.PrintBig('DS1_88', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_44', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_44', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_4067
@@ -768,6 +794,13 @@ if
 goto_if_false @DSKOOL_4202
 Text.PrintBig('DS1_88', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_44', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_44', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_4202
 gosub @DSKOOL_31215
@@ -1038,6 +1071,13 @@ $finish_rightx = Car.GetOffsetInWorldCoords($finish_righty, $perfect_positionz, 
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_45', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_45', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_5698
@@ -1064,6 +1104,13 @@ if
 goto_if_false @DSKOOL_5833
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_45', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_45', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_5833
 gosub @DSKOOL_31215
@@ -1294,6 +1341,13 @@ $finish_leftx = Car.GetOffsetInWorldCoords($finish_lefty, $perfect_positionz, $i
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_32', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_32', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_7074
@@ -1320,6 +1374,13 @@ if
 goto_if_false @DSKOOL_7209
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_32', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_32', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_7209
 gosub @DSKOOL_31215
@@ -1577,6 +1638,13 @@ $finish_rightx = Car.GetOffsetInWorldCoords($finish_righty, $perfect_positionz, 
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_30', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_30', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_8665
@@ -1603,6 +1671,13 @@ if
 goto_if_false @DSKOOL_8800
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_30', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_30', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_8800
 gosub @DSKOOL_31215
@@ -1867,6 +1942,13 @@ return
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_29', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_29', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_10646
@@ -1893,6 +1975,13 @@ if
 goto_if_false @DSKOOL_10781
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_29', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_29', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_10781
 gosub @DSKOOL_31215
@@ -1956,6 +2045,13 @@ goto @DSKOOL_11143
 
 :DSKOOL_11127
 Text.PrintNow('DS1_74', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_74', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_11143
 if or
@@ -2152,6 +2248,13 @@ $finish_rightx = Car.GetOffsetInWorldCoords($finish_righty, $perfect_positionz, 
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_36', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_36', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_12275
@@ -2178,6 +2281,13 @@ if
 goto_if_false @DSKOOL_12410
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_36', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_36', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_12410
 gosub @DSKOOL_31215
@@ -2419,6 +2529,13 @@ return
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_1', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_1', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_13788
@@ -2445,6 +2562,13 @@ if
 goto_if_false @DSKOOL_13923
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_1', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_1', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_13923
 gosub @DSKOOL_31215
@@ -2749,6 +2873,13 @@ Text.ClearPrints
 $finish_rightx = Car.GetOffsetInWorldCoords($finish_righty, $perfect_positionz, $instructor_car, 0.0, 100.0, 0.0)
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_34', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_34', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_15691
@@ -2775,6 +2906,13 @@ if
 goto_if_false @DSKOOL_15826
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_34', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_34', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_15826
 gosub @DSKOOL_31215
@@ -3026,6 +3164,13 @@ $finish_leftx = Car.GetOffsetInWorldCoords($finish_lefty, $perfect_positionz, $i
 Text.ClearPrints
 Text.PrintBig('DSREVE', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_28', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_28', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_17240
@@ -3052,6 +3197,13 @@ if
 goto_if_false @DSKOOL_17375
 Text.PrintBig('DSREVE', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_28', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_28', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_17375
 gosub @DSKOOL_31215
@@ -3284,6 +3436,13 @@ return
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_35', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_35', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_18739
@@ -3310,6 +3469,13 @@ if
 goto_if_false @DSKOOL_18874
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_35', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_35', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_18874
 gosub @DSKOOL_31215
@@ -3583,6 +3749,13 @@ return
 Text.ClearPrints
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_33', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_33', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_20440
@@ -3609,6 +3782,13 @@ if
 goto_if_false @DSKOOL_20575
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_33', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_33', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_20575
 gosub @DSKOOL_31215
@@ -4061,6 +4241,13 @@ Streaming.LoadScene($perfect_positionx, $perfect_positiony, $perfect_positionz)
 42@ = Checkpoint.Create($cone_coords_x, $cone_coords_y, $cone_coords_z, $perfect_positionx, $perfect_positiony, $perfect_positionz, 0, 5.0)
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_31', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_31', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DSKOOL_31041
 
 :DSKOOL_23034
@@ -4093,6 +4280,13 @@ if
 goto_if_false @DSKOOL_23194
 Text.PrintBig('DSTART', 5000, TextStyle.MiddleSmaller)
 Text.PrintNow('DS1_31', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DS1_31', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DSKOOL_23194
 gosub @DSKOOL_31215
@@ -4277,11 +4471,19 @@ goto @DSKOOL_24197
 :DSKOOL_24221
 Streaming.SetAreaVisible(3)
 Char.SetAreaVisible($scplayer, 3)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 3)
+    end
+end
 World.ClearExtraColors(True)
 Streaming.RequestCollision(-2031.1, -118.2)
 Streaming.LoadScene(-2031.1, -118.2, 1034.2)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -2029.7, -115.5, 1034.2)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Char.ClearTasksImmediately($scplayer)
 Car.Delete($instructor_car)
@@ -5251,6 +5453,13 @@ Camera.SetBehindPlayer
 Weather.ForceNow(WeatherType.ExtraSunnySf)
 Streaming.SetAreaVisible(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 World.ClearExtraColors(False)
 return 
 
@@ -5343,6 +5552,7 @@ return
 
 :DSKOOL_31041
 Char.WarpIntoCar($scplayer, $instructor_car)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.LockDoors($instructor_car, CarLock.LockedPlayerInside)
 wait 0
 Camera.RestoreJumpcut
@@ -6015,6 +6225,7 @@ goto @DSKOOL_35316
 
 :DSKOOL_35302
 Char.SetCoordinates($scplayer, $noticeboard_x, $noticeboard_y, $noticeboard_z)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DSKOOL_35316
 goto @DSKOOL_35374
@@ -6028,6 +6239,7 @@ goto @DSKOOL_35374
 
 :DSKOOL_35360
 Char.SetCoordinates($scplayer, $noticeboard_x, $noticeboard_y, $noticeboard_z)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DSKOOL_35374
 Text.ClearPrints
@@ -7201,6 +7413,13 @@ if
 goto_if_false @DSKOOL_46442
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(65@(62@,7s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(65@(62@,7s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 87@ = 2
 
 :DSKOOL_46442
@@ -7215,6 +7434,13 @@ if
 goto_if_false @DSKOOL_46518
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow(65@(62@,7s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(65@(62@,7s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 88@ = 2
 
 :DSKOOL_46518
@@ -7228,6 +7454,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @DSKOOL_46583
 Text.ClearThisPrint(65@(62@,7s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(65@(62@,7s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 62@ += 1
 90@ = 2
 87@ = 0
@@ -7240,6 +7473,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @DSKOOL_46646
 Text.ClearThisPrint(65@(62@,7s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(65@(62@,7s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 62@ += 1
 90@ = 1
 88@ = 0

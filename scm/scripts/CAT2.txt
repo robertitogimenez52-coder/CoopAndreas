@@ -10,6 +10,7 @@ gosub @CAT2_30482
 terminate_this_script 
 
 :CAT2_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 638@ = 1
 37@ = DecisionMakerGroup.Load(0)
 DecisionMakerGroup.ClearEventResponse(37@, 9)
@@ -32,6 +33,7 @@ add_continuous_sound 82@ 65535 2320.043 -8.5501 27.2047
 
 :CAT2_256
 script_name 'CAT2'
+Coop.EnableSyncingThisScript()
 Camera.DoFade(0, 800)
 
 :CAT2_274
@@ -89,6 +91,7 @@ if
   Char.IsInAnyCar($scplayer)
 goto_if_false @CAT2_629
 Char.SetCoordinates($scplayer, 2297.786, -15.5166, 26.2964)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.0)
 
 :CAT2_629
@@ -107,6 +110,7 @@ Car.SetHeading(39@, 180.0)
 
 :CAT2_709
 Char.SetCoordinates($scplayer, 2297.786, -15.5166, 26.2964)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.0)
 
 :CAT2_739
@@ -118,6 +122,7 @@ goto @CAT2_802
 
 :CAT2_782
 Char.SetCoordinates($scplayer, 2297.786, -15.5166, 26.2964)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CAT2_802
 Char.SetHeading($scplayer, 162.229)
@@ -289,6 +294,7 @@ $cat_counter = 2
 34@ = 1
 41@ = 462
 Char.SetCoordinates($scplayer, 857.4263, -29.5418, 62.1858)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   not Char.IsDead($catalina)
 goto_if_false @CAT2_1960
@@ -307,6 +313,7 @@ goto @CAT2_1965
 :CAT2_1992
 69@ = Car.Create(402, 857.4263, -29.5418, 62.1858)
 Char.WarpIntoCar($scplayer, 69@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   not Char.IsDead($catalina)
 goto_if_false @CAT2_2049
@@ -319,6 +326,13 @@ if
 goto_if_false @CAT2_2094
 Text.ClearPrints
 Text.Print('CAT2_A1', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAT2_A1', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CAT2_30119
 
 :CAT2_2094
@@ -419,6 +433,7 @@ Char.SetCurrentWeapon($scplayer, WeaponType.Shotgun)
 Char.GiveWeapon($catalina, WeaponType.Shotgun, 9999)
 Char.ClearTasks($scplayer)
 Char.SetCoordinates($scplayer, 2312.578, -7.4347, 25.75)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 126.7479)
 Char.SetCoordinates($catalina, 2306.666, -4.7944, 25.75)
 Char.SetHeading($catalina, 90.0)
@@ -554,6 +569,7 @@ Object.SetCollision(73@, False)
 Object.SetCollision(74@, False)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2309.289, -14.3987, 25.75)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 287.3674)
 Char.ClearTasksImmediately($catalina)
 Char.SetCoordinates($catalina, 2310.206, -15.8887, 25.7574)
@@ -579,6 +595,7 @@ Camera.SetFixedPosition(2315.312, -13.8451, 27.6696, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2315.771, -12.9906, 27.427, SwitchType.JumpCut)
 Char.ClearTasks($scplayer)
 Char.SetCoordinates($scplayer, 2315.412, -12.1812, 25.75)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 236.5262)
 Char.FreezePosition($scplayer, True)
 Char.ClearTasks($catalina)
@@ -669,6 +686,7 @@ Camera.SetFixedPosition(2316.377, -11.0151, 28.6019, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2315.613, -10.6059, 28.1029, SwitchType.JumpCut)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2312.578, -7.4347, 25.75)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 126.7479)
 Char.ClearTasksImmediately($catalina)
 Char.SetCoordinates($catalina, 2308.502, -3.912, 25.7422)
@@ -898,7 +916,21 @@ Char.FreezePosition($catalina, False)
 Player.SetControl($player1, True)
 Text.ClearPrints
 Text.Print('CAT2_05', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAT2_05', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('CAT2_06', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAT2_06', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.HideWeaponForScriptedCutscene($scplayer, False)
 Game.SetEveryoneIgnorePlayer($player1, False)
 Hud.SwitchWidescreen(False)
@@ -2116,6 +2148,7 @@ goto @CAT2_14705
 
 :CAT2_14685
 Char.SetCoordinates($scplayer, 2319.793, 61.6571, 25.4769)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CAT2_14705
 Char.SetHeading($scplayer, 5.0)
@@ -2295,6 +2328,7 @@ goto @CAT2_15767
 
 :CAT2_15747
 Char.SetCoordinates($scplayer, 2322.075, 69.6739, 25.4784)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CAT2_15767
 Char.SetHeading($scplayer, 325.1885)
@@ -2669,6 +2703,13 @@ if and
   560@ == 0
 goto_if_false @CAT2_18323
 Text.Print('CAT2_19', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAT2_19', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 1
 
 :CAT2_18323
@@ -3701,6 +3742,13 @@ if
 goto_if_false @CAT2_25099
 Text.ClearPrints
 Text.Print('CAT2_16', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAT2_16', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 40@ = Blip.AddForCoord(867.6723, -30.3543, 62.1893)
 361@ = 0
 126@ = 4
@@ -4377,6 +4425,7 @@ if
   not Char.IsInAnyCar($catalina)
 goto_if_false @CAT2_29654
 Char.SetCoordinates($scplayer, 857.4263, -29.5418, 62.1858)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetCoordinates($catalina, 858.4263, -29.5418, 62.1858)
 Char.SetHeading($catalina, 161.446)
 Char.SetHeading($catalina, 340.446)
@@ -4501,6 +4550,7 @@ if
   Char.IsInArea3D($scplayer, 0, 2303.903, -18.2879, 25.5416, 2321.147, 0.7716, 30.8122)
 goto_if_false @CAT2_30334
 Char.SetCoordinates($scplayer, 2300.112, -16.5618, 25.4844)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 
 :CAT2_30334
@@ -4726,6 +4776,13 @@ Blip.SetAsFriendly(372@, True)
 Blip.ChangeDisplay(40@, BlipDisplay.Neither)
 Text.ClearPrints
 Text.Print('CAT2_14', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAT2_14', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CAT2_31463
 if 
@@ -5051,6 +5108,13 @@ goto_if_false @CAT2_34055
 Audio.PlayMissionAudio(557@)
 Text.ClearPrints
 Text.Print(374@(560@,60s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer(374@(560@,60s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 559@ += 1
 630@ = 0
 560@ += 1

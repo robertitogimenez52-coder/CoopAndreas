@@ -3,6 +3,7 @@
 
 :DRUGS3
 script_name 'DRUGS3'
+Coop.EnableSyncingThisScript()
 gosub @DRUGS3_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @DRUGS3_19417
 terminate_this_script 
 
 :DRUGS3_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('CRASH3')
@@ -94,6 +96,7 @@ DecisionMakerChar.ClearEventResponse(52@, 7)
 DecisionMakerChar.AddEventResponse(52@, 7, 1000, 50.0, 50.0, 50.0, 50.0, True, True)
 53@ = DecisionMakerChar.Load(DecisionMakerType.Weak)
 Char.SetCoordinates($scplayer, 1038.0, -1339.0, 12.8)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 1.0)
 Camera.SetBehindPlayer
 Streaming.LoadSceneInDirection(1038.0, -1340.99, 13.94, 1.0)
@@ -163,6 +166,13 @@ if
 goto_if_false @DRUGS3_937
 137@ = Blip.AddForCoord(2247.639, -2202.144, 12.59)
 Text.PrintNow('CSH3_1', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CSH3_1', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 141@ = 1
 
 :DRUGS3_937
@@ -402,6 +412,13 @@ Car.StartPlayback(56@, 328)
 Car.StartPlayback(57@, 329)
 Car.StartPlayback(54@, 309)
 Text.PrintNow('CSH3_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CSH3_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DRUGS3_3391
 141@ = 2
@@ -477,6 +494,13 @@ if
   TIMERA > 3150
 goto_if_false @DRUGS3_4088
 Text.PrintNow('CSH3_3', 7000, 2)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CSH3_3', 7000, 2, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.SetFixedPosition(2210.3, -2254.067, 16.7105, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2209.311, -2254.181, 16.6143, SwitchType.JumpCut)
 if 
@@ -982,6 +1006,13 @@ if
 goto_if_false @DRUGS3_7512
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('CRA3_EA', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA3_EA', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 145@ = 4
 
 :DRUGS3_7512
@@ -1001,6 +1032,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('CRA3_EC', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA3_EC', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 145@ = 5
 
 :DRUGS3_7609
@@ -1028,7 +1066,7 @@ if
   Char.IsInCar(63@, 61@)
 goto_if_false @DRUGS3_7784
 if 
-  Car.IsOnScreen(61@)
+  Coop.IsCarOnAnyPlayersScreen(61@)
 goto_if_false @DRUGS3_7784
 Task.CarDriveToCoord(63@, 61@, 2195.84, -2251.522, 12.598, 5.0, DriveMode.Normal, 0, DrivingMode.PloughThrough)
 144@ = 2
@@ -1399,6 +1437,13 @@ if
   150@ == 0
 goto_if_false @DRUGS3_10758
 Text.PrintNow('CSH3_13', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CSH3_13', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Object.Delete(51@)
 Streaming.MarkModelAsNoLongerNeeded(#SEC_KEYPAD)
 Sound.AddOneOffSound(65535, 2181.127, -2251.999, 14.036)
@@ -1982,6 +2027,13 @@ Streaming.MarkModelAsNoLongerNeeded(#IMCMPTRKDRL_LAS)
 Streaming.MarkModelAsNoLongerNeeded(#IMCMPTRKDRR_LAS)
 Streaming.MarkModelAsNoLongerNeeded(#IMCOMPMOVEDR1_LAS)
 Text.PrintNow('CSH3_53', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CSH3_53', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(109@)
 goto_if_false @DRUGS3_14178
@@ -2401,6 +2453,13 @@ if
   not Char.IsOnScreen(101@)
 goto_if_false @DRUGS3_16877
 Text.PrintNow('CSH3_55', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CSH3_55', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRUGS3_19343
 
 :DRUGS3_16877
@@ -2483,6 +2542,13 @@ if
   Char.LocateAnyMeansChar2D(101@, $scplayer, 60.0, 60.0, False)
 goto_if_false @DRUGS3_17400
 Text.PrintNow('CSH3_54', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CSH3_54', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.SetHealth(101@, 100)
 Char.SetSuffersCriticalHits(101@, True)
 Car.GotoCoordinates(54@, 2246.61, -2204.78, 13.65)
@@ -2696,6 +2762,13 @@ if
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
 goto_if_false @DRUGS3_18572
 Text.PrintNow(78@s, 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(78@s, 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(101@)
 goto_if_false @DRUGS3_18561

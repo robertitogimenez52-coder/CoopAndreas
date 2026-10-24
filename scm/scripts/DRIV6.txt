@@ -3,6 +3,7 @@
 
 :DRIV6
 script_name 'DRIV6'
+Coop.EnableSyncingThisScript()
 gosub @DRIV6_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :DRIV6_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('FARLIE5')
 $onmission = 1
 wait 0
@@ -149,6 +151,7 @@ CarGenerator.Switch($5280, 0)
 CarGenerator.Switch($5281, 0)
 CarGenerator.Switch($5282, 0)
 Char.SetCoordinates($scplayer, -2154.2, 645.31, 51.39)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 gosub @DRIV6_4442
 262@ = Blip.AddForCar(34@)
@@ -160,6 +163,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Text.PrintNow('DRV6_8', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_8', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DRIV6_905
 wait 0
@@ -182,7 +192,21 @@ Blip.Remove(262@)
 137@ = 1
 263@ = Blip.AddForCoord(-1963.84, -2441.49, 30.78)
 Text.PrintNow('DRV6_19', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_19', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DRV6_17', 7000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DRV6_17', 7000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   $d6_trip_skips_available == 1
 goto_if_false @DRIV6_1088
@@ -201,6 +225,13 @@ if and
   Char.LocateAnyMeans2D($scplayer, 0, -1990.65, -2428.65, 50.0, 50.0)
 goto_if_false @DRIV6_1192
 Text.ClearThisPrint('DRV6_19')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('DRV6_19', $NETWORK_PLAYER[$temp_int])
+    end
+end
 138@ = 1
 
 :DRIV6_1192
@@ -226,9 +257,37 @@ Hud.DisplayCounterWithString($d6_door_health, CounterDisplay.Bar, 'DRV6_18')
 $d6_door_health = 100
 Car.SetHealth(34@, 9000)
 Text.PrintNow('DRV6_2', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_2', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DRV6_17', 7000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DRV6_17', 7000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DRV6_4', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DRV6_4', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DRV6_15', 10000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DRV6_15', 10000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 139@ = 1
 TIMERB = 0
 
@@ -514,6 +573,13 @@ if and
   256@ <> 1
 goto_if_false @DRIV6_3682
 Text.PrintNow('DRV6_6', 7000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_6', 7000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 256@ = 1
 
 :DRIV6_3682
@@ -523,6 +589,13 @@ if and
 goto_if_false @DRIV6_3742
 Hud.ClearCounter($d6_door_health)
 Text.PrintNow('DRV6_16', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_16', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 257@ = 1
 
@@ -541,6 +614,13 @@ if
 goto_if_false @DRIV6_3826
 Text.ClearPrints
 Text.PrintNow('DRV6_11', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_11', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV6_12763
 
 :DRIV6_3826
@@ -605,6 +685,13 @@ gosub @DRIV6_9452
 :DRIV6_4156
 Text.ClearPrints
 Text.PrintNow('DRV6_7', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_7', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV6_12763
 
 :DRIV6_4181
@@ -638,6 +725,13 @@ goto @DRIV6_4275
 gosub @DRIV6_9452
 Text.ClearPrints
 Text.PrintNow('DRV6_7', 5000, 0)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DRV6_7', 5000, 0, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DRIV6_12763
 
 :DRIV6_4344
@@ -1935,6 +2029,13 @@ if
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
 goto_if_false @DRIV6_12761
 Text.PrintNow(110@(132@,7s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(110@(132@,7s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 131@ = 2
 

@@ -3,6 +3,7 @@
 
 :DECON
 script_name 'DECON'
+Coop.EnableSyncingThisScript()
 gosub @DECON_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :DECON_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 34@ = 0
 35@ = 0
@@ -331,6 +333,13 @@ goto @DECON_2113
 :DECON_2137
 Streaming.SetAreaVisible(1)
 Char.SetAreaVisible($scplayer, 1)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 1)
+    end
+end
 Streaming.LoadScene(-2031.0, 149.0, 29.0)
 Cutscene.Start
 Camera.DoFade(1, 1000)
@@ -356,6 +365,13 @@ goto @DECON_2213
 
 :DECON_2237
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Streaming.SetAreaVisible(0)
 35@ += 1
 
@@ -588,6 +604,7 @@ Player.SetControl($player1, False)
 Camera.SetFixedPosition(-2010.461, 171.3564, 41.8495, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-2011.302, 171.8702, 41.6786, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, -2030.987, 148.5787, 27.8359)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 359.4339)
 50@ = -2011.302
 50@ += 2010.461
@@ -618,6 +635,13 @@ goto @DECON_4302
 
 :DECON_4326
 Text.PrintNow('GAR2_01', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_01', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 35@ += 1
 
@@ -676,6 +700,13 @@ Sequence.Clear(49@)
 
 :DECON_4813
 Text.PrintNow('GAR2_02', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_02', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 35@ += 1
 
@@ -734,6 +765,13 @@ goto @DECON_5186
 
 :DECON_5210
 Text.Print('GAR2_05', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GAR2_05', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 TIMERA = 0
 
@@ -827,6 +865,13 @@ if
   TIMERA > 0
 goto_if_false @DECON_5843
 Text.PrintNow('GAR2_19', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_19', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 TIMERB = 30000
 63@ = 0
@@ -914,6 +959,13 @@ World.CreateEmergencyServicesCar(597, -2039.255, 232.481, 33.9528)
 World.CreateEmergencyServicesCar(597, -2038.185, 254.2709, 34.0893)
 37@ = 1
 Text.PrintNow('GAR2_40', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_40', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_6325
 if 
@@ -946,30 +998,65 @@ if
   140@ == 1
 goto_if_false @DECON_6507
 Text.PrintNow('GAR2_29', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_29', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_6507
 if 
   140@ == 2
 goto_if_false @DECON_6541
 Text.PrintNow('GAR2_30', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_30', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_6541
 if 
   140@ == 3
 goto_if_false @DECON_6575
 Text.PrintNow('GAR2_31', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_31', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_6575
 if 
   140@ == 4
 goto_if_false @DECON_6609
 Text.PrintNow('GAR2_32', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_32', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_6609
 if 
   140@ == 5
 goto_if_false @DECON_6643
 Text.PrintNow('GAR2_33', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_33', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_6643
 TIMERA = 0
@@ -1031,6 +1118,7 @@ if
   Char.IsInArea3D($scplayer, 0, -2066.839, 209.6444, 28.403, -2040.101, 262.7024, 34.9146)
 goto_if_false @DECON_6948
 Char.SetCoordinates($scplayer, -2090.044, 209.4996, 33.9509)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 250.813)
 
 :DECON_6948
@@ -1374,6 +1462,13 @@ Text.ClearPrints
 Camera.SetFixedPosition(-2037.439, 244.0506, 43.8289, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-2038.147, 244.4092, 43.2209, SwitchType.JumpCut)
 Text.Print('GAR2_11', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GAR2_11', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :DECON_9145
@@ -1393,6 +1488,13 @@ Text.ClearPrints
 Camera.SetFixedPosition(-2031.781, 262.1947, 36.3181, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-2032.476, 262.9132, 36.3398, SwitchType.JumpCut)
 Text.Print('GAR2_12', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GAR2_12', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 35@ += 1
 
@@ -1516,6 +1618,13 @@ Blip.ChangeColor(125@, BlipColor.Red)
 :DECON_9830
 124@ = Blip.AddForCoord(-2048.644, 250.1341, 35.54)
 Text.Print('GAR2_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GAR2_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 63@ = 0
 65@ = 4000
@@ -1616,6 +1725,13 @@ if and
 goto_if_false @DECON_10575
 Text.ClearPrints
 Text.PrintNow('GAR2_34', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_34', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 173@ = 151001
 65@ = 0
 
@@ -1633,6 +1749,13 @@ World.CreateEmergencyServicesCar(597, -2039.255, 232.481, 33.9528)
 World.CreateEmergencyServicesCar(597, -2038.185, 254.2709, 34.0893)
 37@ = 1
 Text.PrintNow('GAR2_35', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_35', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_10684
 if 
@@ -1650,6 +1773,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearPrints
 Text.PrintNow('GAR2_36', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_36', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(124@)
 Blip.Remove(125@)
 35@ += 1
@@ -1675,6 +1805,13 @@ if
   168@ <> 1
 goto_if_false @DECON_11032
 Text.PrintNow('GAR2_37', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_37', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Blip.DoesExist(126@)
 goto_if_false @DECON_10963
@@ -1782,6 +1919,13 @@ goto @DECON_11561
 
 :DECON_11545
 Text.PrintNow('GAR2_14', 1000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_14', 1000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_11561
 goto @DECON_11610
@@ -1791,6 +1935,13 @@ if
   TIMERA > 30000
 goto_if_false @DECON_11610
 Text.PrintNow('GAR2_20', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_20', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :DECON_11610
@@ -1821,6 +1972,13 @@ goto_if_false @DECON_11728
 126@ = Blip.AddForCar(85@)
 Blip.SetAsFriendly(126@, True)
 Text.PrintNow('GAR2_36', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_36', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_11728
 if 
@@ -1832,6 +1990,13 @@ goto_if_false @DECON_11791
 127@ = Blip.AddForCar(89@)
 Blip.SetAsFriendly(127@, True)
 Text.PrintNow('GAR2_36', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_36', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_11791
 return 
@@ -1847,7 +2012,7 @@ if
   Car.Locate3D(85@, 0, -2049.199, 250.3882, 32.9084, 2.454, 5.042, 2.3)
 goto_if_false @DECON_11899
 if 
-  not Car.IsOnScreen(85@)
+  not Coop.IsCarOnAnyPlayersScreen(85@)
 goto_if_false @DECON_11899
 Car.Delete(85@)
 Blip.Remove(126@)
@@ -1864,7 +2029,7 @@ goto @DECON_12068
 
 :DECON_11923
 if 
-  not Camera.IsPointOnScreen(-2112.603, 193.7894, 33.6684, 5.0)
+  not Coop.IsPointOnAnyPlayersScreen(-2112.603, 193.7894, 33.6684, 5.0)
 goto_if_false @DECON_12068
 if 
   not World.IsPointObscuredByAMissionEntity(-2112.603, 193.7894, 33.6684, 3.0, 3.0, 3.0)
@@ -1891,7 +2056,7 @@ if
   Car.Locate3D(89@, 0, -2049.199, 250.3882, 32.9084, 2.454, 5.042, 2.3)
 goto_if_false @DECON_12174
 if 
-  not Car.IsOnScreen(89@)
+  not Coop.IsCarOnAnyPlayersScreen(89@)
 goto_if_false @DECON_12174
 Car.Delete(89@)
 Blip.Remove(127@)
@@ -1908,7 +2073,7 @@ goto @DECON_12343
 
 :DECON_12198
 if 
-  not Camera.IsPointOnScreen(-2037.176, 269.7917, 34.9191, 5.0)
+  not Coop.IsPointOnAnyPlayersScreen(-2037.176, 269.7917, 34.9191, 5.0)
 goto_if_false @DECON_12343
 if 
   not World.IsPointObscuredByAMissionEntity(-2037.176, 269.7917, 34.9191, 3.0, 3.0, 3.0)
@@ -1985,6 +2150,7 @@ goto @DECON_12580
 
 :DECON_12652
 Char.SetCoordinates($scplayer, -2049.734, 241.7195, 70.7037)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 176.835)
 43@ = 0
 
@@ -2032,6 +2198,7 @@ goto @DECON_12809
 :DECON_12938
 World.ClearArea(1, -2049.734, 241.7195, 34.7037, 10.0)
 Char.SetCoordinates($scplayer, -2049.734, 241.7195, 34.7037)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 176.835)
 if 
   not Car.IsDead(90@)
@@ -2264,6 +2431,13 @@ goto_if_false @DECON_14202
 $portacabin_timer = 180000
 Hud.DisplayTimer($portacabin_timer, TimerDirection.Down)
 Text.Print('GAR2_41', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GAR2_41', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DECON_14202
 goto @DECON_14303
@@ -2299,6 +2473,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @DECON_14385
 Text.PrintNow('GAR2_39', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_39', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 167@ += 1
 
 :DECON_14385
@@ -2860,6 +3041,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @DECON_17975
 Text.PrintNow('GAR2_38', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GAR2_38', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 166@ = 1
 
 :DECON_17975
@@ -3283,6 +3471,7 @@ if
   Char.LocateAnyMeans3D($scplayer, 0, -2049.199, 250.3882, 32.9084, 2.454, 5.042, 2.3)
 goto_if_false @DECON_20962
 Char.SetCoordinates($scplayer, -2045.189, 241.7544, 34.9462)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 186.3532)
 
 :DECON_20962

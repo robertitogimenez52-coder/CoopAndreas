@@ -10,9 +10,11 @@ gosub @CATALIN_7530
 terminate_this_script 
 
 :CATALIN_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 script_name 'CATALIN'
+Coop.EnableSyncingThisScript()
 wait 0
 Text.LoadMissionText('CAT')
 52@ = 0
@@ -72,6 +74,7 @@ goto @CATALIN_248
 World.ClearArea(0, 681.1634, -478.1859, 15.3281, 0.5)
 Streaming.LoadScene(681.1634, -478.1859, 15.3281)
 Char.SetCoordinates($scplayer, 681.1634, -478.1859, 15.3281)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 177.0008)
 Camera.SetBehindPlayer
 $catalina = Char.Create(23, 294, 682.8292, -477.8332, 15.3359)
@@ -214,6 +217,7 @@ goto @CATALIN_1380
 World.ClearArea(0, 868.4825, -29.6753, 62.1875, 0.5)
 Streaming.LoadScene(868.4825, -29.6753, 62.1875)
 Char.SetCoordinates($scplayer, 868.4825, -29.6753, 62.1875)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 157.9281)
 Camera.SetBehindPlayer
 $catalina = Char.Create(23, 294, 867.7455, -29.0865, 62.1875)
@@ -352,6 +356,7 @@ goto @CATALIN_2377
 World.ClearArea(0, 868.4825, -29.6753, 62.1875, 0.5)
 Streaming.LoadScene(868.4825, -29.6753, 62.1875)
 Char.SetCoordinates($scplayer, 868.4825, -29.6753, 62.1875)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 157.9281)
 Camera.SetBehindPlayer
 $catalina = Char.Create(23, 294, 867.7455, -29.0865, 62.1875)
@@ -468,6 +473,7 @@ goto @CATALIN_3267
 World.ClearArea(0, 868.4825, -29.6753, 62.1875, 0.5)
 Streaming.LoadScene(868.4825, -29.6753, 62.1875)
 Char.SetCoordinates($scplayer, 868.4825, -29.6753, 62.1875)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 157.9281)
 Camera.SetBehindPlayer
 $catalina = Char.Create(23, 294, 867.7455, -29.0865, 62.1875)
@@ -852,6 +858,7 @@ if
 goto_if_false @CATALIN_6028
 World.ClearArea(0, $507, $513, $519, 0.5)
 Char.SetCoordinates($scplayer, $507, $513, $519)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 set_var_float_to_var_float $x = $507
 $x -= 1.0
 Char.SetCoordinates($catalina, $x, $513, $519)
@@ -863,6 +870,7 @@ if
 goto_if_false @CATALIN_6121
 World.ClearArea(0, $508, $514, $520, 0.5)
 Char.SetCoordinates($scplayer, $508, $514, $520)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 set_var_float_to_var_float $x = $508
 $x -= 1.0
 Char.SetCoordinates($catalina, $x, $514, $520)
@@ -874,6 +882,7 @@ if
 goto_if_false @CATALIN_6214
 World.ClearArea(0, $509, $515, $521, 0.5)
 Char.SetCoordinates($scplayer, $509, $515, $521)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 set_var_float_to_var_float $x = $509
 $x -= 1.0
 Char.SetCoordinates($catalina, $x, $515, $521)
@@ -885,6 +894,7 @@ if
 goto_if_false @CATALIN_6307
 World.ClearArea(0, $510, $516, $522, 0.5)
 Char.SetCoordinates($scplayer, $510, $516, $522)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 set_var_float_to_var_float $x = $510
 $x -= 1.0
 Char.SetCoordinates($catalina, $x, $516, $522)
@@ -998,6 +1008,13 @@ if
   237@ == 1
 goto_if_false @CATALIN_6954
 Text.PrintNow('CATLEFT', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CATLEFT', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(242@)
 Blip.Remove(243@)
 Blip.Remove(244@)
@@ -1051,6 +1068,13 @@ goto @CATALIN_7208
 
 :CATALIN_7185
 Text.PrintNow('CATDEAD', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CATDEAD', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CATALIN_7507
 
 :CATALIN_7208

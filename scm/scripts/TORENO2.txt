@@ -3,6 +3,7 @@
 
 :TORENO2
 script_name 'TORENO2'
+Coop.EnableSyncingThisScript()
 gosub @TORENO2_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @TORENO2_10787
 terminate_this_script 
 
 :TORENO2_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('TORENO2')
@@ -174,6 +176,7 @@ CarGenerator.SuppressCarModel(581)
 CarGenerator.SuppressCarModel(586)
 World.ClearArea(1, -693.6, 924.5, 11.3, 1.0)
 Char.SetCoordinates($scplayer, -693.6, 924.5, 11.3)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 71.2)
 World.ClearArea(1, -685.1, 922.0, 10.9, 180.0)
 World.ClearArea(1, -692.2, 948.0, 11.2, 100.0)
@@ -298,6 +301,7 @@ goto @TORENO2_10697
 :TORENO2_1932
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -710.0, 938.4, 11.4)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 47.9)
 Char.ClearTasksImmediately($cesar)
 Char.SetCoordinates($cesar, -708.0, 937.9, 11.4)
@@ -310,6 +314,13 @@ Group.SetDefaultTaskAllocator($Players_Group, DefaultTaskAllocator.FollowLimited
 40@ = Blip.AddForCar(36@)
 Blip.SetAsFriendly(40@, True)
 Text.PrintNow('TOR1_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Game.ShutAllCharsUp(False)
 Hud.SwitchWidescreen(False)
 Player.MakeGangReappear
@@ -411,6 +422,13 @@ if
   73@ == 0
 goto_if_false @TORENO2_2657
 Text.PrintNow('TOR1_04', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_04', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 75@ = 1
 
 :TORENO2_2657
@@ -573,6 +591,13 @@ if
   Char.IsInCar($cesar, 36@)
 goto_if_false @TORENO2_3722
 Text.PrintNow('TOR1_10', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_10', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Car.SetCruiseSpeed(34@, 37.0)
 42@ = 2
 
@@ -597,6 +622,13 @@ goto_if_false @TORENO2_3966
 Task.PlayAnim($cesar, "BK_RDY_IN", "BIKELEAP", 4.0, False, False, False, True, -1)
 51@ = 2
 Text.PrintNow('HOLD_1', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HOLD_1', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 47@ = 1
 
 :TORENO2_3966
@@ -637,6 +669,13 @@ goto @TORENO2_4203
 
 :TORENO2_4178
 Text.ClearThisPrint('HOLD_1')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HOLD_1', $NETWORK_PLAYER[$temp_int])
+    end
+end
 61@ = 0
 47@ = 0
 
@@ -976,6 +1015,13 @@ Blip.Remove(40@)
 Blip.SetAsFriendly(40@, True)
 Char.ShutUpForScriptedSpeech($cesar, False)
 Text.PrintNow('TOR1_11', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_11', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 42@ = 0
 73@ = 0
 75@ = 0
@@ -1220,6 +1266,13 @@ goto_if_false @TORENO2_8309
 Blip.Remove(40@)
 40@ = Blip.AddForCoord(-2016.5, 157.7, 26.7)
 Text.Print('TOR1_06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 55@ = 1
 goto @TORENO2_8352
 
@@ -1228,6 +1281,13 @@ Blip.Remove(40@)
 40@ = Blip.AddForCar(37@)
 Blip.SetAsFriendly(40@, True)
 Text.Print('TOR1_21', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_21', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 55@ = 0
 
 :TORENO2_8352
@@ -1362,6 +1422,7 @@ Trailer.AttachToCab(37@, 34@)
 :TORENO2_9078
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -2035.3, 180.5, 27.8)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 277.5)
 125@ = Sequence.Open()
 Task.PlayAnim(-1, "COPTRAF_COME", "POLICE", 4.0, False, False, False, False, -1)
@@ -1522,6 +1583,7 @@ if
   Char.IsInArea2D($scplayer, 0, -1915.0, -977.8, -2013.4, -1074.8)
 goto_if_false @TORENO2_10095
 Char.SetCoordinates($scplayer, -1984.5, -1072.9, 31.5)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :TORENO2_10095
 if 
@@ -1557,6 +1619,13 @@ Sequence.Clear(125@)
 
 :TORENO2_10461
 Text.PrintNow('TOR1_12', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_12', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 1000)
 
 :TORENO2_10484
@@ -1598,6 +1667,13 @@ goto @TORENO2_10697
 :TORENO2_10658
 Text.ClearPrints
 Text.PrintNow('TOR1_12', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_12', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @TORENO2_10697
 
 :TORENO2_10683
@@ -1660,6 +1736,13 @@ if
 goto_if_false @TORENO2_10979
 Text.ClearPrints
 Text.PrintNow('TOR1_02', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_02', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :TORENO2_10979
@@ -1671,6 +1754,13 @@ if
 goto_if_false @TORENO2_11038
 Text.ClearPrints
 Text.PrintNow('TOR1_14', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_14', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :TORENO2_11038
@@ -1679,6 +1769,13 @@ if
 goto_if_false @TORENO2_11079
 Text.ClearPrints
 Text.PrintNow('TOR1_14', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_14', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :TORENO2_11079
@@ -1687,6 +1784,13 @@ if
 goto_if_false @TORENO2_11120
 Text.ClearPrints
 Text.PrintNow('TOR1_03', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_03', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :TORENO2_11120
@@ -1747,6 +1851,13 @@ Blip.Remove(40@)
 40@ = Blip.AddForCar(37@)
 Blip.SetAsFriendly(40@, True)
 Text.PrintNow('TOR1_21', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_21', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 55@ = 0
 
 :TORENO2_11425
@@ -1759,6 +1870,13 @@ goto_if_false @TORENO2_11510
 Blip.Remove(40@)
 40@ = Blip.AddForCoord(-2016.5, 157.7, 26.7)
 Text.Print('TOR1_06', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_06', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 55@ = 1
 
 :TORENO2_11510
@@ -1775,7 +1893,21 @@ if
   Char.IsInCar($scplayer, 36@)
 goto_if_false @TORENO2_11700
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('TOR1_20')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('TOR1_20', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(40@)
 if 
   not Car.IsDead(34@)
@@ -1790,10 +1922,24 @@ if
   Char.IsInCar($cesar, 36@)
 goto_if_false @TORENO2_11677
 Text.PrintNow('TOR1_05', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_05', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @TORENO2_11693
 
 :TORENO2_11677
 Text.PrintNow('TOR1_16', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_16', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :TORENO2_11693
 45@ = 1
@@ -1806,8 +1952,29 @@ if
   not Char.IsInCar($scplayer, 36@)
 goto_if_false @TORENO2_11830
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('TOR1_10')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('TOR1_10', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('TOR1_16')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('TOR1_16', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(40@)
 40@ = Blip.AddForCar(36@)
 Blip.SetAsFriendly(40@, True)
@@ -1815,6 +1982,13 @@ if
   TIMERB > 8000
 goto_if_false @TORENO2_11823
 Text.PrintNow('TOR1_20', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TOR1_20', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :TORENO2_11823
 45@ = 0
@@ -2051,6 +2225,13 @@ goto @TORENO2_13271
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 102@ = 0
 
@@ -2087,6 +2268,13 @@ goto @TORENO2_13446
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 102@ = 0
 
@@ -2121,6 +2309,13 @@ goto @TORENO2_13607
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 102@ = 0
 
@@ -2155,6 +2350,13 @@ goto @TORENO2_13768
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 102@ = 0
 
@@ -2180,6 +2382,13 @@ goto_if_false @TORENO2_13833
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearPrints
 set_lvar_int_to_lvar_int 109@ = 73@
 set_lvar_int_to_lvar_int 110@ = 74@
@@ -2211,6 +2420,13 @@ goto @TORENO2_14037
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 102@ = 0
 
@@ -2219,6 +2435,13 @@ goto @TORENO2_14067
 
 :TORENO2_14044
 Text.Print('TOR1_13', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_13', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 73@ = 15
 
 :TORENO2_14067
@@ -2226,6 +2449,13 @@ goto @TORENO2_14097
 
 :TORENO2_14074
 Text.Print('TOR1_13', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_13', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 73@ = 15
 
 :TORENO2_14097
@@ -2257,10 +2487,24 @@ if
   Char.IsInCar($scplayer, 36@)
 goto_if_false @TORENO2_14277
 Text.Print('TOR1_05', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_05', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @TORENO2_14293
 
 :TORENO2_14277
 Text.Print('TOR1_20', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_20', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :TORENO2_14293
 TIMERB = 0
@@ -2274,6 +2518,13 @@ goto @TORENO2_14376
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 73@ = 14
 74@ = Math.RandomIntInRange(0, 4)
 set_lvar_int_to_lvar_int 108@ = 74@
@@ -2308,6 +2559,13 @@ goto @TORENO2_14543
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 102@ = 0
 
@@ -2334,6 +2592,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearPrints
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 109@ = 73@
 set_lvar_int_to_lvar_int 110@ = 74@
 73@ = 17
@@ -2364,6 +2629,13 @@ goto @TORENO2_14824
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 102@ = 0
 
@@ -2372,6 +2644,13 @@ goto @TORENO2_14854
 
 :TORENO2_14831
 Text.Print('TOR1_11', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_11', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 73@ = 18
 
 :TORENO2_14854
@@ -2381,6 +2660,13 @@ goto_if_false @TORENO2_14906
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 73@ = 19
 74@ = 0
 Text.ClearPrints
@@ -2414,10 +2700,24 @@ if
   55@ == 1
 goto_if_false @TORENO2_15085
 Text.Print('TOR1_06', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_06', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @TORENO2_15101
 
 :TORENO2_15085
 Text.Print('TOR1_21', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TOR1_21', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :TORENO2_15101
 if 
@@ -2426,6 +2726,13 @@ goto_if_false @TORENO2_15175
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 73@ = 17
 74@ = Math.RandomIntInRange(0, 6)
 set_lvar_int_to_lvar_int 108@ = 74@
@@ -2638,6 +2945,13 @@ if
 goto_if_false @TORENO2_16648
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(76@(74@,8s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(76@(74@,8s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 2
 
 :TORENO2_16648
@@ -2652,6 +2966,13 @@ if
 goto_if_false @TORENO2_16724
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow(76@(74@,8s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(76@(74@,8s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 102@ = 2
 
 :TORENO2_16724
@@ -2665,6 +2986,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @TORENO2_16789
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 74@ += 1
 104@ = 2
 101@ = 0
@@ -2677,6 +3005,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @TORENO2_16852
 Text.ClearThisPrint(76@(74@,8s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(76@(74@,8s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 74@ += 1
 104@ = 1
 102@ = 0

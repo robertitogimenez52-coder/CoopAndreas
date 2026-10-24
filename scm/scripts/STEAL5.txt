@@ -3,6 +3,7 @@
 
 :STEAL5
 script_name 'STEAL5'
+Coop.EnableSyncingThisScript()
 gosub @STEAL5_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @STEAL5_5195
 terminate_this_script 
 
 :STEAL5_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('STEAL5')
@@ -60,6 +62,13 @@ $s5_stingers_left = 3
 Player.MakeGangDisappear
 Streaming.SetAreaVisible(1)
 Char.SetAreaVisible($scplayer, 1)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 1)
+    end
+end
 Streaming.LoadScene(-2031.0, 149.0, 29.0)
 Cutscene.Load('STEAL_5')
 
@@ -94,6 +103,13 @@ goto @STEAL5_485
 :STEAL5_509
 Streaming.SetAreaVisible(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Cutscene.Clear
 Player.SetControl($player1, False)
 Player.MakeGangReappear
@@ -139,8 +155,16 @@ Char.SetLoadCollisionFlag(35@, True)
 Char.SetCanBeShotInVehicle(35@, False)
 Hud.DisplayCounterWithString($s5_stingers_left, CounterDisplay.Number, 'STE5_04')
 Text.PrintNow('STE5_12', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_12', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 World.ClearArea(1, -2028.6, 162.9, 27.8, 1.0)
 Char.SetCoordinates($scplayer, -2028.6, 162.9, 27.8)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 336.6)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -189,6 +213,13 @@ if
   TIMERB > 14000
 goto_if_false @STEAL5_1182
 Text.PrintNow('STE5_06', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_06', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL5_1182
 Text.ClearHelp
@@ -208,6 +239,13 @@ if
   TIMERB > 14000
 goto_if_false @STEAL5_1283
 Text.PrintNow('STE5_07', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_07', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL5_1283
 45@ = 1
@@ -249,6 +287,13 @@ if
 goto_if_false @STEAL5_1457
 Text.ClearPrints
 Text.PrintNow('STE5_05', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_05', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL5_5099
 
 :STEAL5_1457
@@ -262,6 +307,13 @@ if
   Char.IsInCar($scplayer, 39@)
 goto_if_false @STEAL5_1563
 Text.PrintNow('STE5_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintWithNumber('STE5_02', 3, 7000, 1)
 TIMERB = 0
 42@ = 1
@@ -289,6 +341,13 @@ Blip.Remove(40@)
 Blip.SetAsFriendly(40@, True)
 Car.SetWatertight(34@, False)
 Text.PrintNow('STE5_13', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_13', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 42@ = 0
 41@ = 1
@@ -472,6 +531,7 @@ if
   not Car.IsDead(34@)
 goto_if_false @STEAL5_2618
 Char.WarpIntoCar($scplayer, 34@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.SetOnlyDamagedByPlayer(34@, False)
 Car.FixTire(34@, 2)
 Car.FixTire(34@, 0)
@@ -499,6 +559,13 @@ Blip.Remove(40@)
 45@ = 1
 Text.ClearPrints
 Text.PrintNow('STE5_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 500)
 
 :STEAL5_2762
@@ -566,6 +633,13 @@ Player.SetControl($player1, False)
 Hud.SwitchWidescreen(True)
 Char.HideWeaponForScriptedCutscene($scplayer, True)
 Char.SetAreaVisible($scplayer, 1)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 1)
+    end
+end
 World.ClearArea(1, -2033.3, 179.1, 27.4, 25.0)
 if 
   not Car.IsDead(34@)
@@ -645,6 +719,13 @@ goto @STEAL5_3554
 :STEAL5_3578
 Streaming.SetAreaVisible(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Streaming.LoadScene(-2045.4, 173.1, 27.8)
 Streaming.LoadSceneInDirection(-2045.4, 173.1, 27.8, 309.5)
 Text.ClearPrints
@@ -652,6 +733,7 @@ Char.ClearTasksImmediately($scplayer)
 Car.Delete(34@)
 World.ClearArea(1, -2027.2, 179.5, 27.8, 1.0)
 Char.SetCoordinates($scplayer, -2027.2, 179.5, 27.8)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 275.9)
 Char.HideWeaponForScriptedCutscene($scplayer, False)
 Hud.SwitchWidescreen(False)
@@ -716,6 +798,13 @@ Blip.Remove(40@)
 Blip.SetAsFriendly(40@, True)
 Text.ClearPrints
 Text.PrintNow('STE5_08', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_08', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 45@ = 0
 
 :STEAL5_4123
@@ -734,6 +823,13 @@ goto_if_false @STEAL5_4203
 :STEAL5_4203
 Text.ClearPrints
 Text.PrintNow('STE5_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 45@ = 1
 
 :STEAL5_4228
@@ -771,6 +867,7 @@ World.ClearArea(1, -2125.5, -2467.5, 29.6, 1.0)
 Streaming.RequestCollision(-2125.5, -2467.5)
 Streaming.LoadScene(-2125.5, -2467.5, 29.6)
 Char.SetCoordinates($scplayer, -2125.5, -2467.5, 29.6)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   not Char.IsDead(35@)
 goto_if_false @STEAL5_4467
@@ -792,6 +889,13 @@ Car.SetHeading(34@, 233.8)
 Camera.SetFixedPosition(-2106.0, -2465.7, 30.8, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-2112.2, -2461.1, 29.6, SwitchType.JumpCut)
 Text.PrintNow('STE5_14', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_14', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 500)
 
 :STEAL5_4647
@@ -860,6 +964,7 @@ Streaming.LoadScene(86@, 87@, 88@)
 Streaming.LoadAllModelsNow
 World.ClearArea(1, 86@, 87@, 88@, 1.0)
 Char.SetCoordinates($scplayer, 86@, 87@, 88@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.HideWeaponForScriptedCutscene($scplayer, False)
 Hud.SwitchWidescreen(False)
 Player.MakeGangReappear
@@ -869,6 +974,13 @@ Player.SetControl($player1, True)
 Text.ClearPrints
 Text.PrintBig('M_FAIL', 5000, TextStyle.Middle)
 Text.PrintNow('STE5_14', 5500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_14', 5500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 500)
 
 :STEAL5_5054
@@ -938,6 +1050,13 @@ if
 goto_if_false @STEAL5_5344
 Text.ClearPrints
 Text.PrintNow('STE5_09', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_09', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :STEAL5_5344
@@ -949,6 +1068,13 @@ if
 goto_if_false @STEAL5_5403
 Text.ClearPrints
 Text.PrintNow('STE5_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STE5_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :STEAL5_5403
@@ -1142,7 +1268,7 @@ if
   not Car.IsDead(34@)
 goto_if_false @STEAL5_6498
 if 
-  Car.IsOnScreen(34@)
+  Coop.IsCarOnAnyPlayersScreen(34@)
 goto_if_false @STEAL5_6491
 Car.SetWatertight(34@, False)
 goto @STEAL5_6498
@@ -1535,6 +1661,13 @@ if
 goto_if_false @STEAL5_9056
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(55@(53@,6s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(55@(53@,6s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 74@ = 2
 
 :STEAL5_9056
@@ -1549,6 +1682,13 @@ if
 goto_if_false @STEAL5_9132
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow(55@(53@,6s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(55@(53@,6s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 75@ = 2
 
 :STEAL5_9132
@@ -1562,6 +1702,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @STEAL5_9197
 Text.ClearThisPrint(55@(53@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(55@(53@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 53@ += 1
 77@ = 2
 74@ = 0
@@ -1574,6 +1721,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @STEAL5_9260
 Text.ClearThisPrint(55@(53@,6s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(55@(53@,6s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 53@ += 1
 77@ = 1
 75@ = 0

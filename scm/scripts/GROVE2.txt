@@ -3,6 +3,7 @@
 
 :GROVE2
 script_name 'GROVE2'
+Coop.EnableSyncingThisScript()
 gosub @GROVE2_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @GROVE2_3228
 terminate_this_script 
 
 :GROVE2_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Game.MakeRoomInPlayerGangForMissionPeds(1)
 Text.LoadMissionText('GROVE2')
 Camera.SetFadingColor(0, 0, 0)
@@ -98,6 +100,7 @@ Game.SetGangWarsActive(True)
 Game.CanTriggerGangWarWhenOnAMission(True)
 Streaming.LoadScene(2497.324, -1684.744, 12.44)
 Char.SetCoordinates($scplayer, 2497.324, -1684.744, 12.44)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -238,6 +241,13 @@ if and
   58@ == 3
 goto_if_false @GROVE2_1540
 Text.PrintNow('GR2_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GR2_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 58@ = 4
 
 :GROVE2_1540
@@ -292,6 +302,13 @@ if and
   38@ == 4
 goto_if_false @GROVE2_1907
 Text.PrintNow('GR2_09', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GR2_09', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 38@ = 5
 
 :GROVE2_1907
@@ -334,6 +351,13 @@ if and
   56@ == 2
 goto_if_false @GROVE2_2196
 Text.PrintNow('GR2_05', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GR2_05', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 56@ = 3
 
 :GROVE2_2196
@@ -435,6 +459,13 @@ if
   35@ == 1
 goto_if_false @GROVE2_2774
 Text.PrintNow('GR2_02', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GR2_02', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.ChangeDisplay(34@, BlipDisplay.Both)
 if 
   54@ == 0
@@ -454,6 +485,13 @@ goto @GROVE2_2804
 
 :GROVE2_2781
 Text.PrintNow('GR2_03', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GR2_03', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE2_3141
 
 :GROVE2_2804
@@ -465,6 +503,13 @@ if and
   47@ == 2
 goto_if_false @GROVE2_2870
 Text.PrintNow('GR2_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GR2_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 53@ = 2
 
 :GROVE2_2870
@@ -697,12 +742,14 @@ if
   Char.IsInAnyCar($scplayer)
 goto_if_false @GROVE2_3970
 Char.SetCoordinates($scplayer, 2496.552, -1682.439, 12.3542)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.6489)
 Char.WarpFromCarToCoord($scplayer, 2512.761, -1672.52, 12.5034)
 goto @GROVE2_3990
 
 :GROVE2_3970
 Char.SetCoordinates($scplayer, 2512.761, -1672.52, 12.5034)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :GROVE2_3990
 if 
@@ -764,6 +811,13 @@ goto @GROVE2_4355
 :GROVE2_4381
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO2_GA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO2_GA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :GROVE2_4408
@@ -799,6 +853,13 @@ goto @GROVE2_4528
 :GROVE2_4554
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO2_GB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO2_GB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :GROVE2_4581
@@ -828,6 +889,13 @@ goto @GROVE2_4642
 :GROVE2_4668
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO2_GC', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO2_GC', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :GROVE2_4695
@@ -871,6 +939,13 @@ goto @GROVE2_4833
 :GROVE2_4859
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO2_GD', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO2_GD', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :GROVE2_4886
@@ -912,6 +987,13 @@ goto @GROVE2_5077
 :GROVE2_5103
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO2_GE', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO2_GE', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :GROVE2_5130
@@ -960,6 +1042,7 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @GROVE2_5353
 Char.SetCoordinates($scplayer, 2512.407, -1672.111, 12.4895)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 78.5658)
 
 :GROVE2_5353
@@ -982,6 +1065,13 @@ if and
 goto_if_false @GROVE2_5446
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(59@s, 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(59@s, 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 47@ = 1
 
 :GROVE2_5446
@@ -991,6 +1081,13 @@ if and
 goto_if_false @GROVE2_5484
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint(59@s)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(59@s, $NETWORK_PLAYER[$temp_int])
+    end
+end
 47@ = 2
 
 :GROVE2_5484

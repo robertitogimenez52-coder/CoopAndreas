@@ -3,6 +3,7 @@
 
 :SCRASH2
 script_name 'SCRASH2'
+Coop.EnableSyncingThisScript()
 $g_SCrash2_spookKM = 0
 gosub @SCRASH2_54
 if 
@@ -16,6 +17,7 @@ terminate_this_script
 
 :SCRASH2_54
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 75@ = 0
 76@ = 0
@@ -193,6 +195,13 @@ if
 goto_if_false @SCRASH2_1213
 gosub @SCRASH2_10051
 Text.PrintNow('SCR2_21', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_21', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :SCRASH2_1213
@@ -241,6 +250,13 @@ gosub @SCRASH2_10187
 90@ = Blip.AddForCoord(132@, 133@, 134@)
 Blip.ChangeDisplay(90@, BlipDisplay.BlipOnly)
 Text.PrintNow('SCR2_00', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_00', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 103@ = 46@
 103@ += 6000
 35@ += 1
@@ -256,6 +272,13 @@ gosub @SCRASH2_10112
 Train.SetSpeed(81@, 20.0)
 Train.SetCruiseSpeed(81@, 20.0)
 Text.Print('SCR2_01', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SCR2_01', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :SCRASH2_1552
@@ -300,6 +323,13 @@ Blip.Remove(90@)
 Char.RemoveElegantly(78@)
 167@ = 0
 Text.PrintNow('SCR2_02', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_02', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 99
 goto @SCRASH2_1938
 
@@ -327,6 +357,13 @@ goto_if_false @SCRASH2_2079
 Blip.Remove(90@)
 91@ = Blip.AddForCar(81@)
 Text.PrintNow('SCR2_02', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_02', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Train.SetCruiseSpeed(81@, 10.0)
 35@ = 99
 goto @SCRASH2_2112
@@ -388,6 +425,13 @@ goto_if_false @SCRASH2_2432
 Train.SetSpeed(81@, 16.0)
 Train.SetCruiseSpeed(81@, 0.0)
 Text.PrintNow('SCR2_03', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_03', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 111@ = 46@
 111@ += 10000
 138@ = 1
@@ -402,6 +446,13 @@ if
 goto_if_false @SCRASH2_2515
 gosub @SCRASH2_18816
 Text.PrintNow('SCR2_09', 9000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_09', 9000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 111@ = 46@
 111@ += 8000
 35@ += 1
@@ -507,6 +558,13 @@ if
   35@ == 0
 goto_if_false @SCRASH2_3284
 Text.Print('SCR2_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('SCR2_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @SCRASH2_15982
 gosub @SCRASH2_12265
 92@ = Blip.AddForChar(78@)
@@ -778,10 +836,24 @@ if
   Char.IsInAnyCar($scplayer)
 goto_if_false @SCRASH2_4611
 Text.PrintNow('SCR2_20', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_20', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_4627
 
 :SCRASH2_4611
 Text.PrintNow('SCR2_06', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_06', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_4627
 163@ = 1
@@ -1005,6 +1077,13 @@ set_lvar_int_to_lvar_int 116@ = 46@
 160@ = 0
 StuckCarCheck.AddWithWarp(87@, 2.0, 30000, True, True, True, 20)
 Text.PrintNow('SCR2_07', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_07', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :SCRASH2_6033
@@ -1162,6 +1241,13 @@ if and
 goto_if_false @SCRASH2_6873
 151@ = 1
 Text.PrintNow('SCR2_18', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_18', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_6873
 gosub @SCRASH2_15210
@@ -1225,6 +1311,13 @@ set_lvar_int_to_lvar_int 106@ = 46@
 107@ = 0
 148@ = 0
 Text.PrintNow('SCR2_19', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_19', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   $displayed_sniper_help_text == 0
 goto_if_false @SCRASH2_7317
@@ -1404,6 +1497,13 @@ Sequence.Clear(56@)
 
 :SCRASH2_8536
 Text.PrintNow('SCR2_05', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_05', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :SCRASH2_8559
@@ -1484,6 +1584,13 @@ if
 goto_if_false @SCRASH2_8964
 146@ = 1
 Text.PrintNow('SCR2_10', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_10', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_8964
 if 
@@ -1494,6 +1601,13 @@ if
 goto_if_false @SCRASH2_9023
 146@ = 1
 Text.PrintNow('SCR2_11', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_11', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_9023
 if 
@@ -1504,6 +1618,13 @@ if
 goto_if_false @SCRASH2_9083
 146@ = 1
 Text.PrintNow('SCR2_14', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_14', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_9083
 if 
@@ -1514,6 +1635,13 @@ if
 goto_if_false @SCRASH2_9143
 146@ = 1
 Text.PrintNow('SCR2_15', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_15', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_9143
 if and
@@ -1537,6 +1665,13 @@ if
 goto_if_false @SCRASH2_9296
 146@ = 1
 Text.PrintNow('SCR2_12', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_12', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_9296
 if 
@@ -1550,6 +1685,13 @@ if
 goto_if_false @SCRASH2_9409
 146@ = 1
 Text.PrintNow('SCR2_13', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_13', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_9409
 if 
@@ -2744,6 +2886,13 @@ if
   160@ == 0
 goto_if_false @SCRASH2_17096
 Text.PrintNow('SCR2_08', 30000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_08', 30000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 160@ = 1
 
 :SCRASH2_17096
@@ -2855,6 +3004,13 @@ set_lvar_int_to_lvar_int 114@ = 46@
 :SCRASH2_17686
 100@ = 3
 Text.PrintNow('SCR2_23', 30000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_23', 30000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_17807
 
 :SCRASH2_17716
@@ -2933,6 +3089,13 @@ if
   160@ == 0
 goto_if_false @SCRASH2_18139
 Text.PrintNow('SCR2_08', 30000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_08', 30000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 160@ = 1
 
 :SCRASH2_18139
@@ -2940,6 +3103,13 @@ goto @SCRASH2_18169
 
 :SCRASH2_18146
 Text.PrintNow('SCR2_08', 30000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_08', 30000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 160@ = 1
 
 :SCRASH2_18169
@@ -3024,12 +3194,26 @@ if and
   72@ >= 140.0
 goto_if_false @SCRASH2_18574
 Text.PrintNow('SCR2_16', 30000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_16', 30000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_18574
 if 
   130@ == 10
 goto_if_false @SCRASH2_18608
 Text.PrintNow('SCR2_16', 30000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_16', 30000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SCRASH2_18608
 goto @SCRASH2_18651
@@ -3039,6 +3223,13 @@ if
   100@ == 2
 goto_if_false @SCRASH2_18651
 Text.ClearThisPrint('SCR2_16')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('SCR2_16', $NETWORK_PLAYER[$temp_int])
+    end
+end
 100@ = 0
 
 :SCRASH2_18651
@@ -3163,6 +3354,7 @@ if
 goto_if_false @SCRASH2_19334
 World.ClearArea(1, -2063.547, 253.2754, 34.3043, 0.5)
 Char.SetCoordinates($scplayer, -2063.547, 253.2754, 34.3043)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 
 :SCRASH2_19334
@@ -3194,6 +3386,7 @@ Task.EnterCarAsPassenger(78@, 82@, -1, 100)
 :SCRASH2_19506
 World.ClearArea(1, -1989.161, 208.5921, 26.6797, 0.5)
 Char.SetCoordinates($scplayer, -1989.161, 208.5921, 26.6797)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 221.8946)
 set_lvar_int_to_lvar_int 103@ = 46@
 103@ += 60000
@@ -3221,6 +3414,7 @@ goto @SCRASH2_19678
 :SCRASH2_19678
 World.ClearArea(1, 815.0453, -1323.097, 12.5036, 5.0)
 Char.SetCoordinates($scplayer, 815.0453, -1323.097, 12.5036)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 187.142)
 
 :SCRASH2_19732
@@ -3287,6 +3481,7 @@ Char.SetHeading(78@, 179.2269)
 :SCRASH2_20146
 World.ClearArea(1, 383.3648, -1930.448, 6.8301, 5.0)
 Char.SetCoordinates($scplayer, 383.3648, -1930.448, 6.8301)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 88.4042)
 35@ = 1
 
@@ -3332,6 +3527,13 @@ goto @SCRASH2_20330
 :SCRASH2_20354
 Streaming.SetAreaVisible(1)
 Char.SetAreaVisible($scplayer, 1)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 1)
+    end
+end
 Streaming.LoadScene(-2031.0, 149.0, 29.0)
 Cutscene.Start
 Camera.SetFadingColor(0, 0, 0)
@@ -3359,6 +3561,13 @@ goto @SCRASH2_20437
 Cutscene.Clear
 Streaming.SetAreaVisible(0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Hud.SwitchWidescreen(False)
@@ -3381,6 +3590,7 @@ Car.SetHeading(89@, 90.1127)
 World.ClearArea(0, -2033.339, 148.6139, 27.8359, 0.5)
 Streaming.LoadScene(-2033.339, 148.6139, 27.8359)
 Char.SetCoordinates($scplayer, -2033.339, 148.6139, 27.8359)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 Camera.SetBehindPlayer
 Player.SetControl($player1, True)
@@ -3459,30 +3669,79 @@ switch_start 45@ total_jumps 7 default_jump 0 @SCRASH2_21197 jumps 1 @SCRASH2_21
 
 :SCRASH2_21036
 Text.PrintNow('SCR2_80', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_80', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_21197
 
 :SCRASH2_21059
 Text.PrintNow('SCR2_81', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_81', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_21197
 
 :SCRASH2_21082
 Text.PrintNow('SCR2_82', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_82', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_21197
 
 :SCRASH2_21105
 Text.PrintNow('SCR2_83', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_83', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_21197
 
 :SCRASH2_21128
 Text.PrintNow('SCR2_84', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_84', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_21197
 
 :SCRASH2_21151
 Text.PrintNow('SCR2_85', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_85', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_21197
 
 :SCRASH2_21174
 Text.PrintNow('SCR2_86', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('SCR2_86', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SCRASH2_21197
 
 :SCRASH2_21197

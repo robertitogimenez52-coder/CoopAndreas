@@ -10,9 +10,11 @@ gosub @FINALEA_32621
 terminate_this_script 
 
 :FINALEA_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 script_name 'FINALEA'
+Coop.EnableSyncingThisScript()
 wait 0
 Text.LoadMissionText('RIOT4')
 Streaming.SetAreaVisible(1)
@@ -80,6 +82,7 @@ goto @FINALEA_276
 
 :FINALEA_317
 Char.SetCoordinates($scplayer, 2514.745, -1673.838, 12.8)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 60.891)
 47@ = DecisionMakerChar.Load(DecisionMakerType.Empty)
 49@ = DecisionMakerChar.Load(DecisionMakerType.Tough)
@@ -123,6 +126,13 @@ Player.SetControl($player1, True)
 Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 Text.PrintNow('RM4_1', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_1', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetGroupRecruitment($player1, False)
 41@ = 2505.215
 41@ -= 2508.17
@@ -235,6 +245,13 @@ goto_if_false @FINALEA_1641
 Blip.Remove(128@)
 128@ = Blip.AddForCoord(2507.82, -1309.226, 33.6726)
 Text.PrintNow('RM4_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 146@ = 1
 
@@ -486,6 +503,7 @@ goto @FINALEA_3132
 
 :FINALEA_3112
 Char.SetCoordinates($scplayer, 2509.781, -1308.965, 34.7125)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :FINALEA_3132
 Char.SetHeading($scplayer, 352.414)
@@ -658,7 +676,21 @@ goto @FINALEA_4878
 
 :FINALEA_4902
 Text.PrintNow('RM4_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('RM4_14', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RM4_14', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 151@ = 0
 skip_cutscene_start_internal @FINALEA_5387
@@ -699,6 +731,13 @@ Camera.PointAtPoint(2371.46, -1328.005, 23.2292, SwitchType.JumpCut)
 TIMERA = 0
 Text.ClearPrints
 Text.PrintNow('RM4_5', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_5', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 146@ = 5
 
 :FINALEA_5241
@@ -757,6 +796,13 @@ goto_if_false @FINALEA_5533
 129@ = Blip.AddForCar(57@)
 Blip.SetAsFriendly(129@, True)
 Text.PrintNow('RM4_6', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_6', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 152@ = 1
 
 :FINALEA_5533
@@ -893,6 +939,13 @@ if
   Char.IsInCar($scplayer, 57@)
 goto_if_false @FINALEA_6356
 Text.PrintNow('RM4_15', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_15', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Streaming.MarkModelAsNoLongerNeeded(596)
 Streaming.MarkModelAsNoLongerNeeded(285)
 Char.MarkAsNoLongerNeeded(64@)
@@ -944,6 +997,13 @@ if
 goto_if_false @FINALEA_6575
 Blip.Remove(129@)
 Text.PrintNow('RM4_8', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_8', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = Blip.AddForCoord(2522.79, -1272.85, 34.19)
 152@ = 2
 
@@ -961,6 +1021,13 @@ Blip.Remove(130@)
 129@ = Blip.AddForCar(57@)
 Blip.SetAsFriendly(129@, True)
 Text.PrintNow('RM4_9', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_9', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 152@ = 1
 
 :FINALEA_6671
@@ -972,6 +1039,13 @@ if
   Car.IsDead(57@)
 goto_if_false @FINALEA_6735
 Text.PrintNow('RM4_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEA_32509
 
 :FINALEA_6735
@@ -989,6 +1063,13 @@ if
 goto_if_false @FINALEA_6851
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('ROT4_CA', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ROT4_CA', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 148@ = 1
 
 :FINALEA_6851
@@ -1022,6 +1103,13 @@ Blip.Remove(128@)
 128@ = Blip.AddForCar($sweet_car)
 Blip.SetAsFriendly(128@, True)
 Text.PrintNow('RM4_7', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_7', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 146@ = 100
 149@ = 0
 
@@ -1035,6 +1123,13 @@ goto_if_false @FINALEA_7155
 Blip.Remove(128@)
 128@ = Blip.AddForCoord(2507.82, -1309.226, 33.6726)
 Text.PrintNow('RM4_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 146@ = 1
 149@ = 1
 
@@ -1043,6 +1138,13 @@ if
   Char.IsDead($sweet)
 goto_if_false @FINALEA_7194
 Text.PrintNow('RM4_11', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_11', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEA_32509
 
 :FINALEA_7194
@@ -1050,6 +1152,13 @@ if
   Car.IsDead($sweet_car)
 goto_if_false @FINALEA_7233
 Text.PrintNow('RM4_12', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_12', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEA_32509
 
 :FINALEA_7233
@@ -1126,6 +1235,13 @@ Char.SetHeading(82@, 104.5)
 Char.SetHealth(82@, 3)
 Task.PlayAnim(82@, "CRCKIDLE4", "CRACK", 1000.0, True, False, False, True, -1)
 Text.PrintNow('RM4_13', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_13', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 130@ = Blip.AddForCoord(2542.1, -1303.99, 34.03)
 155@ = 1
 
@@ -1134,6 +1250,13 @@ if
   Char.IsDead($sweet)
 goto_if_false @FINALEA_8194
 Text.PrintNow('RM4_11', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_11', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEA_32509
 
 :FINALEA_8194
@@ -1249,10 +1372,18 @@ Streaming.UnloadSpecialCharacter(1)
 Streaming.MarkModelAsNoLongerNeeded(63)
 Streaming.MarkModelAsNoLongerNeeded(492)
 Char.SetCoordinates($scplayer, 2543.26, -1303.844, 1024.074)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 175.5166)
 Camera.SetFixedPosition(2544.616, -1302.899, 1024.407, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2544.193, -1303.702, 1024.828, SwitchType.JumpCut)
 Char.SetAreaVisible($scplayer, 2)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 2)
+    end
+end
 130@ = Blip.AddForCoord(2579.85, -1305.76, 1037.07)
 Blip.SetEntryExit(130@, 2540.83, -1304.05, 1.0)
 World.ClearArea(1, 2578.0, -1306.0, 200.0, 200.0)
@@ -1445,6 +1576,13 @@ Player.SetControl($player1, True)
 Hud.SwitchWidescreen(False)
 Text.ClearPrints
 Text.PrintNow('RM4_16', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_16', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 156@ = 2
 
 :FINALEA_10806
@@ -2138,6 +2276,7 @@ Player.SetControl($player1, False)
 Blip.Remove(130@)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot3)
 Char.SetCoordinates($scplayer, 2575.036, -1305.741, 1036.781)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 273.5172)
 Char.Delete(77@)
 Char.Delete(78@)
@@ -2368,6 +2507,13 @@ Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 Text.ClearPrints
 Text.PrintNow('RM4_23', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_23', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 147@ = 3
 157@ = 1
 156@ = 12
@@ -2918,6 +3064,7 @@ goto_if_false @FINALEA_20746
 Hud.SwitchWidescreen(True)
 Player.SetControl($player1, False)
 Char.SetCoordinates($scplayer, 2525.079, -1301.891, 1047.297)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 89.7295)
 Char.Delete(71@)
 Char.Delete(72@)
@@ -3081,6 +3228,13 @@ Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 Text.ClearPrints
 Text.PrintNow('RM4_21', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_21', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 147@ = 4
 158@ = 1
 157@ = 5
@@ -3777,6 +3931,13 @@ if or
   Char.LocateAnyMeans3D($scplayer, 0, 2579.82, -1284.91, 1054.12, 3.0, 3.0, 3.0)
 goto_if_false @FINALEA_26555
 Text.PrintNow('RM4_24', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_24', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(130@)
 130@ = Blip.AddForCoord(2550.74, -1285.02, 1060.62)
 Blip.SetEntryExit(130@, 2540.83, -1304.05, 1.0)
@@ -3910,6 +4071,7 @@ Char.SetAreaVisible($big_smoke, 2)
 Hud.DisplayCounterWithString($smokehealth_fa, CounterDisplay.Bar, 'RM4_39')
 Char.SetUsesUpperbodyDamageAnimsOnly($big_smoke, True)
 Char.SetCoordinates($scplayer, 2564.447, -1292.822, 1060.016)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 58.5)
 Pickup.Remove(133@)
 Pickup.Remove(134@)
@@ -4000,7 +4162,7 @@ if
   159@ == 0
 goto_if_false @FINALEA_28117
 if 
-  not Camera.IsPointOnScreen(2551.2, -1291.727, 1060.02, 5.0)
+  not Coop.IsPointOnAnyPlayersScreen(2551.2, -1291.727, 1060.02, 5.0)
 goto_if_false @FINALEA_28117
 71@ = Char.Create(24, 102, 2551.2, -1291.727, 1060.02)
 Char.SetHeading(71@, 0.0)
@@ -4018,7 +4180,7 @@ if
   160@ == 0
 goto_if_false @FINALEA_28260
 if 
-  not Camera.IsPointOnScreen(2579.04, -1284.275, 1064.4, 5.0)
+  not Coop.IsPointOnAnyPlayersScreen(2579.04, -1284.275, 1064.4, 5.0)
 goto_if_false @FINALEA_28260
 72@ = Char.Create(24, 109, 2579.04, -1284.275, 1064.4)
 Char.SetHeading(72@, 0.0)
@@ -4035,7 +4197,7 @@ if
   161@ == 0
 goto_if_false @FINALEA_28411
 if 
-  not Camera.IsPointOnScreen(2576.94, -1300.388, 1060.016, 1.0)
+  not Coop.IsPointOnAnyPlayersScreen(2576.94, -1300.388, 1060.016, 1.0)
 goto_if_false @FINALEA_28411
 73@ = Char.Create(24, 173, 2576.94, -1300.388, 1060.016)
 Char.SetHeading(73@, 0.0)
@@ -4434,6 +4596,13 @@ goto @FINALEA_30704
 132@ = Blip.AddForPickup(142@)
 Blip.SetEntryExit(132@, 2540.83, -1304.05, 1.0)
 Text.PrintNow('RM4_31', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_31', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 192@ = 1
 
 :FINALEA_30704
@@ -4600,6 +4769,13 @@ if
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
 goto_if_false @FINALEA_31549
 Text.PrintNow(123@s, 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(123@s, 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 194@ = 2
 

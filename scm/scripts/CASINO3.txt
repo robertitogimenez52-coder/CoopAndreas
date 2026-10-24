@@ -3,6 +3,7 @@
 
 :CASINO3
 script_name 'CASINO3'
+Coop.EnableSyncingThisScript()
 gosub @CASINO3_47
 if 
   has_deatharrest_been_executed 
@@ -15,12 +16,14 @@ terminate_this_script
 
 :CASINO3_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('CASINO3')
 $onmission = 1
 wait 0
 Streaming.SetAreaVisible(11)
 Char.SetHasUsedEntryExit($scplayer, 2016.422, 1017.102, 10.0)
 Char.SetCoordinates($scplayer, 2027.391, 1008.087, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 297.1696)
 Cutscene.Load('CAS_3')
 
@@ -325,6 +328,13 @@ goto @CASINO3_2866
 
 :CASINO3_2890
 Text.PrintNow('CA3_1', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CA3_1', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
@@ -369,6 +379,13 @@ if
 goto_if_false @CASINO3_3129
 Audio.PlayMissionAudio(238@)
 Text.PrintNow(193@(240@,15s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(193@(240@,15s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 242@ = 3
 
 :CASINO3_3129
@@ -379,6 +396,13 @@ if
   Audio.HasMissionAudioFinished(238@)
 goto_if_false @CASINO3_3253
 Text.ClearThisPrint(193@(240@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(193@(240@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   238@ == 1
 goto_if_false @CASINO3_3211
@@ -551,6 +575,13 @@ Skip.Clear
 171@ = 0
 Text.ClearPrints
 Text.PrintNow('CA3_2', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CA3_2', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 53@ = 10
 34@ = Game.GetMaxWantedLevel()
 Game.SetMaxWantedLevel(0)
@@ -684,6 +715,7 @@ Char.SetHeading(87@, 153.4201)
 Char.GiveWeapon(87@, WeaponType.Pistol, 2000)
 Char.SetDecisionMaker(87@, 73@)
 Char.SetCoordinates($scplayer, 1050.532, 2087.933, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 282.0)
 Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(1088.848, 2094.239, 17.2308, 0.0, 0.0, 0.0)
@@ -868,6 +900,7 @@ goto @CASINO3_5932
 
 :CASINO3_5956
 Char.SetCoordinates($scplayer, 1050.532, 2087.933, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 282.0)
 89@ = Char.Create(24, 127, 1086.869, 2078.61, 14.3504)
 Char.SetHeading(89@, 86.4201)
@@ -1046,6 +1079,13 @@ goto @CASINO3_7001
 :CASINO3_7113
 Text.ClearPrints
 Text.PrintNow('CA3_7', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CA3_7', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(76@)
 goto_if_false @CASINO3_7160
@@ -1074,6 +1114,13 @@ if
   55@ == 8
 goto_if_false @CASINO3_7360
 Text.PrintNow('CA3_23', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CA3_23', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Game.SetMaxWantedLevel(34@)
 39@ = Blip.AddForCoord(1918.59, 958.3391, 9.8203)
 Blip.ChangeColor(39@, BlipColor.Yellow)
@@ -1215,6 +1262,7 @@ Task.CarDriveToCoord(68@, 69@, 1909.04, 959.7415, 9.8203, 7.0, DriveMode.Straigh
 Camera.SetFixedPosition(1914.831, 962.6716, 11.3214, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1913.837, 962.5726, 11.2813, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 1913.682, 962.0125, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 100.3)
 TIMERA = 0
 Audio.ReportMissionAudioEventAtPosition(-1000.0, -1000.0, -1000.0, 1036)
@@ -1605,6 +1653,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Text.ClearPrints
 Text.PrintNow('CA3_8', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CA3_8', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetControl($player1, True)
 150@ = 99
 149@ = 99

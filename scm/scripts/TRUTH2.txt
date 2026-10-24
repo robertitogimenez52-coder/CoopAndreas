@@ -3,6 +3,7 @@
 
 :TRUTH2
 script_name 'TRUTH2'
+Coop.EnableSyncingThisScript()
 gosub @TRUTH2_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @TRUTH2_12153
 terminate_this_script 
 
 :TRUTH2_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('TRU2')
@@ -163,6 +165,7 @@ World.ClearArea(1, -913.3, -1720.5, 76.6, 300.0)
 World.ClearArea(1, -913.3, -1720.5, 76.6, 1.0)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -913.3, -1720.5, 76.6)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.GiveWeapon($scplayer, WeaponType.Flamethrower, 3000)
 World.ClearArea(1, -1079.404, -1640.694, 75.375, 20.0)
 $truth = Char.Create(24, 290, -1079.404, -1640.694, 75.375)
@@ -338,13 +341,28 @@ Blip.ChangeScale(86@, 1)
 Blip.SetCoordAppearance(86@, 2)
 Hud.DisplayTimerWithString($t2_cop_timer, TimerDirection.Down, 'TRU2_06')
 Char.SetCoordinates($scplayer, -1089.9, -1644.1, 75.4)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 283.3)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Camera.DoFade(1, 500)
 Text.Print('TRU2_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TRU2_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('TRU2_02', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TRU2_02', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 TIMERB = 0
 
@@ -380,6 +398,7 @@ Text.ClearPrints
 
 :TRUTH2_3361
 Char.SetCoordinates($scplayer, -1104.7, -1648.0, 75.4)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 $t2_total_weed_burnt = 0
 
 :TRUTH2_3388
@@ -944,6 +963,13 @@ Blip.Remove(42@)
 42@ = Blip.AddForCoord(-1075.5, -1648.5, 75.1)
 Blip.SetCoordAppearance(42@, 1)
 Text.Print('TRU2_14', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TRU2_14', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 144@ = 0
 88@ = 0
 87@ = 1
@@ -976,6 +1002,7 @@ Streaming.RequestModel(359)
 Streaming.LoadAllModelsNow
 World.ClearArea(1, -1075.5, -1648.0, 75.1, 5.0)
 Char.SetCoordinates($scplayer, -1075.5, -1648.0, 75.1)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 157.1)
 Task.PlayAnim($scplayer, "IDLE_CHAT", "PED", 6.0, True, False, False, False, 4000)
 Camera.SetFixedPosition(-1071.3, -1647.8, 75.4, 0.0, 0.0, 0.0)
@@ -1077,6 +1104,7 @@ goto @TRUTH2_11910
 Char.GiveWeapon($scplayer, WeaponType.RocketLauncher, 10)
 World.ClearArea(1, -1075.5, -1648.0, 75.1, 1.0)
 Char.SetCoordinates($scplayer, -1075.5, -1648.0, 75.1)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 268.0)
 
 :TRUTH2_8745
@@ -1097,6 +1125,13 @@ if
   not Car.IsDead(35@)
 goto_if_false @TRUTH2_8872
 Text.PrintNow('TRU2_15', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_15', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :TRUTH2_8872
 if 
@@ -1136,6 +1171,7 @@ Car.Explode(35@)
 
 :TRUTH2_9021
 Char.SetCoordinates($scplayer, -946.8, -1733.5, 76.8)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :TRUTH2_9041
 if 
@@ -1175,6 +1211,13 @@ Hud.ClearTimer($t2_cop_timer)
 Text.ClearPrints
 Audio.SetRadioChannel(RadioChannel.KDST)
 Text.Print('TRU2_17', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TRU2_17', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Car.SetStatus(34@, EntityStatus.Physics)
 Car.SetCruiseSpeed(34@, 0.0)
 Car.SetTempAction(34@, TempAction.HandbrakeStraight, 1000)
@@ -1208,7 +1251,21 @@ if
 goto_if_false @TRUTH2_9546
 Car.SetStatus(34@, EntityStatus.Player)
 Text.ClearThisPrint('TRU2_17')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('TRU2_17', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintNow('TRU2_12', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_12', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech($scplayer, True)
 Char.ShutUpForScriptedSpeech($truth, True)
 Blip.Remove(42@)
@@ -1426,6 +1483,13 @@ Char.GiveWeapon(37@, WeaponType.NightStick, 1)
 :TRUTH2_10679
 Task.CharArrestChar(37@, $truth)
 Text.PrintNow('TRU2_10', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_10', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 500)
 
 :TRUTH2_10710
@@ -1480,6 +1544,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Text.PrintBig('M_FAIL', 5000, TextStyle.Middle)
 Text.PrintNow('TRU2_10', 5500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_10', 5500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 500)
 
 :TRUTH2_10944
@@ -1535,6 +1606,7 @@ Game.ShutAllCharsUp(True)
 World.ClearArea(1, -2028.9, 172.3, 27.8, 30.0)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, -2028.9, 172.3, 27.8)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 167.6)
 215@ = Sequence.Open()
 Task.GoStraightToCoord(-1, -2029.9, 167.7, 27.8, MoveState.Walk, -1)
@@ -1800,6 +1872,13 @@ if
 goto_if_false @TRUTH2_12709
 Text.ClearPrints
 Text.PrintNow('TRU2_08', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_08', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 90@ = 1
 
 :TRUTH2_12709
@@ -1808,6 +1887,13 @@ if
 goto_if_false @TRUTH2_12750
 Text.ClearPrints
 Text.PrintNow('TRU2_09', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_09', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 90@ = 1
 
 :TRUTH2_12750
@@ -1857,6 +1943,13 @@ Blip.Remove(42@)
 42@ = Blip.AddForPickup(40@)
 Blip.SetAsFriendly(42@, False)
 Text.PrintNow('TRU2_13', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_13', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 148@ = 1
 
 :TRUTH2_13016
@@ -2044,6 +2137,13 @@ Blip.SetCoordAppearance(64@, 2)
 
 :TRUTH2_14199
 Text.PrintNow('TRU2_01', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_01', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 148@ = 0
 
 :TRUTH2_14222
@@ -2062,6 +2162,13 @@ Blip.Remove(42@)
 42@ = Blip.AddForPickup(41@)
 Blip.SetAsFriendly(42@, False)
 Text.PrintNow('TRU2_13', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_13', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 150@ = 1
 
 :TRUTH2_14340
@@ -2077,6 +2184,13 @@ if
 goto_if_false @TRUTH2_14419
 42@ = Blip.AddForCar(35@)
 Text.PrintNow('TRU2_15', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TRU2_15', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :TRUTH2_14419
 150@ = 0
@@ -2449,6 +2563,13 @@ goto @TRUTH2_17269
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 208@ = 0
 209@ = 0
 
@@ -2484,6 +2605,13 @@ goto @TRUTH2_17439
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 208@ = 0
 209@ = 0
 
@@ -2517,6 +2645,13 @@ goto @TRUTH2_17600
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 208@ = 0
 209@ = 0
 
@@ -2549,6 +2684,13 @@ goto_if_false @TRUTH2_17709
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearPrints
 set_lvar_int_to_lvar_int 214@ = 151@
 set_lvar_int_to_lvar_int 213@ = 152@
@@ -2583,6 +2725,13 @@ goto @TRUTH2_17931
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 208@ = 0
 209@ = 0
 
@@ -2591,6 +2740,13 @@ goto @TRUTH2_17961
 
 :TRUTH2_17938
 Text.Print('TRU2_17', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TRU2_17', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 151@ = 13
 
 :TRUTH2_17961
@@ -2600,6 +2756,13 @@ goto_if_false @TRUTH2_18013
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 151@ = 14
 152@ = 0
 Text.ClearPrints
@@ -2630,6 +2793,13 @@ if
   214@ == 0
 goto_if_false @TRUTH2_18167
 Text.Print('TRU2_12', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('TRU2_12', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :TRUTH2_18167
 if 
@@ -2638,6 +2808,13 @@ goto_if_false @TRUTH2_18241
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 151@ = 12
 152@ = Math.RandomIntInRange(0, 3)
 set_lvar_int_to_lvar_int 212@ = 152@
@@ -2681,6 +2858,13 @@ if
 goto_if_false @TRUTH2_18426
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(154@(152@,16s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(154@(152@,16s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 208@ = 2
 
 :TRUTH2_18426
@@ -2695,6 +2879,13 @@ if
 goto_if_false @TRUTH2_18502
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow(154@(152@,16s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(154@(152@,16s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 209@ = 2
 
 :TRUTH2_18502
@@ -2708,6 +2899,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @TRUTH2_18567
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 152@ += 1
 211@ = 2
 208@ = 0
@@ -2720,6 +2918,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @TRUTH2_18630
 Text.ClearThisPrint(154@(152@,16s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(154@(152@,16s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 152@ += 1
 211@ = 1
 209@ = 0

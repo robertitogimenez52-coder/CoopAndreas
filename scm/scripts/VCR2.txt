@@ -10,9 +10,11 @@ gosub @VCR2_5126
 terminate_this_script 
 
 :VCR2_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 script_name 'VCR2'
+Coop.EnableSyncingThisScript()
 wait 0
 Text.LoadMissionText('VCR2')
 Player.MakeGangDisappear
@@ -190,6 +192,7 @@ Char.ClearTasksImmediately($scplayer)
 World.ClearArea(0, -334.1724, 2214.62, 40.4911, 30.0)
 Streaming.LoadScene(-334.1724, 2214.62, 40.4911)
 Char.SetCoordinates($scplayer, -334.1724, 2214.62, 40.4911)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 232.082)
 Camera.SetBehindPlayer
 114@ = Car.Create(568, -342.2552, 2221.39, 41.4911)
@@ -241,6 +244,7 @@ if
   is_int_var_greater_than_int_lvar $game_timer > 35@
 goto_if_false @VCR2_1832
 Char.SetCoordinates($scplayer, -337.9653, 2218.594, 41.4911)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 Char.SetCoordinates(113@, -359.3949, 2213.404, 41.4911)
 Char.SetHeading(113@, 90.0)
@@ -254,6 +258,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 34@ = Blip.AddForChar(113@)
 Text.PrintNow('VCR2__1', 15000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR2__1', 15000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_var_int 35@ = $game_timer
 35@ += 26000
 47@ += 1
@@ -336,6 +347,13 @@ if
 goto_if_false @VCR2_2426
 Task.CarDriveWander(113@, -1, 28.0, DrivingMode.AvoidCars)
 Text.PrintNow('VCR2__2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR2__2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(34@)
 
 :VCR2_2426
@@ -343,6 +361,13 @@ if
   is_int_var_greater_than_int_lvar $game_timer > 116@
 goto_if_false @VCR2_2468
 Text.PrintNow('VCR2__3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR2__3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @VCR2_5040
 
 :VCR2_2468
@@ -462,6 +487,7 @@ $x = Car.GetOffsetInWorldCoords($y, $z, 112@, 3.0, -1.0, 0.0)
 $z = World.GetGroundZFor3DCoord($x, $y, $z)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, $x, $y, $z)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 $heading = Car.GetHeading(112@)
 $heading += 90.0
 Char.SetHeading($scplayer, $heading)

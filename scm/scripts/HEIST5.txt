@@ -3,6 +3,7 @@
 
 :HEIST5
 script_name 'HEIST5'
+Coop.EnableSyncingThisScript()
 gosub @HEIST5_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :HEIST5_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 39@ = 406.989
 40@ = 2516.901
@@ -93,6 +95,7 @@ Text.LoadMissionText('HEIST5')
 wait 0
 World.ClearArea(0, 2030.108, 1007.929, 9.852, 1.0)
 Char.SetCoordinates($scplayer, 2030.108, 1007.929, 9.852)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 $iTerminateAllAmbience = 1
 Streaming.SetAreaVisible(10)
@@ -238,6 +241,13 @@ goto @HEIST5_1530
 :HEIST5_1554
 Player.SetControl($player1, True)
 Text.PrintNow('HM5_1', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_1', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 38@ = Blip.AddForCoord(2616.408, 2721.367, 35.563)
 Blip.SetAsFriendly(38@, True)
 109@ = Object.Create(#MINIGUN_BASE, 2595.549, 2758.04, 22.832)
@@ -498,6 +508,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @HEIST5_4347
 Text.ClearThisPrint('HE5_BD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 103@ = 2
 
 :HEIST5_4347
@@ -744,6 +761,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_5958
@@ -776,6 +800,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_6119
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_6119
@@ -821,6 +852,13 @@ Car.SelectWeapons(118@, 1)
 Heli.AttackPlayer(118@, $player1, 50.0)
 StuckCarCheck.Add(118@, 2.0, 5000)
 Text.PrintNow('HM5_6', 12000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_6', 12000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 110@ = Blip.AddForCoord(2595.549, 2758.04, 22.832)
 149@ = Sphere.Create(2596.589, 2758.158, 22.862, 1.0)
 TIMERB = 0
@@ -848,6 +886,13 @@ if
   152@ == 0
 goto_if_false @HEIST5_6793
 Text.ClearThisPrint('HM5_20')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HM5_20', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearHelp
 Blip.Remove(110@)
 Sphere.Remove(149@)
@@ -901,9 +946,17 @@ goto_if_false @HEIST5_7137
 Char.DetachFromCar($scplayer)
 World.ClearArea(0, 2596.129, 2757.112, 22.862, 1.0)
 Char.SetCoordinates($scplayer, 2596.129, 2757.112, 22.862)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 217.0)
 Object.SetVisible(109@, True)
 Text.ClearThisPrint('HM5_21')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HM5_21', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearHelp
 Blip.Remove(110@)
 Sphere.Remove(149@)
@@ -1001,7 +1054,21 @@ goto @HEIST5_4208
 :HEIST5_7625
 $gate_stay_open = 0
 Text.ClearThisPrint('HM5_20')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HM5_20', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('HM5_21')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HM5_21', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearHelp
 Sphere.Remove(149@)
 Blip.Remove(38@)
@@ -1016,6 +1083,7 @@ goto_if_false @HEIST5_7768
 Char.DetachFromCar($scplayer)
 World.ClearArea(0, 2596.129, 2757.112, 22.862, 1.0)
 Char.SetCoordinates($scplayer, 2596.129, 2757.112, 22.862)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 217.0)
 
 :HEIST5_7768
@@ -1035,10 +1103,24 @@ goto @HEIST5_7866
 
 :HEIST5_7843
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_7866
 Text.PrintNow('HM5_7', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_7', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_7882
 if 
@@ -1067,6 +1149,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_8040
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 goto @HEIST5_8117
 
@@ -1101,6 +1190,13 @@ Blip.SetAsFriendly(123@, True)
 $bankvan1_upright_value_heist5 = Car.GetUprightValue(122@)
 129@ = 1
 Text.PrintNow('HM5_8', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_8', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :HEIST5_8268
@@ -1122,6 +1218,13 @@ Blip.Remove(123@)
 
 :HEIST5_8354
 Text.PrintNow('HM5_9', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_9', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 124@ = 1
 goto @HEIST5_8414
@@ -1136,6 +1239,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_8460
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 goto @HEIST5_8914
 
@@ -1150,6 +1260,13 @@ if
   TIMERA >= 5000
 goto_if_false @HEIST5_8545
 Text.ClearThisPrint('HM5_8')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HM5_8', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintHelp('WINCH_V')
 163@ = 1
 
@@ -1189,6 +1306,13 @@ goto_if_false @HEIST5_8791
 123@ = Blip.AddForCar(122@)
 Blip.SetAsFriendly(123@, True)
 Text.PrintNow('HM5_10', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_10', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 129@ = 1
 
 :HEIST5_8791
@@ -1215,6 +1339,13 @@ Blip.Remove(123@)
 35@ = Blip.AddForCar(34@)
 Blip.SetAsFriendly(35@, True)
 Text.PrintNow('IN_VEH', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('IN_VEH', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 36@ = 1
 
 :HEIST5_8914
@@ -1243,6 +1374,13 @@ Blip.Remove(123@)
 
 :HEIST5_9019
 Text.PrintNow('HM5_9', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_9', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 124@ = 1
 
@@ -1250,6 +1388,13 @@ goto @HEIST5_13717
 Streaming.MarkModelAsNoLongerNeeded(287)
 Streaming.RequestModel(117)
 Text.PrintNow('HM5_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 37@ = Blip.AddForCoord(39@, 40@, 41@)
 139@ = 1
 36@ = 0
@@ -1277,6 +1422,13 @@ Blip.Remove(123@)
 
 :HEIST5_9238
 Text.PrintNow('HM5_9', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_9', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 124@ = 1
 goto @HEIST5_9538
@@ -1316,6 +1468,13 @@ if
   142@ == 0
 goto_if_false @HEIST5_9488
 Text.PrintNow('HM5_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 140@ = 1
 
 :HEIST5_9488
@@ -1326,6 +1485,13 @@ if
   142@ == 1
 goto_if_false @HEIST5_9524
 Text.ClearThisPrint('HM5_12')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HM5_12', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_9524
 goto @HEIST5_9538
@@ -1338,6 +1504,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_9584
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 goto @HEIST5_10593
 
@@ -1367,6 +1540,13 @@ goto_if_false @HEIST5_9764
 Blip.Remove(37@)
 37@ = Blip.AddForCoord(39@, 40@, 41@)
 Text.PrintNow('HM5_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 1
 139@ = 1
 
@@ -1397,6 +1577,13 @@ if
   TIMERA >= 10000
 goto_if_false @HEIST5_9973
 Text.PrintNow('HM5_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_9973
@@ -1415,6 +1602,13 @@ Blip.Remove(123@)
 123@ = Blip.AddForCar(122@)
 Blip.SetAsFriendly(123@, True)
 Text.PrintNow('HM5_10', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_10', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 129@ = 1
 
@@ -1435,6 +1629,13 @@ Blip.Remove(37@)
 
 :HEIST5_10163
 Text.PrintNow('HM5_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 1
 36@ = 0
 goto @HEIST5_10458
@@ -1450,6 +1651,13 @@ Blip.Remove(123@)
 123@ = Blip.AddForCar(122@)
 Blip.SetAsFriendly(123@, True)
 Text.PrintNow('HM5_10', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_10', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 130@, 131@, 132@ = Car.GetCoordinates(122@)
 105@, 106@, 107@ = Car.GetCoordinates(34@)
@@ -1469,6 +1677,13 @@ if
   TIMERA >= 10000
 goto_if_false @HEIST5_10444
 Text.PrintNow('HM5_14', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_14', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_10444
@@ -1503,6 +1718,13 @@ Blip.Remove(35@)
 35@ = Blip.AddForCar(34@)
 Blip.SetAsFriendly(35@, True)
 Text.PrintNow('IN_VEH', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('IN_VEH', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 36@ = 1
 
 :HEIST5_10593
@@ -1510,6 +1732,13 @@ goto @HEIST5_9116
 
 :HEIST5_10600
 Text.ClearThisPrint('HM5_12')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HM5_12', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(37@)
 if 
   not Car.IsDead(122@)
@@ -1523,6 +1752,13 @@ goto @HEIST5_10688
 
 :HEIST5_10665
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_10688
@@ -1531,10 +1767,24 @@ goto @HEIST5_10723
 :HEIST5_10695
 Blip.Remove(123@)
 Text.PrintNow('HM5_9', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_9', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_10723
 Text.PrintNow('HM5_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 144@ = Blip.AddForCoord(145@, 146@, 147@)
 36@ = 0
 $blob_flag = 1
@@ -1554,6 +1804,13 @@ if
 goto_if_false @HEIST5_10888
 Blip.Remove(123@)
 Text.PrintNow('HM5_9', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_9', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_10888
@@ -1561,6 +1818,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_10934
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 goto @HEIST5_11095
 
@@ -1573,6 +1837,13 @@ if
 goto_if_false @HEIST5_11020
 Blip.Remove(35@)
 Text.PrintNow('HM5_13', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_13', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 144@ = Blip.AddForCoord(145@, 146@, 147@)
 $blob_flag = 1
 36@ = 0
@@ -1588,6 +1859,13 @@ Blip.Remove(144@)
 35@ = Blip.AddForCar(34@)
 Blip.SetAsFriendly(35@, True)
 Text.PrintNow('IN_VEH', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('IN_VEH', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 36@ = 1
 
@@ -1616,6 +1894,13 @@ goto @HEIST5_11254
 
 :HEIST5_11231
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_11254
@@ -1633,6 +1918,13 @@ goto @HEIST5_11385
 
 :HEIST5_11362
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_11385
@@ -1644,6 +1936,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_11444
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_11444
@@ -1667,6 +1966,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_11634
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_11634
@@ -1674,6 +1980,13 @@ if
   Char.IsDead(148@)
 goto_if_false @HEIST5_11673
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_11673
@@ -1686,6 +1999,13 @@ goto_if_false @HEIST5_11792
 Task.GotoChar(148@, $scplayer, -1, 1.3)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('HE5_AA', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE5_AA', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(148@, 999999)
 Task.PlayAnimNonInterruptable(148@, "IDLE_CHAT", "PED", 4.0, True, False, False, False, -1)
 Task.TurnCharToFaceChar($scplayer, 148@)
@@ -1693,6 +2013,13 @@ goto @HEIST5_11815
 
 :HEIST5_11792
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_11815
@@ -1710,7 +2037,21 @@ goto_if_false @HEIST5_11924
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_11924
@@ -1718,6 +2059,13 @@ if
   Char.IsDead(148@)
 goto_if_false @HEIST5_11970
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 goto @HEIST5_12009
 
@@ -1739,11 +2087,25 @@ goto @HEIST5_12067
 
 :HEIST5_12044
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12067
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('HE5_AA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(148@)
 goto_if_false @HEIST5_12110
@@ -1752,6 +2114,13 @@ goto @HEIST5_12133
 
 :HEIST5_12110
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12133
@@ -1760,6 +2129,13 @@ if
 goto_if_false @HEIST5_12276
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('HE5_AB', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE5_AB', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Task.PlayAnimNonInterruptable($scplayer, "IDLE_CHAT", "PED", 4.0, True, False, False, False, -1)
 Char.StartFacialTalk($scplayer, 999999)
 if 
@@ -1770,6 +2146,13 @@ goto @HEIST5_12269
 
 :HEIST5_12246
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12269
@@ -1779,6 +2162,13 @@ goto @HEIST5_12295
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_12295
 Audio.LoadMissionAudio(18802, 1)
@@ -1793,6 +2183,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_12364
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12364
@@ -1800,6 +2197,13 @@ if
   Char.IsDead(148@)
 goto_if_false @HEIST5_12403
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12403
@@ -1809,6 +2213,13 @@ goto_if_false @HEIST5_12438
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_12438
 goto @HEIST5_12302
@@ -1816,6 +2227,13 @@ goto @HEIST5_12302
 :HEIST5_12445
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ClearTasks($scplayer)
 Char.StopFacialTalk($scplayer)
 if 
@@ -1823,6 +2241,13 @@ if
 goto_if_false @HEIST5_12559
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('HE5_AC', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE5_AC', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(148@, 999999)
 Task.PlayAnimNonInterruptable(148@, "IDLE_CHAT", "PED", 4.0, True, False, False, False, -1)
 goto @HEIST5_12601
@@ -1831,7 +2256,21 @@ goto @HEIST5_12601
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12601
@@ -1847,6 +2286,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_12670
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12670
@@ -1856,7 +2302,21 @@ goto_if_false @HEIST5_12728
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12728
@@ -1865,6 +2325,13 @@ goto @HEIST5_12608
 :HEIST5_12735
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('HE5_AC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(148@)
 goto_if_false @HEIST5_12778
@@ -1873,6 +2340,13 @@ goto @HEIST5_12801
 
 :HEIST5_12778
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12801
@@ -1884,6 +2358,13 @@ goto @HEIST5_12852
 
 :HEIST5_12829
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_12852
@@ -1892,6 +2373,13 @@ if
 goto_if_false @HEIST5_12941
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('HE5_AD', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE5_AD', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Task.PlayAnimNonInterruptable($scplayer, "IDLE_CHAT", "PED", 4.0, True, False, False, False, -1)
 Char.StartFacialTalk($scplayer, 999999)
 goto @HEIST5_12960
@@ -1900,6 +2388,13 @@ goto @HEIST5_12960
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_12960
 if 
@@ -1910,6 +2405,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_13018
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_13018
@@ -1917,6 +2419,13 @@ if
   Char.IsDead(148@)
 goto_if_false @HEIST5_13057
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_13057
@@ -1926,6 +2435,13 @@ goto_if_false @HEIST5_13092
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_13092
 goto @HEIST5_12960
@@ -1933,6 +2449,13 @@ goto @HEIST5_12960
 :HEIST5_13099
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_AD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_AD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ClearTasks($scplayer)
 Char.StopFacialTalk($scplayer)
 if 
@@ -1943,6 +2466,13 @@ goto @HEIST5_13194
 
 :HEIST5_13171
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_13194
@@ -1959,6 +2489,13 @@ if
   Car.IsDead(34@)
 goto_if_false @HEIST5_13292
 Text.PrintNow('HM5_3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_13292
@@ -1966,6 +2503,13 @@ if
   Char.IsDead(148@)
 goto_if_false @HEIST5_13331
 Text.PrintNow('HM5_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HM5_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @HEIST5_13717
 
 :HEIST5_13331
@@ -1975,6 +2519,7 @@ goto @HEIST5_13230
 Car.Delete(34@)
 Char.Delete(148@)
 Char.SetCoordinates($scplayer, 388.007, 2532.546, 15.594)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetBehindPlayer
 164@ = 1
 
@@ -2029,6 +2574,7 @@ goto @HEIST5_13626
 
 :HEIST5_13596
 Char.SetCoordinates($scplayer, 388.007, 2532.546, 15.594)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 
 :HEIST5_13626
@@ -2450,6 +2996,13 @@ if
   Char.LocateOnFootChar3D($scplayer, 97@, 8.0, 8.0, 8.0, False)
 goto_if_false @HEIST5_15673
 Text.PrintNow('HE5_BA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE5_BA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_15673
 160@, 161@, 162@ = Char.GetCoordinates(97@)
@@ -2485,6 +3038,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @HEIST5_15913
 Text.ClearThisPrint('HE5_BA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(97@)
 goto_if_false @HEIST5_15906
@@ -2520,7 +3080,21 @@ goto_if_false @HEIST5_16058
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_BA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('HE5_BB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 98@ = 1
 
 :HEIST5_16058
@@ -2536,7 +3110,21 @@ goto_if_false @HEIST5_16150
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_BA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('HE5_BB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 100@ = 1
 98@ = 1
 goto @HEIST5_16183
@@ -2565,6 +3153,13 @@ if
   Char.LocateOnFootChar3D($scplayer, 97@, 8.0, 8.0, 8.0, False)
 goto_if_false @HEIST5_16324
 Text.PrintNow('HE5_BD', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HE5_BD', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST5_16324
 Char.StartFacialTalk(97@, 999999)
@@ -2593,7 +3188,21 @@ goto_if_false @HEIST5_16490
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_BA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('HE5_BB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 98@ = 1
 
 :HEIST5_16490
@@ -2644,7 +3253,21 @@ goto_if_false @HEIST5_16689
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_BA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('HE5_BB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 98@ = 1
 
 :HEIST5_16689
@@ -2660,7 +3283,21 @@ goto_if_false @HEIST5_16758
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint('HE5_BA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('HE5_BB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 98@ = 1
 
 :HEIST5_16758
@@ -3293,6 +3930,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @HEIST5_20025
 Text.ClearThisPrint('HE5_BD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('HE5_BD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   98@ == 0
 goto_if_false @HEIST5_20018

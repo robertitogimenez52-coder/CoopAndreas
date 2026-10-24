@@ -10,8 +10,10 @@ gosub @FINALEB_18556
 terminate_this_script 
 
 :FINALEB_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 script_name 'FINALEB'
+Coop.EnableSyncingThisScript()
 wait 0
 Text.LoadMissionText('RIOT4')
 97@ = DecisionMakerChar.Load(DecisionMakerType.Empty)
@@ -199,8 +201,16 @@ Task.Die($big_smoke)
 124@ = Pickup.Create(#BODYARMOUR, 3, 2552.31, -1286.274, 1061.024)
 131@ = Pickup.CreateWithAmmo(355, 3, 60, 2552.36, -1283.15, 1061.02)
 Char.SetCoordinates($scplayer, 2553.734, -1285.256, 1060.024)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 79.954)
 Char.SetAreaVisible($scplayer, 2)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 2)
+    end
+end
 Player.SetControl($player1, False)
 Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(2550.604, -1294.586, 1044.802, 0.0, 0.0, 0.0)
@@ -238,6 +248,13 @@ if
 goto_if_false @FINALEB_1481
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('ROT4_ZC', 3500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ROT4_ZC', 3500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEB_1481
 wait 500
@@ -256,6 +273,13 @@ wait 2500
 Camera.SetFixedPosition(2565.816, -1296.732, 1044.403, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2564.824, -1296.613, 1044.444, SwitchType.JumpCut)
 Text.PrintNow('RM4_38', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_38', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 3250
 Fx.AddExplosionVariableShake(2553.19, -1293.58, 1044.29, 4, 0.4)
 wait 200
@@ -304,6 +328,13 @@ goto_if_false @FINALEB_2587
 :FINALEB_2227
 skip_cutscene_end 
 Text.ClearThisPrint('ROT4_ZC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('ROT4_ZC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Hud.SwitchWidescreen(False)
 Player.SetControl($player1, True)
@@ -326,6 +357,13 @@ Char.GiveWeapon($scplayer, WeaponType.NightVision, 1)
 Char.SetCurrentWeapon($scplayer, WeaponType.NightVision)
 Streaming.MarkModelAsNoLongerNeeded(368)
 Text.PrintNow('RM4_33', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_33', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Hud.DisplayTimerWithString($escapetimer_fb, TimerDirection.Down, 'RM4_34')
 Hud.SetTimerBeepCountdownTime($escapetimer_fb, 32)
 118@ = Blip.AddForCoord(2577.82, -1284.6, 1053.99)
@@ -638,6 +676,13 @@ if
   Char.LocateAnyMeans3D($scplayer, 0, 2521.9, -1301.86, 1047.5, 6.0, 6.0, 3.0)
 goto_if_false @FINALEB_7337
 Text.PrintNow('RM4_35', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_35', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 155@ = 2
 Char.Delete(34@)
@@ -1631,6 +1676,7 @@ goto @FINALEB_12922
 Blip.Remove(118@)
 118@ = Blip.AddForCoord(2522.82, -1272.52, 34.151)
 Char.SetCoordinates($scplayer, 2538.657, -1304.358, 34.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Streaming.MarkModelAsNoLongerNeeded(104)
 Streaming.MarkModelAsNoLongerNeeded(349)
 Streaming.RemoveAnimation("SWAT")
@@ -1831,11 +1877,13 @@ Char.Delete(36@)
 Char.Delete(37@)
 Char.Delete(38@)
 Char.SetCoordinates($scplayer, 2538.45, -1281.4, 34.34)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 Camera.SetFixedPosition($camx_fb, $camy_fb, $camz_fb, 0.0, 0.0, 0.0)
 Camera.PointAtPoint($lookcamx_fb, $lookcamy_fb, $lookcamz_fb, SwitchType.JumpCut)
 wait 2000
 Char.SetCoordinates($scplayer, 2533.743, -1272.434, 34.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 wait 500
 Task.PlayAnimNonInterruptable($scplayer, "JUMP_ROLL", "DAM_JUMP", 8.0, False, False, False, True, -1)
@@ -2287,18 +2335,39 @@ if
   182@ == 1
 goto_if_false @FINALEB_18465
 Text.PrintNow('RM4_46', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_46', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEB_18465
 if 
   179@ == 7
 goto_if_false @FINALEB_18499
 Text.PrintNow('RM4_45', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_45', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEB_18499
 if 
   183@ == 1
 goto_if_false @FINALEB_18533
 Text.PrintNow('RM4_50', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_50', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEB_18533
 return 

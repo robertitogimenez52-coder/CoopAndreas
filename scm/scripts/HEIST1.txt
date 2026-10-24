@@ -3,6 +3,7 @@
 
 :HEIST1
 script_name 'HEIST1'
+Coop.EnableSyncingThisScript()
 gosub @HEIST1_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :HEIST1_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('HEIST1')
 $onmission = 1
 $disable_mod_garage = 1
@@ -23,6 +25,7 @@ wait 0
 Streaming.SetAreaVisible(10)
 Char.SetHasUsedEntryExit($scplayer, 2016.422, 1017.102, 10.0)
 Char.SetCoordinates($scplayer, 2026.225, 1007.423, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 307.0)
 322@, 323@ = Clock.GetTimeOfDay()
 Clock.SetTimeOfDay(0, 0)
@@ -335,6 +338,13 @@ if
   not Char.HasGotWeapon($scplayer, WeaponType.Camera)
 goto_if_false @HEIST1_2167
 Text.PrintNow('HEI1_41', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_41', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST1_2167
 109@ = Object.CreateNoOffset(#GEN_DOORINT01, 371.2516, 166.6324, 1007.359)
@@ -399,6 +409,13 @@ if
 goto_if_false @HEIST1_2563
 Audio.PlayMissionAudio(306@)
 Text.PrintNow(234@(308@,24s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(234@(308@,24s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 310@ = 3
 
 :HEIST1_2563
@@ -409,6 +426,13 @@ if
   Audio.HasMissionAudioFinished(306@)
 goto_if_false @HEIST1_2687
 Text.ClearThisPrint(234@(308@,24s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(234@(308@,24s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   306@ == 1
 goto_if_false @HEIST1_2645
@@ -888,6 +912,13 @@ Audio.ClearMissionAudio(306@)
 311@ = 0
 310@ = 0
 Text.PrintNow('HEI1_39', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_39', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 175@ = 3
 
 :HEIST1_5168
@@ -901,6 +932,13 @@ Blip.Remove(155@)
 199@ = 1
 Text.ClearPrints
 Text.PrintNow('HEI1_40', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_40', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 177@ = 5
 205@ = 1
 TIMERB = 0
@@ -917,6 +955,13 @@ if
 goto_if_false @HEIST1_5355
 Text.ClearPrints
 Text.Print('HEI1_1', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('HEI1_1', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 205@ = 2
 
 :HEIST1_5355
@@ -930,6 +975,13 @@ if
   not Char.HasGotWeapon($scplayer, WeaponType.Camera)
 goto_if_false @HEIST1_5525
 Text.PrintNow('HEI1_11', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_11', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 82@(201@,20i) = Char.Create(4, 59, 2030.703, 1489.388, 9.8203)
 Task.WanderStandard(82@(201@,20i))
 164@ = Blip.AddForChar(82@(201@,20i))
@@ -1195,6 +1247,13 @@ goto_if_false @HEIST1_7852
 TIMERA = 0
 TIMERB = 0
 Text.PrintNow('HEI1_9', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_9', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 180@ = 1
 179@ = 1
 Char.SetHasUsedEntryExit($scplayer, 2415.348, 1123.942, 10.0)
@@ -1528,6 +1587,13 @@ if
 goto_if_false @HEIST1_9928
 Text.ClearPrints
 Text.PrintNow('HEI1_33', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_33', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 173@ = 0
 
 :HEIST1_9928
@@ -1538,6 +1604,13 @@ Blip.Remove(166@)
 173@ = 0
 Text.ClearPrints
 Text.PrintNow('HEI1_34', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_34', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 158@ = Blip.AddForCoord(346.9205, 165.9382, 1024.781)
 Blip.SetEntryExit(158@, 2415.348, 1123.942, 10.0)
 Blip.ChangeColor(158@, BlipColor.Yellow)
@@ -1593,6 +1666,13 @@ goto_if_false @HEIST1_10368
 Char.ClearTasks(52@)
 Task.KillCharOnFoot(52@, $scplayer)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -1661,6 +1741,13 @@ goto_if_false @HEIST1_10758
 Char.ClearTasks(53@)
 Task.KillCharOnFoot(53@, $scplayer)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -1729,6 +1816,13 @@ goto_if_false @HEIST1_11148
 Char.ClearTasks(54@)
 Task.KillCharOnFoot(54@, $scplayer)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -1753,6 +1847,13 @@ if
 goto_if_false @HEIST1_11305
 Text.ClearPrints
 Text.PrintNow('HEI1_52', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_52', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -1857,6 +1958,13 @@ goto @HEIST1_11824
 :HEIST1_11848
 188@ = 2
 Text.PrintNow('HEI1_6', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_6', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :HEIST1_11878
@@ -1915,6 +2023,13 @@ Blip.SetEntryExit(160@, 2415.348, 1123.942, 10.0)
 Blip.ChangeColor(160@, BlipColor.Yellow)
 188@ = 99
 Text.PrintNow('HEI1_7', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_7', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :HEIST1_12142
 if 
@@ -1948,6 +2063,13 @@ if
 goto_if_false @HEIST1_12324
 Text.ClearPrints
 Text.PrintNow('HEI1_50', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2112,6 +2234,13 @@ if
   Char.IsShooting($scplayer)
 goto_if_false @HEIST1_13225
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2128,6 +2257,13 @@ goto_if_false @HEIST1_13326
 Char.ClearTasks(65@)
 Task.SmartFleeChar(65@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2144,6 +2280,13 @@ goto_if_false @HEIST1_13427
 Char.ClearTasks(66@)
 Task.SmartFleeChar(66@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2160,6 +2303,13 @@ goto_if_false @HEIST1_13528
 Char.ClearTasks(67@)
 Task.SmartFleeChar(67@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2176,6 +2326,13 @@ goto_if_false @HEIST1_13629
 Char.ClearTasks(68@)
 Task.SmartFleeChar(68@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2192,6 +2349,13 @@ goto_if_false @HEIST1_13730
 Char.ClearTasks(69@)
 Task.SmartFleeChar(69@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2208,6 +2372,13 @@ goto_if_false @HEIST1_13831
 Char.ClearTasks(70@)
 Task.SmartFleeChar(70@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2224,6 +2395,13 @@ goto_if_false @HEIST1_13932
 Char.ClearTasks(71@)
 Task.SmartFleeChar(71@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2240,6 +2418,13 @@ goto_if_false @HEIST1_14033
 Char.ClearTasks(72@)
 Task.SmartFleeChar(72@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2256,6 +2441,13 @@ goto_if_false @HEIST1_14134
 Char.ClearTasks(73@)
 Task.SmartFleeChar(73@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2272,6 +2464,13 @@ goto_if_false @HEIST1_14235
 Char.ClearTasks(45@)
 Task.SmartFleeChar(45@, $scplayer, 100.0, -1)
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2289,6 +2488,13 @@ Char.ClearTasks(47@)
 Task.SmartFleeChar(47@, $scplayer, 100.0, -1)
 gosub @HEIST1_23595
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2306,6 +2512,13 @@ Char.ClearTasks(48@)
 Task.SmartFleeChar(48@, $scplayer, 100.0, -1)
 gosub @HEIST1_23595
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2323,6 +2536,13 @@ Char.ClearTasks(49@)
 Task.SmartFleeChar(49@, $scplayer, 100.0, -1)
 gosub @HEIST1_23595
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2340,6 +2560,13 @@ Char.ClearTasks(50@)
 Task.SmartFleeChar(50@, $scplayer, 100.0, -1)
 gosub @HEIST1_23595
 Text.PrintNow('HEI1_50', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_50', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @HEIST1_23626
 goto @HEIST1_23658
 
@@ -2361,6 +2588,13 @@ Blip.Remove(160@)
 Blip.SetEntryExit(163@, 2415.348, 1123.942, 10.0)
 Text.ClearPrints
 Text.PrintNow('HEI1_10', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_10', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 221@ = 1
 
 :HEIST1_14827
@@ -2422,6 +2656,13 @@ Particle.Play(142@)
 Particle.Play(143@)
 TIMERA = 0
 Text.PrintNow('HEI1_20', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_20', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 316@ = 1
 
 :HEIST1_15261
@@ -2793,6 +3034,13 @@ Char.SetHeading(50@, 101.1)
 :HEIST1_17536
 Text.ClearPrints
 Text.PrintNow('HEI1_22', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_22', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(158@)
 158@ = Blip.AddForCoord(346.9205, 165.9382, 1024.781)
 Blip.SetEntryExit(158@, 2415.348, 1123.942, 10.0)
@@ -2906,6 +3154,13 @@ Blip.Remove(158@)
 Text.ClearPrints
 Text.ClearHelp
 Text.PrintNow('HEI1_25', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_25', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 161@ = Blip.AddForCoord(2418.682, 1123.352, 9.8047)
 Blip.ChangeColor(161@, BlipColor.Yellow)
 Particle.Kill(141@)
@@ -3279,6 +3534,13 @@ Task.KillCharOnFoot(79@, $scplayer)
 :HEIST1_20809
 Text.ClearPrints
 Text.PrintNow('HEI1_46', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_46', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.AlterWantedLevelNoDrop($player1, 2)
 Streaming.RequestModel(401)
 
@@ -3350,6 +3612,13 @@ Blip.Remove(161@)
 165@ = Blip.AddForCoord(1918.59, 958.3391, 9.8203)
 Text.ClearPrints
 Text.PrintNow('HEI1_29', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('HEI1_29', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.AlterWantedLevelNoDrop($player1, 2)
 324@ = 1
 TIMERB = 0
@@ -3528,6 +3797,7 @@ Task.CarDriveToCoord(214@, 213@, 1909.04, 959.7415, 9.8203, 7.0, DriveMode.Strai
 Camera.SetFixedPosition(1901.587, 965.5023, 11.8636, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1902.538, 965.246, 11.6931, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 1913.682, 962.0125, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 100.3)
 Audio.ReportMissionAudioEventAtPosition(-1000.0, -1000.0, -1000.0, 1036)
 Char.ClearTasks($scplayer)

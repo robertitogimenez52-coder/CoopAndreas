@@ -3,6 +3,7 @@
 
 :CASINO1
 script_name 'CASINO1'
+Coop.EnableSyncingThisScript()
 gosub @CASINO1_484
 if 
   has_deatharrest_been_executed 
@@ -84,6 +85,7 @@ return
 
 :CASINO1_484
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 wait 0
 34@ = -1
@@ -302,6 +304,7 @@ Camera.SetFixedPosition(1908.156, 977.3071, 10.2294, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1907.488, 976.5921, 10.4377, SwitchType.JumpCut)
 World.ClearArea(1, 1903.27, 955.95, 9.8203, 30.0)
 Char.SetCoordinates($scplayer, 1909.826, 977.4828, 9.8127)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 136.9741)
 Streaming.RequestModel(#TRDCSGRGDOOR_LVS)
 Streaming.LoadAllModelsNow
@@ -386,6 +389,13 @@ Char.StartFacialTalk($scplayer, 10000)
 :CASINO1_2838
 Audio.PlayMissionAudio(303@)
 Text.PrintNow(102@(305@,67s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(102@(305@,67s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 307@ = 3
 
 :CASINO1_2864
@@ -396,6 +406,13 @@ if
   Audio.HasMissionAudioFinished(303@)
 goto_if_false @CASINO1_3173
 Text.ClearThisPrint(102@(305@,67s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(102@(305@,67s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if or
   305@ == 61
   305@ == 63
@@ -628,6 +645,7 @@ Char.WarpFromCarToCoord($scplayer, 1903.27, 955.95, 9.8203)
 
 :CASINO1_4348
 Char.WarpIntoCar($scplayer, 322@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASINO1_4356
 Streaming.MarkModelAsNoLongerNeeded(#TRDCSGRGDOOR_LVS)
@@ -682,6 +700,13 @@ if
 goto_if_false @CASINO1_4596
 Audio.PlayMissionAudio(303@)
 Text.PrintNow(102@(305@,67s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(102@(305@,67s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 307@ = 3
 
 :CASINO1_4596
@@ -692,6 +717,13 @@ if
   Audio.HasMissionAudioFinished(303@)
 goto_if_false @CASINO1_4713
 Text.ClearThisPrint(102@(305@,67s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(102@(305@,67s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   303@ == 1
 goto_if_false @CASINO1_4678
@@ -733,6 +765,13 @@ if and
   38@ == 0
 goto_if_false @CASINO1_4924
 Text.Print('CAS1_10', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS1_10', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.AlterWantedLevelNoDrop($player1, 3)
 38@ = 1
 
@@ -826,7 +865,21 @@ if and
 goto_if_false @CASINO1_5473
 Text.ClearPrints
 Text.Print('CAS1_11', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS1_11', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('CAS1_12', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS1_12', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 98@ = 2
 34@ = 2
 36@ = 1
@@ -892,6 +945,13 @@ Blip.Remove(50@)
 
 :CASINO1_5771
 Text.PrintNow('CAS1_01', 7500, 2)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS1_01', 7500, 2, $NETWORK_PLAYER[$temp_int])
+    end
+end
 36@ = 0
 
 :CASINO1_5794
@@ -965,6 +1025,13 @@ goto_if_false @CASINO1_6214
 Task.Die(324@)
 Char.DetachFromCar(324@)
 Text.PrintNow('CAS1_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS1_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASINO1_19524
 
 :CASINO1_6214
@@ -2953,6 +3020,13 @@ if and
   305@ == 0
 goto_if_false @CASINO1_18229
 Text.Print('CAS1_03', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS1_03', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $ca1_random_dialogue += 1
 
 :CASINO1_18229
@@ -3147,6 +3221,13 @@ goto_if_false @CASINO1_19460
 Task.Die(324@)
 Char.DetachFromCar(324@)
 Text.PrintNow('CAS1_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS1_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASINO1_19524
 
 :CASINO1_19460
@@ -3157,6 +3238,13 @@ $ca1_test = 999
 Task.Die(324@)
 Char.DetachFromCar(324@)
 Text.PrintNow('CAS1_04', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS1_04', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASINO1_19524
 
 :CASINO1_19517

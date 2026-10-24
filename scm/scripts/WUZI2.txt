@@ -3,6 +3,7 @@
 
 :WUZI2
 script_name 'WUZI2'
+Coop.EnableSyncingThisScript()
 gosub @WUZI2_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :WUZI2_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 257@ = Game.GetMaxWantedLevel()
 Text.LoadMissionText('WUZI2')
@@ -146,10 +148,18 @@ Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 Player.SetControl($player1, True)
 Char.SetCoordinates($scplayer, -2153.611, 645.31, 51.3516)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 Camera.DoFade(1, 1500)
 36@ = Blip.AddForCoord(-1641.995, 1309.217, 6.1764)
 Text.PrintNow('WZI2_1', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_1', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 40@ = 0
 253@ = 0
 if 
@@ -339,6 +349,7 @@ goto @WUZI2_2735
 
 :WUZI2_2715
 Char.SetCoordinates($scplayer, -1640.9, 1310.6, 6.1797)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :WUZI2_2735
 Char.SetHeading($scplayer, 315.0)
@@ -362,6 +373,13 @@ goto @WUZI2_2852
 :WUZI2_2876
 skip_cutscene_start_internal @WUZI2_3040
 Text.PrintNow('WZI2_2', 6500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_2', 6500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :WUZI2_2906
@@ -375,6 +393,13 @@ goto @WUZI2_2906
 Camera.SetFixedPosition(-1511.427, 1374.075, 5.9802, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-1511.29, 1373.103, 5.7898, SwitchType.JumpCut)
 Text.PrintNow('WZI2_3', 6500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_3', 6500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :WUZI2_3010
@@ -484,6 +509,7 @@ goto @WUZI2_3668
 
 :WUZI2_3708
 Char.SetCoordinates($scplayer, -1636.33, 1315.36, -1.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 285.0)
 TIMERA = 0
 
@@ -525,6 +551,7 @@ if
   47@ == 0
 goto_if_false @WUZI2_4018
 Char.SetCoordinates($scplayer, -1636.33, 1315.36, -1.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 285.0)
 Clock.SetTimeScale(1.0)
 Camera.RestoreJumpcut
@@ -539,6 +566,13 @@ Streaming.RemoveAnimation("DAM_JUMP")
 47@ = 0
 Text.ClearPrints
 Text.PrintNow('WZI2_8', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_8', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 36@ = Blip.AddForCoord(-1449.642, 1501.135, 0.7366)
 $help_text_switch_W2 = 0
 $help_text_flag_W2 = 0
@@ -592,6 +626,13 @@ Camera.PersistPos(True)
 Camera.SetVectorTrack(-1600.998, 1323.041, 1.9093, -1600.315, 1322.414, -2.0672, 6000, True)
 Camera.SetVectorMove(-1598.525, 1318.594, 2.3701, -1598.525, 1318.594, -2.3701, 6000, True)
 Text.PrintNow('WZI2_5', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_5', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :WUZI2_4568
@@ -662,6 +703,13 @@ if
   287@ == 1
 goto_if_false @WUZI2_4967
 Text.PrintNow('WZI2_6', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_6', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI2_4967
 $help_text_switch_W2 += 1
@@ -686,6 +734,13 @@ if
   379@ == 0
 goto_if_false @WUZI2_5136
 Text.PrintNow('WZI2_7', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_7', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 259@ = Blip.AddForPickup(258@)
 TIMERB = 0
 goto @WUZI2_5144
@@ -891,6 +946,13 @@ Camera.PersistPos(True)
 Camera.SetVectorTrack(54@, 55@, 56@, $x, $y, $z, 3500, True)
 Camera.SetVectorMove(51@, 52@, 53@, 51@, 52@, 53@, 3500, True)
 Text.PrintNow('WZI2_40', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_40', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :WUZI2_6448
@@ -936,6 +998,13 @@ goto @WUZI2_6607
 
 :WUZI2_6645
 Text.PrintNow('WZI2_41', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_41', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.ResetNewScriptables
 Camera.PersistTrack(True)
 Camera.PersistPos(True)
@@ -973,6 +1042,13 @@ skip_cutscene_start_internal @WUZI2_7038
 Camera.SetFixedPosition(-1568.742, 1385.366, 5.9871, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-1569.707, 1385.126, 5.8767, SwitchType.JumpCut)
 Text.PrintNow('WZI2_40', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_40', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :WUZI2_6904
@@ -986,6 +1062,13 @@ goto @WUZI2_6904
 Camera.SetFixedPosition(-1494.649, 1350.358, 6.0727, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-1495.164, 1349.516, 5.9146, SwitchType.JumpCut)
 Text.PrintNow('WZI2_41', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_41', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :WUZI2_7008
@@ -1000,6 +1083,13 @@ skip_cutscene_end
 
 :WUZI2_7040
 Text.PrintNow('WZI2_8', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_8', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(290@)
 goto_if_false @WUZI2_7087
@@ -1033,6 +1123,13 @@ Blip.ChangeDisplay(416@, BlipDisplay.BlipOnly)
 
 :WUZI2_7212
 Text.PrintNow('WZI2_8', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_8', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $player_breath_W2 = 1
 288@ = 0
 $player_first_spot_W2 = 0
@@ -1139,11 +1236,25 @@ if
   522@ <> 2
 goto_if_false @WUZI2_7925
 Text.PrintNow('WZI2_30', 1000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_30', 1000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Pad.IsButtonPressed(PadId.Pad1, Button.Triangle)
 goto_if_false @WUZI2_7918
 Text.ClearPrints
 Text.PrintNow('WZI2_32', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_32', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(36@)
 36@ = Blip.AddForCoord(-1508.558, 1296.067, 0.397)
 48@ = 1
@@ -1154,6 +1265,13 @@ goto @WUZI2_7941
 
 :WUZI2_7925
 Text.PrintNow('WZI2_31', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_31', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI2_7941
 goto @WUZI2_8003
@@ -3317,6 +3435,13 @@ switch_start $help_text_switch_W2 total_jumps 3 default_jump 1 @WUZI2_21439 jump
 
 :WUZI2_21310
 Text.PrintNow('WZI2_8', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_8', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 $help_text_switch_W2 += 1
 goto @WUZI2_21490
@@ -3326,6 +3451,13 @@ if
   TIMERB > 7000
 goto_if_false @WUZI2_21397
 Text.PrintNow('WZI2_9', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_9', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 6500
 $help_text_switch_W2 += 1
 
@@ -3692,6 +3824,13 @@ Char.SetShootRate(442@, 80)
 Char.SetSenseRange(442@, 80.0)
 457@ = 0
 Text.PrintNow('WZI2_35', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_35', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 522@ = 0
 $pointer_W2 = 0
 
@@ -4179,6 +4318,13 @@ if
   40@ == 1
 goto_if_false @WUZI2_26586
 Text.PrintNow(41@s, 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(41@s, 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI2_26586
 return 
@@ -4287,6 +4433,7 @@ Player.SetControl($player1, False)
 
 :WUZI2_27126
 Char.SetCoordinates($scplayer, -2154.815, 641.3157, 51.3594)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 268.4865)
 Streaming.LoadScene(-2154.815, 641.3157, 51.3594)
 TIMERA = 0
@@ -4307,6 +4454,13 @@ Player.SetControl($player1, True)
 
 :WUZI2_27239
 Text.PrintNow('WZI2_60', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('WZI2_60', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :WUZI2_27255
 $onmission = 0

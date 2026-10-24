@@ -10,8 +10,10 @@ gosub @FINALEC_57525
 terminate_this_script 
 
 :FINALEC_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 script_name 'FINALEC'
+Coop.EnableSyncingThisScript()
 wait 0
 Text.LoadMissionText('RIOT4')
 97@ = DecisionMakerChar.Load(DecisionMakerType.Empty)
@@ -161,6 +163,7 @@ goto @FINALEC_908
 Hud.SwitchWidescreen(True)
 Player.SetControl($player1, False)
 Char.SetCoordinates($scplayer, 2515.771, -1277.474, 33.728)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 144.159)
 Task.PlayAnim($scplayer, "KO_SKID_BACK", "PED", 1000.0, False, False, False, True, -1)
 wait 250
@@ -309,6 +312,7 @@ if
 goto_if_false @FINALEC_2471
 Car.StartPlayback(152@, 288)
 Char.SetCoordinates($scplayer, 2513.49, -1277.77, 34.19)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 128@ = 17
 
 :FINALEC_2471
@@ -365,7 +369,21 @@ Player.SetControl($player1, True)
 151@ = 1
 Text.ClearPrints
 Text.PrintNow('RM4_41', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_41', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('RM4_42', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RM4_42', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 World.SetPedDensityMultiplier(0.2)
 Car.MarkAsNoLongerNeeded($sweet_car)
 Streaming.MarkModelAsNoLongerNeeded(492)
@@ -512,6 +530,13 @@ goto_if_false @FINALEC_3973
 202@ = 1
 goto @FINALEC_57329
 Text.PrintNow('RM4_50', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_50', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEC_3973
 if 
@@ -524,6 +549,13 @@ Blip.Remove(115@)
 115@ = Blip.AddForCar(153@)
 Blip.SetAsFriendly(115@, True)
 Text.PrintNow('RM4_48', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_48', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 200@ = 1
 
 :FINALEC_4053
@@ -544,6 +576,13 @@ Blip.ChangeDisplay(115@, BlipDisplay.Both)
 
 :FINALEC_4142
 Text.PrintNow('RM4_49', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_49', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 200@ = 0
 
 :FINALEC_4165
@@ -653,6 +692,13 @@ goto_if_false @FINALEC_5096
 Task.PlayAnimNonInterruptable(158@, "FIN_COP1_STOMP", "FINALE", 8.0, False, False, False, True, -1)
 TIMERB = 0
 Text.PrintNow('RM4_43', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_43', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 196@ = 5
 
 :FINALEC_5096
@@ -1018,7 +1064,7 @@ Task.PlayAnimNonInterruptable($sweet, "FIN_HANG_LOOP", "FINALE", 1.5, True, Fals
 
 :FINALEC_7931
 if 
-  not Camera.IsPointOnScreen(2600.99, -1050.01, 69.04, 10.0)
+  not Coop.IsPointOnAnyPlayersScreen(2600.99, -1050.01, 69.04, 10.0)
 goto_if_false @FINALEC_7989
 Object.Delete(167@)
 Object.Delete(168@)
@@ -2127,6 +2173,13 @@ Task.Die($sweet)
 :FINALEC_16590
 Car.Explode(153@)
 Text.PrintNow('RM4_53', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_53', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEC_57329
 goto @FINALEC_16632
 
@@ -2138,6 +2191,13 @@ if
   Char.IsDead($sweet)
 goto_if_false @FINALEC_16671
 Text.PrintNow('RM4_53', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_53', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEC_57329
 
 :FINALEC_16671
@@ -4196,6 +4256,13 @@ Task.Die($sweet)
 :FINALEC_30798
 Car.Explode(153@)
 Text.PrintNow('RM4_53', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_53', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEC_57329
 goto @FINALEC_30840
 
@@ -4207,6 +4274,13 @@ if
   Char.IsDead($sweet)
 goto_if_false @FINALEC_30879
 Text.PrintNow('RM4_53', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_53', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @FINALEC_57329
 
 :FINALEC_30879
@@ -5579,6 +5653,7 @@ goto @FINALEC_39789
 
 :FINALEC_39769
 Char.SetCoordinates($scplayer, 2422.97, -1607.87, 25.55)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :FINALEC_39789
 TIMERA = 0
@@ -5900,6 +5975,7 @@ Streaming.SetAreaVisible(0)
 Player.SetControl($player1, False)
 Hud.SwitchWidescreen(True)
 Char.SetCoordinates($scplayer, 2523.975, -1749.962, 58.702)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.FreezePosition($scplayer, True)
 World.SetCarDensityMultiplier(2.0)
 World.SetPedDensityMultiplier(1.5)
@@ -6190,6 +6266,7 @@ goto @FINALEC_43992
 
 :FINALEC_44023
 Char.SetCoordinates($scplayer, -1014.557, -1422.255, 186.1819)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.FreezePosition($scplayer, True)
 Clock.SetTimeOfDay(10, 0)
 Weather.ForceNow(WeatherType.SunnyCountryside)
@@ -6472,6 +6549,7 @@ goto @FINALEC_46395
 :FINALEC_46419
 Camera.SetDarknessEffect(False, -1)
 Char.SetCoordinates($scplayer, -2551.824, 1438.745, -6.4582)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.FreezePosition($scplayer, True)
 Weather.ForceNow(WeatherType.RainySf)
 Clock.SetTimeOfDay(22, 15)
@@ -6767,6 +6845,7 @@ goto @FINALEC_48902
 Weather.ForceNow(WeatherType.ExtraSunnyLa)
 Clock.SetTimeOfDay(5, 30)
 Char.SetCoordinates($scplayer, -922.5345, 669.1976, 86.8181)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.FreezePosition($scplayer, True)
 Camera.SetDarknessEffect(True, -1)
 wait 11000
@@ -7109,6 +7188,7 @@ goto @FINALEC_51829
 Weather.ForceNow(WeatherType.ExtraSunnyDesert)
 Camera.SetDarknessEffect(True, -1)
 Char.SetCoordinates($scplayer, 370.7745, 2441.234, 19.0844)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.FreezePosition($scplayer, True)
 Clock.SetTimeOfDay(12, 0)
 wait 11000
@@ -7450,6 +7530,7 @@ goto @FINALEC_54763
 
 :FINALEC_54787
 Char.SetCoordinates($scplayer, 2012.444, 2140.383, 78.0505)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.FreezePosition($scplayer, True)
 Clock.SetTimeOfDay(0, 0)
 wait 11000
@@ -7700,6 +7781,7 @@ Audio.StopBeatTrack
 Char.FreezePosition($scplayer, False)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2494.483, -1684.639, 12.51)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 3.546)
 Camera.ResetNewScriptables
 Camera.RestoreJumpcut
@@ -7760,6 +7842,13 @@ if
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
 goto_if_false @FINALEC_57117
 Text.PrintNow(185@s, 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(185@s, 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 204@ = 2
 
@@ -7782,6 +7871,7 @@ return
 $player_x, $player_y, $player_z = Camera.GetActiveCoordinates()
 $player_z += 1.5
 Char.SetCoordinates($scplayer, $player_x, $player_y, $player_z)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 return 
 
 :FINALEC_57209
@@ -7819,18 +7909,39 @@ if
   201@ == 1
 goto_if_false @FINALEC_57381
 Text.PrintNow('RM4_46', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_46', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEC_57381
 if 
   198@ == 7
 goto_if_false @FINALEC_57415
 Text.PrintNow('RM4_45', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_45', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEC_57415
 if 
   202@ == 1
 goto_if_false @FINALEC_57449
 Text.PrintNow('RM4_50', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RM4_50', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :FINALEC_57449
 return 

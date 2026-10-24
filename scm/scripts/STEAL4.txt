@@ -3,6 +3,7 @@
 
 :STEAL4
 script_name 'STEAL4'
+Coop.EnableSyncingThisScript()
 gosub @STEAL4_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @STEAL4_30816
 terminate_this_script 
 
 :STEAL4_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 34@ = 0
 35@ = 0
@@ -283,6 +285,13 @@ goto @STEAL4_1787
 Text.LoadMissionText('STEAL4')
 Streaming.SetAreaVisible(1)
 Char.SetAreaVisible($scplayer, 1)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 1)
+    end
+end
 Streaming.LoadScene(-2031.0, 149.0, 29.0)
 Cutscene.Load('STEAL_4')
 
@@ -318,6 +327,13 @@ goto @STEAL4_1933
 
 :STEAL4_1957
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Streaming.SetAreaVisible(0)
 World.ClearArea(1, -2036.17, 179.2839, 27.8359, 10.0)
 Streaming.LoadSpecialCharacter('CESAR', 1)
@@ -345,6 +361,7 @@ Char.SetMaxHealth(68@, 400)
 Char.SetCantBeDraggedOut(68@, True)
 Char.SetSuffersCriticalHits(68@, False)
 Char.SetCoordinates($scplayer, -2035.53, 180.7482, 27.8359)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 209.6339)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -399,6 +416,13 @@ if
   35@ == 1
 goto_if_false @STEAL4_2501
 Text.PrintNow('ST4_05', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_05', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 34@ += 1
 35@ = 0
@@ -491,6 +515,13 @@ goto_if_false @STEAL4_3072
 Blip.Remove(108@)
 108@ = Blip.AddForCoord(-1585.63, 90.3697, 2.7752)
 Text.PrintNow('ST4_43', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_43', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 56@ = 0
 TIMERA = 0
 
@@ -629,6 +660,13 @@ if
 goto_if_false @STEAL4_3834
 108@ = Blip.AddForCoord(-1585.63, 90.3697, 2.7752)
 Text.PrintNow('ST4_43', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_43', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_3834
 return 
@@ -639,6 +677,13 @@ if
 goto_if_false @STEAL4_3900
 Text.ClearPrints
 Text.PrintNow('ST4_13', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_13', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $disable_crane = 0
 56@ = 0
 TIMERA = 0
@@ -677,6 +722,13 @@ if
 goto_if_false @STEAL4_4088
 108@ = Blip.AddForCoord(-1585.63, 90.3697, 2.7752)
 Text.PrintNow('ST4_13', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_13', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $disable_crane = 0
 
 :STEAL4_4088
@@ -961,6 +1013,13 @@ $disable_manual_control = 0
 $disable_crane_slide = 0
 128@ = 0
 Text.PrintNow('ST4_T01', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_T01', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 109@ = Blip.AddForObject(92@)
 110@ = Blip.AddForObject(93@)
 111@ = Blip.AddForObject(94@)
@@ -1004,6 +1063,13 @@ $disable_crane_rotate = 0
 $disable_manual_control = 0
 Text.ClearHelp
 Text.PrintNow('ST4_T02', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_T02', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 0
 61@ = 500
 TIMERA = 20000
@@ -1228,6 +1294,13 @@ goto @STEAL4_7225
 :STEAL4_7251
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('STL4_FA', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL4_FA', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 35@ += 1
 
@@ -1283,6 +1356,13 @@ Sequence.Clear(49@)
 :STEAL4_7516
 Text.ClearPrints
 Text.Print('ST4_T04', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('ST4_T04', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 TIMERB = 0
 132@ = 0
@@ -1384,6 +1464,13 @@ $disable_manual_control = 0
 128@ = 1
 Text.ClearPrints
 Text.PrintNow('ST4_T06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_T06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Blip.DoesExist(109@)
 goto_if_false @STEAL4_8053
@@ -1424,6 +1511,13 @@ goto_if_false @STEAL4_8233
 TIMERA = 20000
 35@ += 1
 Text.PrintNow('ST4_T06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_T06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_8233
 goto @STEAL4_8292
@@ -1436,6 +1530,13 @@ goto_if_false @STEAL4_8292
 TIMERA = 20000
 35@ += 1
 Text.PrintNow('ST4_T06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_T06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_8292
 if 
@@ -1686,6 +1787,13 @@ goto @STEAL4_9603
 :STEAL4_9629
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('STL4_FB', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL4_FB', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(85@)
 goto_if_false @STEAL4_9839
@@ -1881,6 +1989,13 @@ Sequence.Clear(49@)
 :STEAL4_10790
 Text.ClearPrints
 Text.Print('ST4_T04', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('ST4_T04', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 TIMERB = 0
 132@ = 0
@@ -1933,6 +2048,13 @@ $disable_manual_control = 0
 128@ = 1
 Text.ClearPrints
 Text.PrintNow('ST4_T06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_T06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Blip.DoesExist(109@)
 goto_if_false @STEAL4_11127
@@ -1970,6 +2092,13 @@ goto_if_false @STEAL4_11289
 TIMERA = 20000
 35@ += 1
 Text.PrintNow('ST4_T06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_T06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_11289
 if 
@@ -2569,6 +2698,13 @@ goto @STEAL4_14585
 :STEAL4_14611
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('STL4_EA', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL4_EA', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(86@)
 goto_if_false @STEAL4_14730
@@ -3645,6 +3781,13 @@ goto @STEAL4_20284
 :STEAL4_20310
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('STL4_GC', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL4_GC', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :STEAL4_20337
@@ -3855,6 +3998,13 @@ if
   TIMERA > 35000
 goto_if_false @STEAL4_21546
 Text.PrintNow('ST4_29', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_29', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :STEAL4_21546
@@ -3889,6 +4039,13 @@ if
   TIMERA > 30000
 goto_if_false @STEAL4_21759
 Text.PrintNow('ST4_28', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_28', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :STEAL4_21759
@@ -3996,6 +4153,13 @@ if
   35@ == 0
 goto_if_false @STEAL4_22362
 Text.PrintNow('ST4_26', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_26', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(108@)
 108@ = Blip.AddForCoord(-2024.7, 179.4, 27.4)
 if 
@@ -4114,6 +4278,13 @@ goto @STEAL4_22859
 
 :STEAL4_22843
 Text.PrintNow('ST4_27', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_27', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_22859
 if 
@@ -4149,6 +4320,13 @@ goto_if_false @STEAL4_23055
 119@ = Blip.AddForCar(86@)
 Blip.SetAsFriendly(119@, True)
 Text.PrintNow('ST4_05', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_05', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL4_23055
 
 :STEAL4_23055
@@ -4230,6 +4408,13 @@ if
 goto_if_false @STEAL4_23612
 108@ = Blip.AddForCoord(-2024.7, 179.4, 27.4)
 Text.PrintNow('ST4_26', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_26', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_23612
 if 
@@ -4270,6 +4455,13 @@ if
   TIMERB > 20000
 goto_if_false @STEAL4_23818
 Text.PrintNow('ST4_27', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_27', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :STEAL4_23818
@@ -4287,6 +4479,13 @@ if
 goto_if_false @STEAL4_23898
 108@ = Blip.AddForCoord(-2024.7, 179.4, 27.4)
 Text.PrintNow('ST4_26', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_26', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_23898
 if 
@@ -4318,6 +4517,13 @@ if
   Player.IsPlaying($player1)
 goto_if_false @STEAL4_24025
 Char.SetAreaVisible($scplayer, 1)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 1)
+    end
+end
 
 :STEAL4_24025
 Streaming.LoadSceneInDirection(-2045.4, 173.1, 27.8, 309.5)
@@ -4363,6 +4569,7 @@ if
   not Char.IsInCar($scplayer, 86@)
 goto_if_false @STEAL4_24376
 Char.WarpIntoCar($scplayer, 86@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :STEAL4_24376
 if 
@@ -4406,6 +4613,13 @@ goto @STEAL4_24579
 :STEAL4_24605
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('STL4_NA', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL4_NA', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL4_24691
 
 :STEAL4_24632
@@ -4422,6 +4636,13 @@ goto @STEAL4_24645
 :STEAL4_24671
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('STL4_NB', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STL4_NB', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_24691
 TIMERA = 0
@@ -4480,6 +4701,13 @@ if
   Player.IsPlaying($player1)
 goto_if_false @STEAL4_24964
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 
 :STEAL4_24964
 35@ += 1
@@ -4513,6 +4741,7 @@ goto @STEAL4_25077
 
 :STEAL4_25110
 Char.SetCoordinates($scplayer, -1569.625, 122.3311, 2.5469)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetFixedPosition(-1571.141, 131.4032, 3.3235, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(-1571.685, 132.226, 3.4872, SwitchType.JumpCut)
 Streaming.LoadSceneInDirection(-1571.685, 132.226, 3.4872, 0.0)
@@ -4543,8 +4772,22 @@ goto @STEAL4_25288
 :STEAL4_25312
 Text.ClearHelp
 Text.PrintNow('ST4_45', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_45', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 5000
 Text.PrintNow('ST4_46', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_46', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 5000
 Camera.DoFade(0, 500)
 
@@ -4570,8 +4813,22 @@ goto @STEAL4_25467
 
 :STEAL4_25491
 Text.PrintNow('ST4_47', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_47', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 5000
 Text.PrintNow('ST4_48', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_48', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 5000
 Camera.DoFade(0, 500)
 
@@ -4584,6 +4841,7 @@ goto @STEAL4_25540
 
 :STEAL4_25564
 Char.SetCoordinates($scplayer, -2027.2, 179.5, 27.3)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 277.5)
 Streaming.LoadScene(-2045.4, 173.1, 27.8)
 Streaming.LoadSceneInDirection(-2045.4, 173.1, 27.8, 309.5)
@@ -4597,6 +4855,7 @@ goto @STEAL4_25633
 
 :STEAL4_25660
 Char.SetCoordinates($scplayer, -2027.2, 179.5, 27.3)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 277.5)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -5023,6 +5282,13 @@ if
   $player_is_in_crane <> 2
 goto_if_false @STEAL4_28134
 Text.PrintNow('ST4_42', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_42', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :STEAL4_28134
 126@ += 1
@@ -5269,11 +5535,25 @@ switch_start 131@ total_jumps 2 default_jump 1 @STEAL4_29767 jumps 0 @STEAL4_297
 
 :STEAL4_29707
 Text.PrintNow('ST4_11', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_11', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 131@ += 1
 goto @STEAL4_29767
 
 :STEAL4_29737
 Text.PrintNow('ST4_12', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_12', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 131@ += 1
 goto @STEAL4_29767
 
@@ -5447,14 +5727,35 @@ switch_start 140@ total_jumps 3 default_jump 0 @STEAL4_30707 jumps 1 @STEAL4_306
 
 :STEAL4_30638
 Text.PrintNow('ST4_44', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_44', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL4_30707
 
 :STEAL4_30661
 Text.PrintNow('ST4_03', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_03', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL4_30707
 
 :STEAL4_30684
 Text.PrintNow('ST4_02', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('ST4_02', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @STEAL4_30707
 
 :STEAL4_30707
@@ -5482,6 +5783,13 @@ if
   Player.IsPlaying($player1)
 goto_if_false @STEAL4_30839
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 
 :STEAL4_30839
 Streaming.SetAreaVisible(0)
@@ -6289,6 +6597,13 @@ if
 goto_if_false @STEAL4_35388
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(183@s, 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(183@s, 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 188@ += 1
 
 :STEAL4_35388
@@ -6350,6 +6665,13 @@ goto_if_false @STEAL4_35590
 
 :STEAL4_35590
 Text.ClearThisPrint(183@s)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(183@s, $NETWORK_PLAYER[$temp_int])
+    end
+end
 188@ = 0
 155@ = 0
 
@@ -6393,6 +6715,13 @@ Audio.AttachMissionAudioToChar(MissionAudioSlot.Slot1, 192@)
 :STEAL4_35825
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(189@s, 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(189@s, 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 194@ += 1
 
 :STEAL4_35846

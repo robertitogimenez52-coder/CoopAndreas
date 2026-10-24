@@ -3,6 +3,7 @@
 
 :MUSIC2
 script_name 'MUSIC2'
+Coop.EnableSyncingThisScript()
 gosub @MUSIC2_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @MUSIC2_10582
 terminate_this_script 
 
 :MUSIC2_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 Text.LoadMissionText('STRAP2')
@@ -100,6 +102,7 @@ goto @MUSIC2_321
 :MUSIC2_363
 61@ = Blip.AddForCoord(1239.032, -741.106, 94.76)
 Char.SetCoordinates($scplayer, 790.0, -1626.0, 12.5)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Streaming.LoadScene(790.0, -1626.0, 12.5)
 Camera.SetBehindPlayer
 Char.SetHeading($scplayer, 356.0)
@@ -140,6 +143,13 @@ Camera.DoFade(1, 1500)
 96@ = 0
 97@ = 0
 Text.PrintNow('STP2_1', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_1', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   $tripskip_s2flag > 0
 goto_if_false @MUSIC2_745
@@ -169,6 +179,13 @@ Skip.Clear
 Blip.Remove(61@)
 61@ = Blip.AddForCoord(1298.66, -795.58, 83.84)
 Text.PrintNow('STP2_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = Car.Create(579, 1243.154, -805.76, 83.188)
 Car.SetHeading(35@, 1.533)
 36@ = Car.Create(580, 1255.024, -804.587, 83.934)
@@ -188,6 +205,7 @@ Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(1256.623, -801.0125, 1084.091, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1255.93, -801.7316, 1084.044, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 1299.352, -792.6416, 1083.008)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 World.ClearArea(0, 1299.352, -792.6416, 200.0, 200.0)
 Streaming.RequestAnimation("CRIB")
@@ -228,6 +246,13 @@ Char.SetAccuracy(37@, 90)
 Char.SetDropsWeaponsWhenDead(37@, False)
 Char.SetAreaVisible(37@, 5)
 Text.PrintNow('STP2_3', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_3', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 2000
 skip_cutscene_start_internal @MUSIC2_1701
 wait 1000
@@ -248,11 +273,25 @@ wait 500
 Camera.SetFixedPosition(1260.744, -769.5749, 1085.258, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1259.781, -769.5841, 1084.988, SwitchType.JumpCut)
 Text.PrintNow('STP2_39', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_39', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 7000
 Camera.SetNearClip(0.1)
 Camera.SetFixedPosition(1299.504, -793.3958, 1084.693, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1299.589, -792.3994, 1084.685, SwitchType.JumpCut)
 Text.PrintNow('STP2_5', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_5', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 7000
 
 :MUSIC2_1701
@@ -391,6 +430,7 @@ Path.ExtendPatrolRoute(1270.074, -782.155, 1084.063, "NONE", "NONE")
 Path.ExtendPatrolRoute(1290.246, -782.463, 1084.056, "ROADCROSS", "PED")
 Task.FollowPatrolRoute(38@, 4, RouteMode.Loop)
 Char.SetCoordinates($scplayer, 1297.599, -781.234, 1083.048)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 89.58)
 Camera.SetFixedPosition(1291.055, -784.506, 1084.514, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1290.55, -783.6482, 1084.417, SwitchType.JumpCut)
@@ -412,6 +452,13 @@ Char.SetDropsWeaponsWhenDead(37@, False)
 
 :MUSIC2_2910
 Text.PrintNow('STP2_13', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_13', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 2000
 skip_cutscene_start_internal @MUSIC2_2943
 wait 4000
@@ -430,6 +477,13 @@ Task.ToggleDuck($scplayer, True)
 96@ = 0
 Hud.SwitchWidescreen(False)
 Text.PrintNow('STP2_14', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_14', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 TIMERB = 0
 72@ = 1
@@ -473,6 +527,7 @@ Task.GoStraightToCoord(39@, 1250.092, -769.277, 1083.064, MoveState.Walk, -1)
 Camera.SetFixedPosition(1249.856, -766.8402, 1084.777, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1249.814, -767.8293, 1084.637, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 1266.494, -769.705, 1083.06)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 92.259)
 if 
   not Char.IsDead(38@)
@@ -497,10 +552,24 @@ Task.FollowPatrolRoute(38@, 4, RouteMode.Loop)
 
 :MUSIC2_3669
 Text.PrintNow('STP2_15', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_15', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 2000
 skip_cutscene_start_internal @MUSIC2_3844
 wait 1000
 Text.PrintNow('STP2_16', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_16', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.SetFixedPosition(1267.405, -769.6973, 1084.667, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1266.412, -769.6685, 1084.551, SwitchType.JumpCut)
 if 
@@ -574,6 +643,7 @@ Hud.SwitchWidescreen(True)
 Char.ClearTasksImmediately($scplayer)
 World.ClearArea(0, 1249.466, -789.487, 100.0, 100.0)
 Char.SetCoordinates($scplayer, 1249.825, -780.682, 1083.06)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.659)
 Text.ClearPrints
 40@ = Char.Create(24, 25, 1258.271, -793.395, 1083.289)
@@ -609,6 +679,13 @@ Sequence.Clear(49@)
 Camera.SetFixedPosition(1251.82, -788.354, 1084.502, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1252.463, -789.1154, 1084.42, SwitchType.JumpCut)
 Text.PrintNow('STP2_19', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_19', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(38@)
 goto_if_false @MUSIC2_5002
@@ -661,6 +738,13 @@ wait 500
 Camera.SetFixedPosition(1274.983, -790.5506, 1084.063, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1275.575, -791.356, 1084.035, SwitchType.JumpCut)
 Text.PrintNow('LOC2_BA', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOC2_BA', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 
 :MUSIC2_5294
@@ -674,6 +758,13 @@ goto @MUSIC2_5294
 Camera.SetFixedPosition(1276.301, -794.5306, 1084.231, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(1276.292, -793.5345, 1084.143, SwitchType.JumpCut)
 Text.PrintNow('LOC2_BB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOC2_BB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 if 
   not Char.IsDead(41@)
@@ -787,6 +878,13 @@ Pad.SetPlayerCycleWeaponButton($player1, True)
 :MUSIC2_6324
 Blip.SetEntryExit(61@, 1298.78, -798.2, 1.0)
 Text.PrintNow('STP2_40', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_40', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 TIMERB = 0
 70@ = 3
@@ -1029,6 +1127,7 @@ goto @MUSIC2_8333
 
 :MUSIC2_8357
 Char.SetCoordinates($scplayer, 1299.664, -800.546, 83.148)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 271.284)
 Camera.SetBehindPlayer
 85@ = 2
@@ -1150,6 +1249,13 @@ Blip.Remove(66@)
 Blip.Remove(67@)
 Blip.Remove(68@)
 Text.PrintNow('STP2_30', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP2_30', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 70@ = 5
 TIMERA = 0
 
@@ -1198,6 +1304,7 @@ goto @MUSIC2_9306
 
 :MUSIC2_9276
 Char.SetCoordinates($scplayer, 785.75, -1632.84, 12.43)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 316.0)
 
 :MUSIC2_9306
@@ -1247,6 +1354,7 @@ goto_if_false @MUSIC2_9837
 Camera.SetFixedPosition(788.2733, -1628.832, 13.9503, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(788.473, -1629.811, 13.9214, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 787.973, -1630.274, 12.42)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 310.378)
 Char.SetCoordinates(52@, 788.7348, -1629.626, 12.42)
 Char.SetHeading(52@, 130.378)
@@ -1269,6 +1377,13 @@ goto_if_false @MUSIC2_9924
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Char.StartFacialTalk($scplayer, 10000)
 Text.PrintNow('LOC2_CA', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOC2_CA', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 95@ = 2
 
 :MUSIC2_9924
@@ -1290,6 +1405,13 @@ if
 goto_if_false @MUSIC2_10035
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('LOC2_CB', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOC2_CB', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(52@, 10000)
 95@ = 4
 
@@ -1314,6 +1436,13 @@ if
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
 goto_if_false @MUSIC2_10161
 Text.PrintNow('LOC2_CC', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOC2_CC', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk($scplayer, 10000)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 95@ = 6
@@ -1337,6 +1466,13 @@ Camera.SetFixedPosition(773.2047, -1633.066, 17.7324, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(774.1813, -1632.908, 17.5877, SwitchType.JumpCut)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('LOC2_DC', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('LOC2_DC', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(52@, 4000)
 Task.GoStraightToCoord($scplayer, 806.1331, -1630.219, 12.3906, MoveState.Walk, 60000)
 Task.GoStraightToCoord(52@, 793.8177, -1625.155, 12.3828, MoveState.Walk, 60000)
@@ -1362,6 +1498,7 @@ goto @MUSIC2_10412
 
 :MUSIC2_10436
 Char.SetCoordinates($scplayer, 808.299, -1630.424, 12.42)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 254.602)
 Camera.DoFade(1, 1000)
 Camera.RestoreJumpcut

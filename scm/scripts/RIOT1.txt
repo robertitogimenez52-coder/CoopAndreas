@@ -3,6 +3,7 @@
 
 :RIOT1
 script_name 'RIOT1'
+Coop.EnableSyncingThisScript()
 gosub @RIOT1_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :RIOT1_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Text.LoadMissionText('RIOT1')
 Text.ClearPrints
@@ -141,6 +143,7 @@ Car.ChangeColor($r1_sweets_car, 59, 34)
 Car.SetHeading($r1_sweets_car, 177.7)
 World.ClearArea(1, 1258.2, -814.4, 83.1, 60.0)
 Char.SetCoordinates($scplayer, 1258.2, -814.4, 83.1)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 40.0)
 World.ClearArea(1, 1257.6, -816.6, 83.1, 5.0)
 $sweet = Char.Create(25, 290, 1257.6, -816.6, 83.1)
@@ -272,6 +275,7 @@ goto @RIOT1_2979
 :RIOT1_1552
 Char.ClearTasksImmediately($scplayer)
 Char.WarpIntoCar($scplayer, $r1_sweets_car)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.ClearTasksImmediately($sweet)
 Char.WarpIntoCarAsPassenger($sweet, $r1_sweets_car, 0)
 
@@ -285,6 +289,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Text.PrintNow('R1_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('R1_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 if 
   37@ == 1
@@ -569,6 +580,13 @@ if
 goto_if_false @RIOT1_3201
 Text.ClearPrints
 Text.PrintNow('R1_02', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('R1_02', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 38@ = 1
 
 :RIOT1_3201
@@ -577,6 +595,13 @@ if
 goto_if_false @RIOT1_3242
 Text.ClearPrints
 Text.PrintNow('R1_04', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('R1_04', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 38@ = 1
 
 :RIOT1_3242
@@ -590,6 +615,13 @@ if
   Char.IsInCar($scplayer, $r1_sweets_car)
 goto_if_false @RIOT1_3324
 Text.ClearThisPrint('R1_03')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('R1_03', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(34@)
 34@ = Blip.AddForCoord(2505.4, -1670.6, 12.1)
 39@ = 1
@@ -638,6 +670,13 @@ goto @RIOT1_3567
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 90@ = 0
 91@ = 0
 
@@ -665,6 +704,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearPrints
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 94@ = 40@
 set_lvar_int_to_lvar_int 95@ = 41@
 40@ = 11
@@ -699,6 +745,13 @@ goto @RIOT1_3878
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 90@ = 0
 91@ = 0
 
@@ -718,6 +771,13 @@ goto @RIOT1_3967
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 90@ = 0
 91@ = 0
 
@@ -726,6 +786,13 @@ goto @RIOT1_3997
 
 :RIOT1_3974
 Text.PrintNow('R1_03', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('R1_03', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 40@ = 12
 
 :RIOT1_3997
@@ -735,6 +802,13 @@ goto_if_false @RIOT1_4049
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 40@ = 13
 41@ = 0
 Text.ClearPrints
@@ -765,6 +839,13 @@ if
   94@ == 0
 goto_if_false @RIOT1_4203
 Text.PrintNow('R1_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('R1_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :RIOT1_4203
 if 
@@ -773,6 +854,13 @@ goto_if_false @RIOT1_4277
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 40@ = 11
 41@ = Math.RandomIntInRange(0, 4)
 set_lvar_int_to_lvar_int 43@ = 41@
@@ -969,6 +1057,13 @@ if
 goto_if_false @RIOT1_5757
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(44@(41@,15s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(44@(41@,15s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 90@ = 2
 
 :RIOT1_5757
@@ -983,6 +1078,13 @@ if
 goto_if_false @RIOT1_5833
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow(44@(41@,15s), 4500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(44@(41@,15s), 4500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 91@ = 2
 
 :RIOT1_5833
@@ -996,6 +1098,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @RIOT1_5898
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 41@ += 1
 93@ = 2
 90@ = 0
@@ -1008,6 +1117,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @RIOT1_5961
 Text.ClearThisPrint(44@(41@,15s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(44@(41@,15s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 41@ += 1
 93@ = 1
 91@ = 0

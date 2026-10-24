@@ -3,6 +3,7 @@
 
 :LA1FIN2
 script_name 'LA1FIN2'
+Coop.EnableSyncingThisScript()
 gosub @LA1FIN2_339
 if 
   has_deatharrest_been_executed 
@@ -32,6 +33,7 @@ goto_if_false @LA1FIN2_339
 
 :LA1FIN2_339
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 84@ = 1
 494@ = 1
@@ -170,6 +172,13 @@ if
 goto_if_false @LA1FIN2_1040
 34@ = 1
 Text.Print('LA1_16', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_16', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :LA1FIN2_1040
 return 
@@ -257,6 +266,7 @@ Streaming.LoadScene(2518.789, -1677.22, 13.5079)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Char.SetCoordinates($scplayer, 2519.825, -1677.714, 13.7425)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 67.0)
 Streaming.RequestModel(401)
 Streaming.RequestModel(330)
@@ -357,6 +367,13 @@ Task.UseMobilePhone($scplayer, False)
 Streaming.MarkModelAsNoLongerNeeded(330)
 113@ = 0
 Text.Print('LA1_33', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_33', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(50@)
 50@ = Blip.AddForCoord(1631.791, -1867.288, 12.5381)
 
@@ -388,6 +405,13 @@ Blip.SetAsFriendly(50@, True)
 
 :LA1FIN2_2293
 Text.Print('LA1_35', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_35', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 1
 
 :LA1FIN2_2316
@@ -488,6 +512,13 @@ Car.MarkAsNoLongerNeeded(40@)
 Blip.Remove(50@)
 50@ = Blip.AddForCoord(1648.714, -1050.094, 22.9141)
 Text.Print('LA1_8', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_8', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $l1f2_sweet_health = 100
 116@ = 1
 117@ = Math.RandomIntInRange(4000, 8000)
@@ -513,6 +544,7 @@ Char.Delete(118@)
 
 :LA1FIN2_2946
 Char.WarpIntoCar($scplayer, 40@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.MarkAsNoLongerNeeded(40@)
 Streaming.MarkModelAsNoLongerNeeded(401)
 
@@ -597,6 +629,13 @@ if
 goto_if_false @LA1FIN2_3416
 $l1f2_sweet_health = 0
 Text.Print('LA1_16', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_16', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 34@ = 1
 
 :LA1FIN2_3416
@@ -859,6 +898,7 @@ goto @LA1FIN2_5199
 
 :LA1FIN2_5179
 Char.SetCoordinates($scplayer, 1648.034, -1053.956, 22.9)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :LA1FIN2_5199
 Char.SetHeading($scplayer, 150.0)
@@ -1003,6 +1043,13 @@ Car.FreezePosition(237@, False)
 101@ = 0
 Text.ClearPrints
 Text.Print('LA1_31', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_31', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :LA1FIN2_6193
 return 
@@ -1029,6 +1076,13 @@ goto_if_false @LA1FIN2_6737
 46@ = Car.Create(413, 1553.697, -1046.83, 22.7992)
 Text.ClearPrints
 Text.Print('LA1_36', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_36', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 269@ = 0
 
 :LA1FIN2_6339
@@ -1292,6 +1346,13 @@ goto_if_false @LA1FIN2_8476
 47@ = Car.Create(413, 1525.366, -1022.267, 22.9105)
 Text.ClearPrints
 Text.Print('LA1_37', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_37', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 269@ = 0
 
 :LA1FIN2_8071
@@ -1468,6 +1529,13 @@ if
 goto_if_false @LA1FIN2_9339
 Text.ClearPrints
 Text.Print('LA1_38', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('LA1_38', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @LA1FIN2_12014
 99@ -= 3
 101@ = 9
@@ -1628,6 +1696,7 @@ Camera.SetVectorTrack(1583.904, -1144.799, 23.802, 1585.228, -1144.223, 23.802, 
 Hud.SwitchWidescreen(True)
 Player.SetControl($player1, False)
 Char.SetCoordinates($scplayer, 1647.222, -1053.363, 22.9815)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.StartPlayback(122@, 162)
 101@ = 4
 set_lvar_int_to_lvar_int 102@ = TIMERA
@@ -1642,6 +1711,13 @@ if
 goto_if_false @LA1FIN2_10549
 Camera.DoFade(1, 600)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 if and
   not Car.IsDead(123@)
   not Car.IsDead(124@)
@@ -2790,6 +2866,13 @@ if
   not is_int_lvar_equal_to_constant 391@(437@,40i) == 23000
 goto_if_false @LA1FIN2_18982
 Text.Print(311@(437@,40s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer(311@(437@,40s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :LA1FIN2_18982
 436@ += 1
@@ -2921,6 +3004,7 @@ goto @LA1FIN2_19597
 
 :LA1FIN2_19567
 Char.SetCoordinates($scplayer, -2007.5, -2542.4, 35.7)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 80.0)
 
 :LA1FIN2_19597
@@ -2962,6 +3046,7 @@ Player.ClearWantedLevel($player1)
 Stat.SetInt(StatId.CitiesPassed, 1)
 Cutscene.Load('BCRAS1')
 Char.SetCoordinates($scplayer, -2011.438, -2501.287, 34.0624)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Player.SetControl($player1, False)
 Streaming.LoadScene(-2011.438, -2501.287, 34.0624)
 World.ClearArea(1, -2011.438, -2501.287, 34.0624, 100.0)

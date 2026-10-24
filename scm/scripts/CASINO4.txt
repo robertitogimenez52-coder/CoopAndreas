@@ -3,6 +3,7 @@
 
 :CASINO4
 script_name 'CASINO4'
+Coop.EnableSyncingThisScript()
 gosub @CASINO4_86
 if 
   has_deatharrest_been_executed 
@@ -24,6 +25,7 @@ goto @CASINO4_62
 
 :CASINO4_86
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Weather.Force(WeatherType.SunnyVegas)
 Text.LoadMissionText('CASINO4')
@@ -583,6 +585,13 @@ if
 goto_if_false @CASINO4_4526
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_4526
@@ -593,6 +602,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_4643
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_4608
@@ -676,6 +692,13 @@ Blip.SetCoordAppearance(66@, 1)
 Char.SetHeading($scplayer, 265.5486)
 Camera.SetBehindPlayer
 Text.Print('CAS4_01', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_01', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 48@ = 1
 Camera.DoFade(1, 1500)
 
@@ -902,6 +925,7 @@ if
   not Char.IsInAnyCar($scplayer)
 goto_if_false @CASINO4_6494
 Char.SetCoordinates($scplayer, -738.0603, 2388.346, 125.1527)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 goto @CASINO4_6514
 
 :CASINO4_6494
@@ -950,6 +974,13 @@ if and
   Char.IsDead(72@)
 goto_if_false @CASINO4_6710
 Text.Print('CAS4_47', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_47', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASINO4_6765
 
 :CASINO4_6710
@@ -957,10 +988,24 @@ if
   Char.IsDead(71@)
 goto_if_false @CASINO4_6749
 Text.Print('CAS4_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASINO4_6765
 
 :CASINO4_6749
 Text.Print('CAS4_04', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_04', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASINO4_6765
 goto @CASINO4_45862
@@ -1167,6 +1212,13 @@ Char.PerformSequence(71@, 89@)
 Sequence.Clear(89@)
 Text.ClearPrints
 Text.Print('CAS4_44', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_44', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 282@ = 1
 132@ = 6
 121@ = 1
@@ -1286,6 +1338,13 @@ Char.PerformSequence(71@, 89@)
 Sequence.Clear(89@)
 Text.ClearPrints
 Text.Print('CAS4_44', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_44', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 282@ = 2
 132@ = 6
 121@ = 1
@@ -1380,6 +1439,13 @@ if
 goto_if_false @CASINO4_8991
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_8991
@@ -1390,6 +1456,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_9108
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_9073
@@ -1626,6 +1699,13 @@ if and
   Char.IsDead(72@)
 goto_if_false @CASINO4_10287
 Text.Print('CAS4_47', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_47', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASINO4_10342
 
 :CASINO4_10287
@@ -1633,10 +1713,24 @@ if
   Char.IsDead(71@)
 goto_if_false @CASINO4_10326
 Text.Print('CAS4_05', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_05', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CASINO4_10342
 
 :CASINO4_10326
 Text.Print('CAS4_04', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_04', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASINO4_10342
 goto @CASINO4_45862
@@ -1656,12 +1750,40 @@ if
   132@ <> 0
 goto_if_false @CASINO4_10497
 Text.ClearThisPrint('CAS4_19')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_19', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_03')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_03', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_02')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_02', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Text.IsMessageBeingDisplayed
 goto_if_false @CASINO4_10497
 Text.Print('CAS4_37', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_37', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 0
 
 :CASINO4_10497
@@ -1672,12 +1794,40 @@ if
   132@ <> 1
 goto_if_false @CASINO4_10591
 Text.ClearThisPrint('CAS4_37')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_37', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_03')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_03', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_02')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_02', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Text.IsMessageBeingDisplayed
 goto_if_false @CASINO4_10591
 Text.Print('CAS4_19', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_19', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 1
 
 :CASINO4_10591
@@ -1692,12 +1842,40 @@ if
   132@ <> 2
 goto_if_false @CASINO4_10721
 Text.ClearThisPrint('CAS4_19')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_19', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_37')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_37', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_02')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_02', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Text.IsMessageBeingDisplayed
 goto_if_false @CASINO4_10721
 Text.Print('CAS4_03', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_03', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 2
 
 :CASINO4_10721
@@ -1708,12 +1886,40 @@ if
   132@ <> 3
 goto_if_false @CASINO4_10815
 Text.ClearThisPrint('CAS4_37')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_37', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_03')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_03', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_02')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_02', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Text.IsMessageBeingDisplayed
 goto_if_false @CASINO4_10815
 Text.Print('CAS4_19', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_19', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 3
 
 :CASINO4_10815
@@ -1728,12 +1934,40 @@ if
   132@ <> 4
 goto_if_false @CASINO4_10945
 Text.ClearThisPrint('CAS4_19')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_19', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_03')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_03', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_37')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_37', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Text.IsMessageBeingDisplayed
 goto_if_false @CASINO4_10945
 Text.Print('CAS4_02', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_02', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 4
 
 :CASINO4_10945
@@ -1744,12 +1978,40 @@ if
   132@ <> 5
 goto_if_false @CASINO4_11039
 Text.ClearThisPrint('CAS4_37')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_37', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_03')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_03', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CAS4_02')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CAS4_02', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Text.IsMessageBeingDisplayed
 goto_if_false @CASINO4_11039
 Text.Print('CAS4_19', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_19', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 5
 
 :CASINO4_11039
@@ -1801,6 +2063,13 @@ if
   252@ <> 78
 goto_if_false @CASINO4_11302
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASINO4_11302
 255@ = 3
@@ -1813,6 +2082,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_11426
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_11391
@@ -3129,6 +3405,13 @@ goto_if_false @CASINO4_18726
 TIMERA = 0
 Text.ClearPrints
 Text.Print('CAS4_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 70@ = Blip.AddForCoord(-24.0, 2331.0, 24.0)
 52@ = 1
 272@ = 0
@@ -3183,6 +3466,13 @@ if or
   252@ == 8
 goto_if_false @CASINO4_18967
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CASINO4_18967
 255@ = 3
@@ -3195,6 +3485,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_19091
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_19056
@@ -3477,6 +3774,13 @@ if
 goto_if_false @CASINO4_20660
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_20660
@@ -3487,6 +3791,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_20777
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_20742
@@ -3924,6 +4235,7 @@ goto @CASINO4_23505
 
 :CASINO4_23485
 Char.SetCoordinates($scplayer, -25.7433, 2334.629, 23.1328)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASINO4_23505
 Char.SetHeading($scplayer, 35.8419)
@@ -4051,6 +4363,13 @@ if
 goto_if_false @CASINO4_24241
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_24241
@@ -4061,6 +4380,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_24358
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_24323
@@ -4197,6 +4523,7 @@ goto @CASINO4_24884
 
 :CASINO4_24976
 Char.SetCoordinates($scplayer, -31.7411, 2342.68, 23.125)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 37.553)
 if 
   not Char.IsDead(72@)
@@ -4277,6 +4604,13 @@ if
 goto_if_false @CASINO4_25492
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_25492
@@ -4287,6 +4621,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_25693
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_25574
@@ -4724,6 +5065,7 @@ goto @CASINO4_28287
 
 :CASINO4_28267
 Char.SetCoordinates($scplayer, -31.7411, 2342.68, 23.125)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASINO4_28287
 Char.SetHeading($scplayer, 37.553)
@@ -4931,6 +5273,13 @@ if
 goto_if_false @CASINO4_29643
 69@ = Blip.AddForCoord(2175.21, 1679.37, 9.85)
 Text.PrintNow('CAS4_06', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS4_06', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 46@ = 1
 
 :CASINO4_29643
@@ -5070,6 +5419,13 @@ if
 goto_if_false @CASINO4_30358
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_30358
@@ -5080,6 +5436,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_30475
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_30440
@@ -5519,6 +5882,13 @@ goto_if_false @CASINO4_32757
 69@ = Blip.AddForCoord(2175.21, 1679.37, 9.85)
 Text.ClearPrints
 Text.Print('CAS4_06', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_06', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 46@ = 1
 
 :CASINO4_32757
@@ -5541,6 +5911,13 @@ if
 goto_if_false @CASINO4_32862
 Text.ClearPrints
 Text.Print('CAS4_37', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_37', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 0
 
 :CASINO4_32862
@@ -5553,6 +5930,13 @@ if
 goto_if_false @CASINO4_32930
 Text.ClearPrints
 Text.Print('CAS4_03', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_03', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 1
 
 :CASINO4_32930
@@ -5565,6 +5949,13 @@ if
 goto_if_false @CASINO4_32998
 Text.ClearPrints
 Text.Print('CAS4_02', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAS4_02', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 132@ = 2
 
 :CASINO4_32998
@@ -5604,6 +5995,13 @@ if
 goto_if_false @CASINO4_33190
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_33190
@@ -5614,6 +6012,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_33307
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_33272
@@ -5976,7 +6381,7 @@ goto_if_false @CASINO4_35316
 Car.SetCruiseSpeed(79@, 35.0)
 if and
   not Char.LocateAnyMeansChar2D($scplayer, 76@, 100.0, 100.0, False)
-  not Car.IsOnScreen(79@)
+  not Coop.IsCarOnAnyPlayersScreen(79@)
 goto_if_false @CASINO4_35316
 if 
   not Char.IsInFlyingVehicle($scplayer)
@@ -5987,7 +6392,7 @@ if
   not World.IsPointObscuredByAMissionEntity(95@, 96@, 97@, 4.0, 4.0, 3.0)
 goto_if_false @CASINO4_35316
 if 
-  not Camera.IsPointOnScreen(95@, 96@, 97@, 4.0)
+  not Coop.IsPointOnAnyPlayersScreen(95@, 96@, 97@, 4.0)
 goto_if_false @CASINO4_35316
 Car.SetCoordinates(79@, 95@, 96@, 97@)
 Car.TurnToFaceCoord(79@, 91@, 92@)
@@ -6004,7 +6409,7 @@ goto_if_false @CASINO4_35557
 Car.SetCruiseSpeed(78@, 35.0)
 if and
   not Char.LocateAnyMeansChar2D($scplayer, 75@, 100.0, 100.0, False)
-  not Car.IsOnScreen(78@)
+  not Coop.IsCarOnAnyPlayersScreen(78@)
 goto_if_false @CASINO4_35557
 if 
   not Char.IsInFlyingVehicle($scplayer)
@@ -6015,7 +6420,7 @@ if
   not World.IsPointObscuredByAMissionEntity(95@, 96@, 97@, 4.0, 4.0, 3.0)
 goto_if_false @CASINO4_35557
 if 
-  not Camera.IsPointOnScreen(95@, 96@, 97@, 4.0)
+  not Coop.IsPointOnAnyPlayersScreen(95@, 96@, 97@, 4.0)
 goto_if_false @CASINO4_35557
 Car.SetCoordinates(78@, 95@, 96@, 97@)
 Car.TurnToFaceCoord(78@, 91@, 92@)
@@ -6142,6 +6547,7 @@ goto @CASINO4_36343
 
 :CASINO4_36323
 Char.SetCoordinates($scplayer, 2179.759, 1678.957, 10.0469)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASINO4_36343
 Char.SetHeading($scplayer, 269.249)
@@ -6214,6 +6620,13 @@ if
 goto_if_false @CASINO4_36761
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_36761
@@ -6224,6 +6637,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_36878
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_36843
@@ -6314,6 +6734,7 @@ if
   not World.IsPointObscuredByAMissionEntity(2195.35, 1680.058, 11.4, 1.5, 1.5, 3.0)
 goto_if_false @CASINO4_37324
 Char.SetCoordinates($scplayer, 2187.0, 1680.0, 11.4)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASINO4_37324
 50@ = 1
@@ -6396,6 +6817,7 @@ Char.MarkAsNoLongerNeeded(72@)
 Char.Delete(71@)
 Char.MarkAsNoLongerNeeded(71@)
 Char.SetCoordinates($scplayer, 2187.0, 1680.0, 10.106)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 Streaming.LoadScene(2187.0, 1680.0, 10.106)
 Streaming.RequestModel(330)
@@ -6472,6 +6894,13 @@ if
 goto_if_false @CASINO4_38059
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_38059
@@ -6482,6 +6911,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_38176
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_38141
@@ -6880,6 +7316,13 @@ if
 goto_if_false @CASINO4_40680
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_40680
@@ -6891,6 +7334,13 @@ if
 goto_if_false @CASINO4_40802
 Char.StopFacialTalk($scplayer)
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_40767
@@ -7077,6 +7527,7 @@ goto @CASINO4_41738
 
 :CASINO4_41718
 Char.SetCoordinates($scplayer, 2171.0, 1671.0, 9.8125)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASINO4_41738
 Char.SetHeading($scplayer, 109.2628)
@@ -7257,6 +7708,13 @@ if
 goto_if_false @CASINO4_42937
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_42937
@@ -7267,6 +7725,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_43054
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   253@ == 1
 goto_if_false @CASINO4_43019
@@ -7584,6 +8049,13 @@ if
 goto_if_false @CASINO4_44597
 Audio.PlayMissionAudio(253@)
 Text.PrintNow($cas4_text(252@,114s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($cas4_text(252@,114s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 255@ = 3
 
 :CASINO4_44597
@@ -7594,6 +8066,13 @@ if
   Audio.HasMissionAudioFinished(253@)
 goto_if_false @CASINO4_44770
 Text.ClearThisPrint($cas4_text(252@,114s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($cas4_text(252@,114s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(71@)
 goto_if_false @CASINO4_44668

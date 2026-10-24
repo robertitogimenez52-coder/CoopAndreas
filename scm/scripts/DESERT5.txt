@@ -3,6 +3,7 @@
 
 :DESERT5
 script_name 'DESERT5'
+Coop.EnableSyncingThisScript()
 gosub @DESERT5_47
 if 
   has_deatharrest_been_executed 
@@ -14,7 +15,15 @@ gosub @DESERT5_30139
 terminate_this_script 
 
 :DESERT5_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.ClearThisPrint('M_FAIL')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('M_FAIL', $NETWORK_PLAYER[$temp_int])
+    end
+end
 $onmission = 1
 if 
   $pilot_test_passed <> 1
@@ -183,6 +192,7 @@ if
 goto_if_false @DESERT5_2570
 World.ClearArea(0, $noticeboard_x, $noticeboard_y, $noticeboard_z, 50.0)
 Char.SetCoordinates($scplayer, 414.8, 2534.2, 18.18)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 200.0)
 set_lvar_text_label 179@s = 'MTOR04A'
 set_lvar_text_label 181@s = 'MTOR04B'
@@ -406,6 +416,7 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot3)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearPrints
 Char.SetCoordinates($scplayer, 413.94, $noticeboard_y, 18.18)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 178@ = 1
 $d5_watched_first_cutscene = 1
@@ -427,6 +438,7 @@ goto @DESERT5_29947
 
 :DESERT5_2570
 Char.SetCoordinates($scplayer, 412.38, 2533.65, 18.18)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 
 :DESERT5_2600
@@ -733,6 +745,13 @@ return
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_1A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_4165
@@ -764,11 +783,25 @@ if
   233@ == 0
 goto_if_false @DESERT5_4355
 Text.PrintNow('DES5_1A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_25173
 if 
   233@ == 1
 goto_if_false @DESERT5_4348
 Text.PrintNow('DES5_1B', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1B', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_4348
 goto @DESERT5_5461
@@ -789,6 +822,13 @@ if
 goto_if_false @DESERT5_4459
 $d5_plane_reached_takeoff_point = 1
 Text.PrintNow('DES5_1C', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1C', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_4459
 37@, 38@, 39@ = Car.GetCoordinates(35@)
@@ -797,6 +837,13 @@ if
 goto_if_false @DESERT5_4524
 $d5_plane_taken_off = 1
 Text.PrintNow('DES5_1I', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1I', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT5_4561
 
 :DESERT5_4524
@@ -822,7 +869,21 @@ goto_if_false @DESERT5_4718
 116@ = 0
 Text.ClearPrints
 Text.PrintNow('DES5_1F', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1F', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_1J', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_1J', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_4718
 goto @DESERT5_4986
@@ -844,12 +905,26 @@ if
   116@ == 1
 goto_if_false @DESERT5_4938
 Text.PrintNow('DES5_1G', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1G', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_4938
 if 
   116@ == 2
 goto_if_false @DESERT5_4972
 Text.PrintNow('DES5_1H', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1H', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_4972
 goto @DESERT5_4986
@@ -988,6 +1063,13 @@ Car.FreezePosition(35@, True)
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_2J', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_2J', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_5688
@@ -1027,6 +1109,13 @@ Car.SetForwardSpeed(35@, 30.0)
 118@ = Checkpoint.Create(82@, 83@, 84@, -200.0, 83@, 84@, 3, 129@)
 Hud.DisplayTimerWithString($car_timer, TimerDirection.Up, 'DES5_T4')
 Text.PrintNow('DES5_2J', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_2J', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 233@ = 1
 
 :DESERT5_5930
@@ -1048,6 +1137,13 @@ if
 goto_if_false @DESERT5_6041
 158@ = 1
 Text.PrintNow('DES5_2C', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_2C', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_6041
 if 
@@ -1060,7 +1156,21 @@ Audio.ReportMissionAudioEventAtPosition(-1000.0, -1000.0, -1000.0, 1058)
 220@ = Blip.AddForCoord(308.0, 49@, 52@)
 Text.ClearPrints
 Text.PrintNow('DES5_2I', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_2I', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_2D', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_2D', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_6164
 goto @DESERT5_6368
@@ -1077,8 +1187,29 @@ goto_if_false @DESERT5_6314
 160@ = 1
 Text.ClearPrints
 Text.PrintNow('DES5_2E', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_2E', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_2F', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_2F', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_2G', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_2G', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_6314
 goto @DESERT5_6368
@@ -1236,6 +1367,13 @@ return
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_1A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_7144
@@ -1267,6 +1405,13 @@ if
   233@ == 0
 goto_if_false @DESERT5_7445
 Text.PrintNow('DES5_1A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_25173
 if 
   233@ == 1
@@ -1276,8 +1421,29 @@ goto_if_false @DESERT5_7438
 119@ = Checkpoint.Create(85@, 93@, 101@, 0.0, 93@, 101@, 3, 129@)
 120@ = Checkpoint.Create(86@, 94@, 102@, 85@, 93@, 101@, 3, 129@)
 Text.PrintNow('DES5_3B', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3B', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_3C', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_3C', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_3D', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_3D', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_7438
 goto @DESERT5_8496
@@ -1322,10 +1488,24 @@ if
   34@ == 4
 goto_if_false @DESERT5_7802
 Text.PrintNow('DES5_3F', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3F', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT5_7818
 
 :DESERT5_7802
 Text.PrintNow('DES5_3E', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3E', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_7818
 if 
@@ -1335,18 +1515,53 @@ if
   34@ == 4
 goto_if_false @DESERT5_7877
 Text.PrintNow('DES5_3G', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3G', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT5_7893
 
 :DESERT5_7877
 Text.PrintNow('DES5_3H', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3H', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_7893
 if 
   116@ == 3
 goto_if_false @DESERT5_7959
 Text.PrintNow('DES5_3K', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3K', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_3L', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_3L', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_3M', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_3M', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_7959
 goto @DESERT5_7973
@@ -1497,6 +1712,13 @@ return
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_1A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_8730
@@ -1528,6 +1750,13 @@ if
   233@ == 0
 goto_if_false @DESERT5_8999
 Text.PrintNow('DES5_1A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_1A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_25173
 if 
   233@ == 1
@@ -1537,6 +1766,13 @@ goto_if_false @DESERT5_8992
 119@ = Checkpoint.Create(85@, 93@, 101@, 0.0, 93@, 101@, 3, 129@)
 120@ = Checkpoint.Create(86@, 94@, 102@, 85@, 93@, 101@, 3, 129@)
 Text.PrintNow('DES5_3B', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3B', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_8992
 goto @DESERT5_10293
@@ -1584,10 +1820,24 @@ if
   34@ == 6
 goto_if_false @DESERT5_9374
 Text.PrintNow('DES5_3H', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3H', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT5_9390
 
 :DESERT5_9374
 Text.PrintNow('DES5_3G', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3G', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_9390
 if 
@@ -1597,16 +1847,37 @@ if
   34@ == 6
 goto_if_false @DESERT5_9449
 Text.PrintNow('DES5_3G', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3G', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT5_9465
 
 :DESERT5_9449
 Text.PrintNow('DES5_3H', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3H', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_9465
 if 
   116@ == 3
 goto_if_false @DESERT5_9499
 Text.PrintNow('DES5_3K', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_3K', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_9499
 goto @DESERT5_9602
@@ -1618,13 +1889,34 @@ if
   34@ == 6
 goto_if_false @DESERT5_9570
 Text.PrintNow('DES5_5I', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_5I', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @DESERT5_9586
 
 :DESERT5_9570
 Text.PrintNow('DES5_5H', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_5H', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_9586
 Text.Print('DES5_5J', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_5J', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_9602
 goto @DESERT5_9689
@@ -1814,6 +2106,13 @@ goto @DESERT5_10498
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_7A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_7A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_10596
@@ -1845,6 +2144,13 @@ if
   233@ == 0
 goto_if_false @DESERT5_10816
 Text.PrintNow('DES5_7A', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_7A', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(35@)
 goto_if_false @DESERT5_10809
@@ -1853,6 +2159,13 @@ if
 goto_if_false @DESERT5_10809
 Hud.DisplayTimerWithString($car_timer, TimerDirection.Up, 'DES5_T4')
 Text.PrintNow('DES5_7B', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_7B', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 233@ = 1
 
 :DESERT5_10809
@@ -1871,7 +2184,21 @@ if
 goto_if_false @DESERT5_10922
 $d5_plane_reached_required_altitude = 1
 Text.PrintNow('DES5_7C', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_7C', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_7D', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_7D', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_10922
 if 
@@ -1890,9 +2217,37 @@ goto_if_false @DESERT5_11114
 118@ = Checkpoint.Create(109@, 110@, 111@, 0.0, 110@, 111@, 3, 129@)
 Text.ClearPrints
 Text.PrintNow('DES5_7F', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_7F', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_7G', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_7G', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_7H', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_7H', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_7I', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_7I', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_11114
 goto @DESERT5_11194
@@ -2045,6 +2400,13 @@ Car.FreezePosition(35@, True)
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_8A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_8A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_11940
@@ -2082,7 +2444,21 @@ Car.FreezePosition(35@, False)
 Car.SetForwardSpeed(35@, 15.0)
 Hud.DisplayTimerWithString($car_timer, TimerDirection.Up, 'DES5_T4')
 Text.PrintNow('DES5_8A', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_8A', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_8B', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_8B', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 220@ = Blip.AddForCoord(56@, 57@, 58@)
 233@ = 1
 
@@ -2101,9 +2477,37 @@ if
 goto_if_false @DESERT5_12314
 162@ = 1
 Text.PrintNow('DES5_8G', 4000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_8G', 4000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_8C', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_8C', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_8D', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_8D', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_8E', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_8E', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_12314
 goto @DESERT5_12399
@@ -2275,6 +2679,13 @@ Car.FreezePosition(35@, True)
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_9A', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_9A', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_13270
@@ -2311,7 +2722,21 @@ Car.FreezePosition(35@, False)
 Car.SetForwardSpeed(35@, 15.0)
 Hud.DisplayTimerWithString($car_timer, TimerDirection.Up, 'DES5_T4')
 Text.PrintNow('DES5_9A', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_9A', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_9B', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_9B', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 69@ = 418.5
 156@ = 0
 
@@ -2414,6 +2839,13 @@ goto @DESERT5_14150
 
 :DESERT5_14221
 Text.PrintNow('DES5_9D', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_9D', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 156@ = 0
 
 :DESERT5_14244
@@ -2460,7 +2892,21 @@ goto_if_false @DESERT5_14487
 59@ = -1
 220@ = Blip.AddForCoord(56@, 57@, 58@)
 Text.PrintNow('DES5_9E', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_9E', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_5J', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_5J', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 169@ = 1
 
 :DESERT5_14487
@@ -2652,6 +3098,13 @@ Car.FreezePosition(35@, True)
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_AA', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_AA', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_15490
@@ -2693,7 +3146,21 @@ Car.SetForwardSpeed(35@, 20.0)
 128@ = Checkpoint.Create(115@, 113@, 114@, 0.0, 113@, 114@, 3, 129@)
 Hud.DisplayTimerWithString($car_timer, TimerDirection.Up, 'DES5_T4')
 Text.PrintNow('DES5_AA', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_AA', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_AB', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_AB', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_15778
 goto @DESERT5_16955
@@ -2713,6 +3180,13 @@ Checkpoint.Delete(127@)
 Audio.ReportMissionAudioEventAtPosition(-1000.0, -1000.0, -1000.0, 1058)
 173@ = 1
 Text.PrintNow('DES5_AC', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_AC', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $d5_last_pitch = Car.GetPitch(35@)
 $d5_pitch_progress = 0.0
 $d5_negative_progress = 0.0
@@ -2802,6 +3276,13 @@ goto_if_false @DESERT5_16408
 174@ = 1
 220@ = Blip.AddForCoord(115@, 113@, 114@)
 Text.PrintNow('DES5_AD', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_AD', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_16408
 goto @DESERT5_16488
@@ -2943,6 +3424,13 @@ Car.FreezePosition(35@, True)
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_AA', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_AA', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_17168
@@ -2984,7 +3472,21 @@ Car.SetForwardSpeed(35@, 20.0)
 128@ = Checkpoint.Create(115@, 113@, 114@, 0.0, 113@, 114@, 3, 129@)
 Hud.DisplayTimerWithString($car_timer, TimerDirection.Up, 'DES5_T4')
 Text.PrintNow('DES5_AA', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_AA', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_BB', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_BB', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_17456
 goto @DESERT5_18535
@@ -3005,6 +3507,13 @@ Audio.ReportMissionAudioEventAtPosition(-1000.0, -1000.0, -1000.0, 1058)
 173@ = 1
 Text.ClearPrints
 Text.PrintNow('DES5_BC', 5000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_BC', 5000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $d5_last_roll = Car.GetRoll(35@)
 if 
   0.0 > $d5_last_roll
@@ -3076,6 +3585,13 @@ goto_if_false @DESERT5_17988
 174@ = 1
 220@ = Blip.AddForCoord(115@, 113@, 114@)
 Text.PrintNow('DES5_AD', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_AD', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_17988
 goto @DESERT5_18068
@@ -3219,6 +3735,7 @@ return
 
 :DESERT5_18780
 Char.SetCoordinates($scplayer, 139@, 140@, 141@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 Streaming.RequestModel(371)
 
@@ -3253,7 +3770,21 @@ Object.SetHeading(135@, 90.0)
 wait 500
 Text.ClearPrints
 Text.PrintNow('DES5_CA', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_CA', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_CI', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_CI', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @DESERT5_24944
 
 :DESERT5_19046
@@ -3287,6 +3818,13 @@ if
 goto_if_false @DESERT5_19241
 175@ = 1
 Text.PrintNow('DES5_CC', 10000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_CC', 10000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_19241
 if 
@@ -3295,9 +3833,37 @@ goto_if_false @DESERT5_19331
 176@ = 1
 Text.ClearPrints
 Text.PrintNow('DES5_CD', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('DES5_CD', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_CF', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_CF', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_CH', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_CH', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('DES5_CE', 7000, 4)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('DES5_CE', 7000, 4, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :DESERT5_19331
 if 
@@ -4212,6 +4778,7 @@ if
   not Car.IsDead(35@)
 goto_if_false @DESERT5_24986
 Char.WarpIntoCar($scplayer, 35@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DESERT5_24986
 $player_x, $player_y, $player_z = Char.GetCoordinates($scplayer)
@@ -4746,6 +5313,7 @@ goto @DESERT5_27590
 
 :DESERT5_27570
 Char.SetCoordinates($scplayer, 412.38, 2533.65, 18.18)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DESERT5_27590
 Char.SetHeading($scplayer, 90.0)
@@ -4870,6 +5438,7 @@ goto @DESERT5_28180
 
 :DESERT5_28160
 Char.SetCoordinates($scplayer, 412.38, 2533.65, 18.18)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :DESERT5_28180
 Char.SetHeading($scplayer, 90.0)
@@ -5092,6 +5661,13 @@ if
   Audio.HasMissionAudioLoaded(MissionAudioSlot.Slot1)
 goto_if_false @DESERT5_29945
 Text.PrintNow(179@(216@,12s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(179@(216@,12s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 215@ = 2
 

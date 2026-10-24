@@ -6,6 +6,7 @@ Coop.AddChatMessage("{ffff00}[CoopAndreas Warning]{ffffff} It may cause desyncs,
 
 :RYDER3
 script_name 'RYDER3'
+Coop.EnableSyncingThisScript()
 gosub @RYDER3_47
 if 
   has_deatharrest_been_executed 
@@ -18,6 +19,7 @@ terminate_this_script
 
 :RYDER3_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Game.MakeRoomInPlayerGangForMissionPeds(1)
 89@ = 0
@@ -200,6 +202,7 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @RYDER3_1446
 Char.SetCoordinates($scplayer, 2472.783, -1685.696, 12.5153)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 336.6331)
 Camera.SetBehindPlayer
 
@@ -284,6 +287,13 @@ Camera.SetFixedPosition(2473.642, -1674.005, 13.6679, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2473.833, -1674.969, 13.4843, SwitchType.JumpCut)
 gosub @RYDER3_19023
 Text.PrintNow('RYD3_Z', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_Z', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :RYDER3_2200
@@ -439,6 +449,13 @@ goto_if_false @RYDER3_3681
 Blip.ChangeDisplay(99@, BlipDisplay.Neither)
 Blip.ChangeDisplay(34@, BlipDisplay.Both)
 Text.PrintNow('RYD3_Z', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_Z', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 1
 
 :RYDER3_3681
@@ -492,6 +509,13 @@ if and
   101@ == 2
 goto_if_false @RYDER3_4007
 Text.PrintNow('RYD3_Q', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_Q', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 101@ = 0
 
 :RYDER3_4007
@@ -900,6 +924,13 @@ if
   not Char.IsInCar($scplayer, 108@)
 goto_if_false @RYDER3_6379
 Text.PrintNow('RYD3_Q', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_Q', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   39@ == 0
 goto_if_false @RYDER3_6372
@@ -1010,6 +1041,13 @@ if or
   not Char.IsDead(133@)
 goto_if_false @RYDER3_6917
 Text.PrintNow('RYD3_M', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_M', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :RYDER3_6917
 89@ += 1
@@ -1207,6 +1245,13 @@ Sequence.Clear(159@)
 :RYDER3_8102
 gosub @RYDER3_19023
 Text.PrintNow('RYD3_2', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_2', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 1000
 TIMERB = 0
 
@@ -1226,6 +1271,13 @@ goto @RYDER3_8137
 :RYDER3_8191
 gosub @RYDER3_18958
 Text.PrintNow('RYD3_DA', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_DA', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_text_label 106@s = 'RYD3_DA'
 set_lvar_int_to_constant 96@ = 34018
 gosub @RYDER3_20106
@@ -1358,6 +1410,13 @@ if and
   85@ == 0
 goto_if_false @RYDER3_9159
 Text.PrintNow('RYD3_1', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_1', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 85@ = 1
 
 :RYDER3_9159
@@ -1385,6 +1444,7 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @RYDER3_9396
 Char.SetCoordinates($scplayer, 2287.147, -1121.702, 25.8903)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 91.8747)
 Task.Climb($scplayer, True)
 Char.SetCurrentWeapon($scplayer, WeaponType.Unarmed)
@@ -1401,6 +1461,7 @@ if
   not Char.IsSittingInAnyCar($scplayer)
 goto_if_false @RYDER3_9472
 Char.SetCoordinates($scplayer, 2284.766, -1121.5, 27.386)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 goto @RYDER3_9492
 
 :RYDER3_9472
@@ -1519,6 +1580,7 @@ if
 goto_if_false @RYDER3_10201
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2284.766, -1121.5, 27.386)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 
 :RYDER3_10201
@@ -1546,6 +1608,13 @@ goto @RYDER3_10266
 :RYDER3_10292
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_FA', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_FA', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 2000
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.LoadMissionAudio(34023, 1)
@@ -1560,6 +1629,13 @@ goto @RYDER3_10330
 :RYDER3_10356
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_FB', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_FB', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 wait 4000
 if 
   not Car.IsDead(129@)
@@ -2101,6 +2177,7 @@ Car.FreezePosition(108@, False)
 Car.SetCoordinates(108@, $x, $y, 177@)
 Car.SetHeading(108@, $heading)
 Char.SetCoordinates($scplayer, 44@, 45@, 177@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.SetStatus(108@, EntityStatus.Player)
 Car.LockDoors(108@, CarLock.Unlocked)
 
@@ -2151,6 +2228,13 @@ goto @RYDER3_14479
 :RYDER3_14505
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_JG', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_JG', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @RYDER3_14591
 
 :RYDER3_14532
@@ -2167,6 +2251,13 @@ goto @RYDER3_14545
 :RYDER3_14571
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_HN', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_HN', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :RYDER3_14591
 wait 4000
@@ -2229,6 +2320,7 @@ if
   not Char.IsInCar($scplayer, 108@)
 goto_if_false @RYDER3_14860
 Char.WarpIntoCar($scplayer, 108@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :RYDER3_14860
 176@ = 0
@@ -2244,6 +2336,13 @@ goto @RYDER3_14867
 :RYDER3_14908
 gosub @RYDER3_19023
 Text.PrintNow('RYD3_T', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_T', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @RYDER3_18057
 
 :RYDER3_14938
@@ -2284,6 +2383,13 @@ Task.ToggleDuck($ryder, True)
 
 :RYDER3_15162
 Text.PrintNow('RYD3_13', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_13', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 89@ += 1
 39@ = 0
 
@@ -2298,6 +2404,13 @@ if
   not Char.IsInCar($scplayer, 108@)
 goto_if_false @RYDER3_15313
 Text.PrintNow('RYD3_Q', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_Q', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   39@ == 0
 goto_if_false @RYDER3_15306
@@ -2459,6 +2572,13 @@ Task.TogglePedThreatScanner($ryder, True, True, True)
 Char.SetDecisionMaker($ryder, 72@)
 Task.ToggleDuck($ryder, True)
 Text.PrintNow('RYD3_I', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_I', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 34@ = Blip.AddForCoord(2067.463, -1831.67, 12.5527)
 103@ = 0
 
@@ -2469,6 +2589,13 @@ if and
   104@ == 0
 goto_if_false @RYDER3_16374
 Text.PrintNow('RYD3101', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3101', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 104@ = 1
 
 :RYDER3_16374
@@ -2541,6 +2668,13 @@ goto @RYDER3_16772
 :RYDER3_16798
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_MA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_MA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :RYDER3_16825
@@ -2565,6 +2699,13 @@ goto @RYDER3_16866
 :RYDER3_16892
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_MB', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_MB', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :RYDER3_16919
@@ -2589,6 +2730,13 @@ goto @RYDER3_16960
 :RYDER3_16986
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_MC', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_MC', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :RYDER3_17013
@@ -2636,6 +2784,13 @@ goto @RYDER3_17237
 :RYDER3_17263
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_MD', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_MD', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :RYDER3_17290
@@ -2662,6 +2817,7 @@ goto @RYDER3_17422
 
 :RYDER3_17402
 Char.SetCoordinates($scplayer, 2471.343, -1684.306, 12.5159)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :RYDER3_17422
 Char.ClearTasksImmediately($scplayer)
@@ -2716,6 +2872,13 @@ goto @RYDER3_17844
 :RYDER3_17870
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('RYD3_ME', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_ME', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 
 :RYDER3_17897
@@ -2743,6 +2906,13 @@ if
   Car.IsDead(108@)
 goto_if_false @RYDER3_18004
 Text.PrintNow('RYD3_14', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_14', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @RYDER3_18057
 
 :RYDER3_18004
@@ -2750,6 +2920,13 @@ if
   Char.IsDead($ryder)
 goto_if_false @RYDER3_18043
 Text.PrintNow('RYD3_B', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD3_B', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @RYDER3_18057
 
 :RYDER3_18043
@@ -2988,6 +3165,7 @@ if
   not Char.IsDead($scplayer)
 goto_if_false @RYDER3_19160
 Char.WarpIntoCar($scplayer, 182@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :RYDER3_19160
 Streaming.MarkModelAsNoLongerNeeded(600)
@@ -3142,6 +3320,13 @@ if and
 goto_if_false @RYDER3_20169
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow(106@s, 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(106@s, 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 95@ = 1
 
 :RYDER3_20169
@@ -3151,6 +3336,13 @@ if and
 goto_if_false @RYDER3_20207
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint(106@s)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(106@s, $NETWORK_PLAYER[$temp_int])
+    end
+end
 95@ = 2
 
 :RYDER3_20207

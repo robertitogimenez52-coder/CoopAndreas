@@ -3,6 +3,7 @@
 
 :SWEET7
 script_name 'SWEET7'
+Coop.EnableSyncingThisScript()
 gosub @SWEET7_54
 if 
   has_deatharrest_been_executed 
@@ -16,6 +17,7 @@ terminate_this_script
 
 :SWEET7_54
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('SWEET7')
 $onmission = 1
 wait 0
@@ -68,6 +70,7 @@ Cutscene.Clear
 Weather.Release
 wait 0
 Char.SetCoordinates($scplayer, 2515.207, -1674.086, 12.7552)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 54.1779)
 Streaming.LoadSpecialCharacter('SWEET', 1)
 Streaming.RequestModel(492)
@@ -624,6 +627,13 @@ if
 goto_if_false @SWEET7_5405
 Audio.PlayMissionAudio(532@)
 Text.PrintNow(310@(534@,74s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(310@(534@,74s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 536@ = 3
 
 :SWEET7_5405
@@ -634,6 +644,13 @@ if
   Audio.HasMissionAudioFinished(532@)
 goto_if_false @SWEET7_5529
 Text.ClearThisPrint(310@(534@,74s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(310@(534@,74s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   532@ == 1
 goto_if_false @SWEET7_5487
@@ -700,6 +717,13 @@ if
 goto_if_false @SWEET7_5798
 Text.ClearPrints
 Text.PrintNow('TWAR664', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR664', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SWEET7_32404
 
 :SWEET7_5798
@@ -770,6 +794,13 @@ if
 goto_if_false @SWEET7_6244
 Text.ClearPrints
 Text.PrintNow('TWAR612', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR612', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 282@ = 1
 TIMERB = 0
 
@@ -810,6 +841,13 @@ if
 goto_if_false @SWEET7_6450
 Text.ClearPrints
 Text.PrintNow('TWAR618', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR618', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SWEET7_32404
 
 :SWEET7_6450
@@ -940,6 +978,13 @@ Blip.Remove(293@)
 Blip.Remove(294@)
 Text.ClearPrints
 Text.PrintNow('TWAR617', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR617', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(78@)
 goto_if_false @SWEET7_7160
@@ -1037,6 +1082,13 @@ goto @SWEET7_7682
 :SWEET7_7622
 534@ = 0
 Text.PrintNow('TWAR650', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR650', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead($sweet)
 goto_if_false @SWEET7_7668
@@ -1080,6 +1132,13 @@ Char.ShutUpForScriptedSpeech($sweet, False)
 
 :SWEET7_7875
 Text.PrintNow('TWAR645', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR645', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 541@ = 0
 goto @SWEET7_7905
 
@@ -1105,6 +1164,13 @@ goto @SWEET7_8080
 :SWEET7_8043
 534@ = 0
 Text.PrintNow('TWAR650', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR650', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 542@ = 0
 goto @SWEET7_8080
 
@@ -1227,6 +1293,13 @@ if
   TIMERA > 8000
 goto_if_false @SWEET7_8868
 Text.ClearThisPrint('TWAR652')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('TWAR652', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintHelp('TWAR660')
 285@ = 2
 
@@ -1355,6 +1428,13 @@ goto @SWEET7_9588
 :SWEET7_9550
 534@ = 0
 Text.PrintNow('TWAR659', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR659', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 543@ = 999
 goto @SWEET7_9588
 
@@ -1421,6 +1501,13 @@ goto @SWEET7_10115
 :SWEET7_10024
 534@ = 0
 Text.PrintNow('TWAR652', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR652', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(78@)
 goto_if_false @SWEET7_10101
@@ -1451,6 +1538,13 @@ goto_if_false @SWEET7_10303
 Text.ClearHelp
 Text.ClearPrints
 Text.PrintNow('TWAR654', 5500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR654', 5500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 286@ = 1
 TIMERB = 0
 if 
@@ -1552,6 +1646,13 @@ if
 goto_if_false @SWEET7_10809
 Text.ClearPrints
 Text.PrintNow('TWAR638', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR638', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SWEET7_32404
 
 :SWEET7_10809
@@ -1566,6 +1667,13 @@ if
 goto_if_false @SWEET7_10882
 Text.ClearPrints
 Text.PrintNow('TWAR648', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR648', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SWEET7_32404
 
 :SWEET7_10882
@@ -1617,6 +1725,13 @@ goto @SWEET7_11207
 :SWEET7_11170
 534@ = 0
 Text.PrintNow('TWAR631', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR631', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_11207
 
@@ -1648,6 +1763,13 @@ goto @SWEET7_11407
 :SWEET7_11370
 534@ = 0
 Text.PrintNow('TWAR632', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR632', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 541@ = 0
 goto @SWEET7_11407
 
@@ -1673,6 +1795,13 @@ goto @SWEET7_11582
 :SWEET7_11545
 534@ = 0
 Text.PrintNow('TWAR631', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR631', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 542@ = 0
 goto @SWEET7_11582
 
@@ -2042,6 +2171,13 @@ Player.SetControl($player1, True)
 133@ = 20
 Text.ClearPrints
 Text.PrintNow('TWAR635', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR635', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead($sweet)
 goto_if_false @SWEET7_13858
@@ -2117,6 +2253,13 @@ if
 goto_if_false @SWEET7_14303
 Text.ClearPrints
 Text.PrintNow('TWAR633', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR633', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @SWEET7_32404
 
 :SWEET7_14303
@@ -2419,6 +2562,13 @@ goto @SWEET7_15820
 :SWEET7_15776
 534@ = 0
 Text.PrintNow('TWAR658', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR658', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_32404
 goto @SWEET7_15820
@@ -2452,6 +2602,13 @@ goto @SWEET7_16034
 :SWEET7_15990
 534@ = 0
 Text.PrintNow('TWAR619', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR619', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_32404
 goto @SWEET7_16034
@@ -2491,6 +2648,13 @@ goto @SWEET7_16273
 :SWEET7_16229
 534@ = 0
 Text.PrintNow('TWAR625', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR625', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_32404
 goto @SWEET7_16273
@@ -2531,6 +2695,13 @@ goto @SWEET7_16519
 534@ = 0
 Text.ClearPrints
 Text.PrintNow('TWAR627', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR627', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.Delete(98@)
 539@ = 0
 goto @SWEET7_32404
@@ -2729,6 +2900,13 @@ goto @SWEET7_17914
 :SWEET7_17877
 534@ = 0
 Text.PrintNow('TWAR646', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR646', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_17914
 
@@ -2763,6 +2941,13 @@ goto @SWEET7_18133
 534@ = 0
 Text.ClearPrints
 Text.PrintNow('TWAR646', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR646', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_18133
 
@@ -2782,6 +2967,13 @@ Blip.SetAsFriendly(43@, True)
 Blip.Remove(271@)
 Text.ClearPrints
 Text.PrintNow('TWAR645', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR645', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :SWEET7_18238
@@ -2796,6 +2988,13 @@ Blip.Remove(43@)
 Game.SetPoliceIgnorePlayer($player1, False)
 Text.ClearPrints
 Text.PrintNow('TWAR647', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR647', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 0
 
 :SWEET7_18332
@@ -2941,6 +3140,7 @@ Char.ClearTasks($sweet)
 :SWEET7_19137
 Hud.SwitchWidescreen(True)
 Char.SetCoordinates($scplayer, 816.8154, -1075.383, 23.3516)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 277.0)
 Camera.SetFixedPosition(822.0925, -1077.878, 23.6895, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(821.1437, -1077.566, 23.7335, SwitchType.JumpCut)
@@ -3146,6 +3346,7 @@ goto_if_false @SWEET7_21122
 539@ = 0
 270@ = 99
 Char.SetCoordinates($scplayer, 817.3972, -1076.164, 23.1065)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 if 
   not Char.IsDead(263@)
 goto_if_false @SWEET7_20584
@@ -3371,6 +3572,13 @@ goto @SWEET7_21915
 
 :SWEET7_21878
 Text.PrintNow('TWAR636', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR636', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 534@ = 0
 539@ = 0
 goto @SWEET7_21915
@@ -4145,6 +4353,13 @@ goto @SWEET7_26697
 :SWEET7_26660
 534@ = 0
 Text.PrintNow('TWAR626', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR626', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_26697
 
@@ -4255,6 +4470,13 @@ goto @SWEET7_27333
 :SWEET7_27296
 534@ = 0
 Text.PrintNow('TWAR629', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR629', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_27333
 
@@ -4316,6 +4538,13 @@ goto @SWEET7_27697
 534@ = 0
 Text.ClearPrints
 Text.PrintNow('TWAR629', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR629', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_27697
 
@@ -4378,7 +4607,7 @@ if
   not Char.LocateAnyMeansChar3D($scplayer, 98@, 50.0, 50.0, 50.0, False)
 goto_if_false @SWEET7_28092
 if 
-  not Car.IsOnScreen(77@)
+  not Coop.IsCarOnAnyPlayersScreen(77@)
 goto_if_false @SWEET7_28092
 540@ = Math.RandomIntInRange(0, 3)
 539@ = 61
@@ -4438,6 +4667,13 @@ goto @SWEET7_28441
 :SWEET7_28404
 534@ = 0
 Text.PrintNow('TWAR628', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR628', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_28441
 
@@ -4455,6 +4691,13 @@ goto_if_false @SWEET7_28572
 Blip.SetAsFriendly(43@, True)
 Text.ClearPrints
 Text.PrintNow('TWAR644', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR644', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.IsSittingInCar($sweet, 79@)
 goto_if_false @SWEET7_28550
@@ -4516,6 +4759,13 @@ goto @SWEET7_28901
 534@ = 0
 Text.ClearPrints
 Text.PrintNow('TWAR640', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR640', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_28901
 
@@ -4584,6 +4834,13 @@ goto @SWEET7_29309
 :SWEET7_29272
 534@ = 0
 Text.PrintNow('TWAR641', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR641', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 539@ = 0
 goto @SWEET7_29309
 
@@ -4599,6 +4856,13 @@ Blip.SetAsFriendly(43@, True)
 Blip.Remove(40@)
 Text.ClearPrints
 Text.PrintNow('TWAR643', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR643', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :SWEET7_29391
@@ -4614,6 +4878,13 @@ if
 goto_if_false @SWEET7_29473
 40@ = Blip.AddForChar(98@)
 Text.PrintNow('TWAR641', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR641', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :SWEET7_29473
 44@ = 0
@@ -4680,6 +4951,13 @@ goto @SWEET7_29893
 :SWEET7_29856
 534@ = 0
 Text.PrintNow('TWAR649', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('TWAR649', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 544@ = 0
 goto @SWEET7_29893
 

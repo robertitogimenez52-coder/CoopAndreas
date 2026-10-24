@@ -3,6 +3,7 @@
 
 :GUNS1
 script_name 'GUNS1'
+Coop.EnableSyncingThisScript()
 gosub @GUNS1_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :GUNS1_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 wait 0
 Camera.SetFadingColor(0, 0, 0)
@@ -410,6 +412,7 @@ Text.ClearPrints
 Streaming.LoadScene(2475.0, -1699.0, 15.0)
 Camera.RestoreJumpcut
 Char.SetCoordinates($scplayer, 2473.483, -1686.599, 12.5154)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 14.9748)
 129@ = Sequence.Open()
 Task.GoStraightToCoord(-1, 2473.527, -1680.036, 12.3551, MoveState.Walk, 6000)
@@ -484,6 +487,13 @@ if
 goto_if_false @GUNS1_4139
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_4139
@@ -494,6 +504,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_4256
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_4221
@@ -605,6 +622,7 @@ if
   not Char.IsInCar($scplayer, 102@)
 goto_if_false @GUNS1_4690
 Char.WarpIntoCar($scplayer, 102@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :GUNS1_4690
 Player.SetGroupRecruitment($player1, False)
@@ -634,6 +652,13 @@ Player.GiveClothesOutsideShop($player1, "BALACLAVA", "BALACLAVA", BodyPart.Speci
 Player.BuildModel($player1)
 Text.ClearThisBigPrint('BOXBURG')
 Text.Print('GUNS130', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS130', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 1000)
 
 :GUNS1_4876
@@ -733,6 +758,13 @@ goto @GUNS1_5278
 
 :GUNS1_5302
 Text.Print('GUNS125', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS125', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40642
 
 :GUNS1_5325
@@ -765,6 +797,13 @@ goto @GUNS1_5424
 
 :GUNS1_5448
 Text.Print('GUNS122', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS122', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40642
 
 :GUNS1_5471
@@ -779,6 +818,13 @@ if
   not Player.IsWearing($player1, "BALACLAVA", BodyPart.SpecialCostume)
 goto_if_false @GUNS1_5564
 Text.Print('RYD1_37', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_37', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40642
 
 :GUNS1_5564
@@ -794,6 +840,13 @@ Blip.Remove(104@)
 Text.ClearPrints
 105@ = Blip.AddForCoord(2819.9, -1181.7, 25.15)
 Text.Print('GUNS130', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS130', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 56@ = 1
 51@ = 2
 
@@ -838,6 +891,13 @@ goto_if_false @GUNS1_5856
 :GUNS1_5856
 Text.ClearPrints
 Text.Print('GUNS128', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS128', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 254@ = 76
 257@ = 0
 Audio.ClearMissionAudio(255@)
@@ -931,6 +991,13 @@ Blip.Remove(104@)
 55@ = 0
 Text.ClearPrints
 Text.Print('GUNS130', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS130', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 105@ = Blip.AddForCoord(2819.9, -1181.7, 25.15)
 56@ = 1
 
@@ -989,6 +1056,13 @@ goto_if_false @GUNS1_6608
 :GUNS1_6608
 Text.ClearPrints
 Text.Print('GUNS143', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS143', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 57@ = 1
 
 :GUNS1_6633
@@ -1019,6 +1093,13 @@ if
   8 > 43@
 goto_if_false @GUNS1_6836
 Text.Print('GUNS135', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS135', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 43@ -= 1
 if 
   0 > 43@
@@ -1065,6 +1146,13 @@ if
 goto_if_false @GUNS1_7040
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 43@ += 1
 257@ = 3
 
@@ -1076,6 +1164,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_7157
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_7122
@@ -1292,6 +1387,13 @@ Char.StopFacialTalk(98@)
 
 :GUNS1_8225
 Text.Print('GUNS130', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS130', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GUNS1_8241
 goto @GUNS1_8248
@@ -1351,6 +1453,13 @@ goto @GUNS1_8543
 
 :GUNS1_8567
 Text.Print('RYD1_35', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_35', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40642
 
 :GUNS1_8590
@@ -1416,6 +1525,13 @@ if
 goto_if_false @GUNS1_8961
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_8961
@@ -1426,6 +1542,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_9078
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_9043
@@ -1569,6 +1692,7 @@ goto_if_false @GUNS1_9949
 Char.ClearTasksImmediately($scplayer)
 Char.ClearTasksImmediately(98@)
 Char.SetCoordinates($scplayer, 2808.119, -1182.255, 24.3693)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 353.059)
 Char.SetCoordinates(98@, 2809.281, -1181.609, 24.3693)
 Char.SetHeading(98@, 30.6396)
@@ -1754,6 +1878,7 @@ if
   not Char.IsInAnyCar($scplayer)
 goto_if_false @GUNS1_10930
 Char.SetCoordinates($scplayer, 2808.119, -1182.255, 24.3693)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 goto @GUNS1_10950
 
 :GUNS1_10930
@@ -1797,6 +1922,13 @@ Player.SetControl($player1, True)
 Hud.SwitchWidescreen(False)
 109@ = Blip.AddForCoord(2808.0, -1177.0, 26.0)
 Text.Print('RYD1_39', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_39', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(98@)
 goto_if_false @GUNS1_11405
@@ -1858,6 +1990,7 @@ Streaming.LoadScene(2807.62, -1169.88, 1024.578)
 Streaming.SetAreaVisible(8)
 Char.SetHasUsedEntryExit($scplayer, 2807.96, -1176.236, 20.0)
 Char.SetCoordinates($scplayer, 2807.62, -1171.9, 1024.578)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 167@ = 0.0
 $ryd1_noise_bar = 0
@@ -2323,6 +2456,13 @@ if
 goto_if_false @GUNS1_14535
 Text.ClearPrints
 Text.Print('RYD1_40', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_40', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintWithNumber('RYD1_97', 3, 5000, 1)
 91@ = 1
 
@@ -2485,6 +2625,13 @@ if
 goto_if_false @GUNS1_15527
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_15527
@@ -2495,6 +2642,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_15644
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_15609
@@ -2634,6 +2788,13 @@ goto @GUNS1_16208
 
 :GUNS1_16232
 Text.Print('RYD1_96', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_96', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40642
 
 :GUNS1_16255
@@ -2943,6 +3104,13 @@ if
 goto_if_false @GUNS1_17918
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_17918
@@ -2953,6 +3121,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_18035
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_18000
@@ -3029,6 +3204,13 @@ goto @GUNS1_17735
 
 :GUNS1_18340
 Text.Print('GUNS134', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS134', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Hud.SwitchWidescreen(False)
@@ -3095,6 +3277,7 @@ if
   Char.LocateAnyMeansChar3D($scplayer, 99@, 1.0, 1.0, 2.0, False)
 goto_if_false @GUNS1_18778
 Char.SetCoordinates($scplayer, 2817.229, -1166.11, 1028.172)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 94.7698)
 
 :GUNS1_18778
@@ -3118,6 +3301,7 @@ if
   4 > 35@
 goto_if_false @GUNS1_18973
 Char.SetCoordinates($scplayer, 2807.525, -1167.076, 1024.578)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 169.2411)
 
 :GUNS1_18973
@@ -3140,6 +3324,13 @@ goto @GUNS1_19084
 
 :GUNS1_19054
 Text.Print('RYD1_36', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_36', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 278@ = 0
 277@ = 1
 
@@ -3233,6 +3424,13 @@ if
 goto_if_false @GUNS1_19534
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_19534
@@ -3243,6 +3441,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_19665
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(99@)
 goto_if_false @GUNS1_19598
@@ -3384,6 +3589,13 @@ Hud.SwitchWidescreen(False)
 Camera.RestoreJumpcut
 Char.SetProofs($scplayer, False, False, False, False, False)
 Text.Print('RYD1_44', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_44', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 43@ = 0
 goto @GUNS1_21930
 
@@ -3434,6 +3646,13 @@ if
 goto_if_false @GUNS1_20718
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_20718
@@ -3444,6 +3663,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_20835
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_20800
@@ -3469,6 +3695,7 @@ if
 goto_if_false @GUNS1_20989
 254@ = 38
 Char.SetCoordinates($scplayer, 2807.525, -1167.076, 1024.578)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 169.2411)
 Task.GoStraightToCoord($scplayer, 2807.626, -1178.272, 1024.578, MoveState.Run, 6000)
 Sequence.Clear(127@)
@@ -3511,6 +3738,7 @@ goto @GUNS1_21127
 :GUNS1_21151
 Char.ClearTasks($scplayer)
 Char.SetCoordinates($scplayer, 2808.784, -1178.054, 24.3559)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 231.7034)
 Streaming.SetAreaVisible(0)
 Char.SetHasUsedEntryExit($scplayer, 2807.776, -1174.782, 20.0)
@@ -3597,6 +3825,13 @@ if
 goto_if_false @GUNS1_21697
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_21697
@@ -3607,6 +3842,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_21814
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_21779
@@ -3737,6 +3979,13 @@ if
 goto_if_false @GUNS1_22523
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_22523
@@ -3747,6 +3996,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_22640
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_22605
@@ -3901,6 +4157,13 @@ goto @GUNS1_23282
 
 :GUNS1_23306
 Text.Print('RYD1_96', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_96', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40642
 
 :GUNS1_23329
@@ -3924,6 +4187,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @GUNS1_23457
 Text.Print('GUNS134', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS134', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 1
 
 :GUNS1_23457
@@ -3938,6 +4208,13 @@ if and
   44@ <> 2
 goto_if_false @GUNS1_23525
 Text.Print('GUNS134', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS134', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 2
 
 :GUNS1_23525
@@ -3955,6 +4232,13 @@ if
 goto_if_false @GUNS1_23617
 Text.ClearPrints
 Text.Print('GUNS1_7', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS1_7', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 3
 
 :GUNS1_23617
@@ -3968,6 +4252,13 @@ if
   not Text.IsMessageBeingDisplayed
 goto_if_false @GUNS1_23678
 Text.Print('GUNS1_7', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS1_7', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 44@ = 3
 
 :GUNS1_23678
@@ -4049,6 +4340,13 @@ if
 goto_if_false @GUNS1_24113
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_24113
@@ -4059,6 +4357,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_24319
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   47@ > 0
 goto_if_false @GUNS1_24231
@@ -4066,10 +4371,24 @@ if
   97@ == 0
 goto_if_false @GUNS1_24215
 Text.PrintNow('GUNS147', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GUNS147', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_24231
 
 :GUNS1_24215
 Text.PrintNow('RYD1_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('RYD1_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GUNS1_24231
 if 
@@ -4197,6 +4516,13 @@ if
 goto_if_false @GUNS1_24960
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_24960
@@ -4207,6 +4533,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_25077
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_25042
@@ -4323,6 +4656,13 @@ World.SetPedDensityMultiplier(1.0)
 World.SetCarDensityMultiplier(1.0)
 Text.ClearPrints
 Text.Print('GUNS124', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS124', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 107@ = Blip.AddForCoord(2742.0, -2008.0, 13.0)
 68@ = 1
 
@@ -4379,6 +4719,13 @@ goto @GUNS1_25818
 
 :GUNS1_25842
 Text.Print('RYD1_32', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_32', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40642
 goto @GUNS1_25897
 
@@ -4466,6 +4813,13 @@ if
   89@ == 0
 goto_if_false @GUNS1_26381
 Text.Print('GUNS146', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS146', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 89@ = 1
 
 :GUNS1_26381
@@ -4512,10 +4866,24 @@ if
   97@ == 0
 goto_if_false @GUNS1_26613
 Text.Print('RYD1_40', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_40', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_26629
 
 :GUNS1_26613
 Text.Print('RYD1_2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GUNS1_26629
 56@ = 1
@@ -4879,7 +5247,9 @@ Char.SetCoordinates(98@, 2811.122, -1186.549, 24.2718)
 Char.SetHeading(98@, 17.5866)
 154@ = Char.GetOffsetInWorldCoords(155@, 156@, 98@, 1.0, 1.0, 0.0)
 Char.SetCoordinates($scplayer, 154@, 155@, 156@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetCoordinates($scplayer, 2806.928, -1178.878, 24.4038)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 260.0)
 154@ = Car.GetOffsetInWorldCoords(155@, 156@, 102@, 3.5, 0.0, 0.0)
 157@ = Car.GetOffsetInWorldCoords(158@, 159@, 102@, -3.5, 0.0, 0.0)
@@ -5000,6 +5370,13 @@ if
 goto_if_false @GUNS1_29440
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_29440
@@ -5010,6 +5387,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_29557
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_29522
@@ -5171,6 +5555,7 @@ if
 goto_if_false @GUNS1_30495
 Char.ClearTasks($scplayer)
 Char.WarpIntoCar($scplayer, 102@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :GUNS1_30495
 if 
@@ -5189,6 +5574,7 @@ if
   not Char.IsInCar($scplayer, 102@)
 goto_if_false @GUNS1_30583
 Char.WarpIntoCar($scplayer, 102@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :GUNS1_30583
 258@ = 1
@@ -5202,6 +5588,13 @@ goto @GUNS1_29257
 :GUNS1_30604
 264@ = 0
 Text.Print('GUNS123', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS123', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 106@ = Blip.AddSpriteForCoord(63, 2067.4, -1831.2, 13.5)
 71@ = 1
 69@ = 1
@@ -5330,6 +5723,13 @@ goto @GUNS1_31057
 :GUNS1_31288
 Text.ClearPrints
 Text.Print('GUNS124', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS124', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 107@ = Blip.AddForCoord(2742.0, -2008.0, 13.0)
 68@ = 1
 
@@ -5350,6 +5750,7 @@ if
   not Char.IsInCar($scplayer, 102@)
 goto_if_false @GUNS1_31421
 Char.WarpIntoCar($scplayer, 102@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :GUNS1_31421
 Camera.RestoreJumpcut
@@ -5418,6 +5819,13 @@ if
 goto_if_false @GUNS1_31789
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_31789
@@ -5428,6 +5836,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_31899
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_31871
@@ -5503,6 +5918,13 @@ goto @GUNS1_32167
 :GUNS1_32149
 Text.ClearPrints
 Text.Print('RYD1_44', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_44', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GUNS1_32167
 if 
@@ -5553,6 +5975,13 @@ if
   254@ <> 76
 goto_if_false @GUNS1_32418
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GUNS1_32418
 257@ = 3
@@ -5565,6 +5994,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_32535
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_32507
@@ -6110,6 +6546,13 @@ goto_if_false @GUNS1_35290
 :GUNS1_35290
 Text.ClearPrints
 Text.Print('GUNS128', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS128', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetGroupToFollowNever($player1, True)
 104@ = Blip.AddForCar(102@)
 Blip.SetAsFriendly(104@, True)
@@ -6164,6 +6607,13 @@ goto_if_false @GUNS1_35557
 :GUNS1_35557
 Text.ClearPrints
 Text.Print('GUNS143', 2000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS143', 2000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 108@ = Blip.AddForChar(98@)
 Blip.SetAsFriendly(108@, True)
 264@ = 99
@@ -6212,6 +6662,13 @@ if
 goto_if_false @GUNS1_39749
 Text.ClearPrints
 Text.Print('RYD1_34', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('RYD1_34', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.LocateStoppedInCar3D($scplayer, 2741.241, -2011.274, 13.5869, 2.9, 3.2, 5.0, False)
 goto_if_false @GUNS1_39672
@@ -6259,6 +6716,7 @@ goto @GUNS1_36186
 
 :GUNS1_36166
 Char.SetCoordinates($scplayer, 2741.0, -2008.14, 13.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :GUNS1_36186
 if 
@@ -6328,6 +6786,13 @@ if
 goto_if_false @GUNS1_36568
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_36568
@@ -6338,6 +6803,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_36685
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_36650
@@ -6521,6 +6993,7 @@ goto @GUNS1_37571
 
 :GUNS1_37595
 Char.SetCoordinates($scplayer, 2161.0, -1664.0, 22.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetFixedPosition(2168.155, -1686.374, 15.6932, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2168.094, -1685.377, 15.7351, SwitchType.JumpCut)
 Streaming.RequestCollision(2168.155, -1686.374)
@@ -6605,6 +7078,7 @@ goto @GUNS1_37957
 
 :GUNS1_37981
 Char.SetCoordinates($scplayer, 2272.0, -1792.0, 14.0)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetFixedPosition(2255.539, -1783.703, 13.6049, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2254.882, -1784.445, 13.7333, SwitchType.JumpCut)
 Streaming.RequestCollision(2254.208, -1790.233)
@@ -6699,6 +7173,7 @@ Car.MarkAsNoLongerNeeded(102@)
 
 :GUNS1_38455
 Char.SetCoordinates($scplayer, 2741.0, -2001.0, 12.5547)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 80.0)
 Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(2745.47, -2003.59, 15.53, 0.0, 0.0, 0.0)
@@ -6770,6 +7245,13 @@ if
 goto_if_false @GUNS1_38915
 Audio.PlayMissionAudio(255@)
 Text.PrintNow($ryd1_text(254@,82s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($ryd1_text(254@,82s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 257@ = 3
 
 :GUNS1_38915
@@ -6780,6 +7262,13 @@ if
   Audio.HasMissionAudioFinished(255@)
 goto_if_false @GUNS1_39032
 Text.ClearThisPrint($ryd1_text(254@,82s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer($ryd1_text(254@,82s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   255@ == 1
 goto_if_false @GUNS1_38997
@@ -6997,6 +7486,13 @@ Text.ClearPrints
 69@ = 1
 Text.ClearPrints
 Text.Print('GUNS123', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS123', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   78@ == 1
 goto_if_false @GUNS1_40227
@@ -7015,6 +7511,13 @@ if
   11 > 43@
 goto_if_false @GUNS1_40332
 Text.Print('GUNS135', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS135', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 43@ -= 1
 if 
   0 > 43@
@@ -7041,10 +7544,24 @@ if
 goto_if_false @GUNS1_40448
 wait 3000
 Text.Print('GUNS124', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS124', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GUNS1_40464
 
 :GUNS1_40448
 Text.Print('GUNS124', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('GUNS124', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GUNS1_40464
 if 

@@ -3,6 +3,7 @@
 
 :CRASH1
 script_name 'CRASH1'
+Coop.EnableSyncingThisScript()
 gosub @CRASH1_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :CRASH1_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 34@ = 0
 35@ = 0
@@ -284,6 +286,13 @@ if
   35@ == 0
 goto_if_false @CRASH1_1900
 Text.PrintNow('CRA1_00', 15000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_00', 15000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 gosub @CRASH1_16457
 349@ = 0
 204@ = 0
@@ -313,6 +322,13 @@ if
   35@ == 3
 goto_if_false @CRASH1_2055
 Text.PrintNow('CRA1_01', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_01', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 122@ = Blip.AddForCoord(2351.904, -1170.826, 28.5)
 35@ += 1
 
@@ -391,6 +407,13 @@ if
   35@ == 1
 goto_if_false @CRASH1_2533
 Text.PrintNow('CRA1_02', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_02', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 204@ = 45@
 204@ += 7000
 35@ += 1
@@ -429,6 +452,13 @@ if
   209@ == 5
 goto_if_false @CRASH1_2733
 Text.PrintNow('CRA1_04', 3000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_04', 3000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 99
 
 :CRASH1_2733
@@ -724,6 +754,13 @@ gosub @CRASH1_25459
 56@ = 0
 gosub @CRASH1_33143
 Text.PrintNow('CRA1_05', 4600, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_05', 4600, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 set_lvar_int_to_lvar_int 200@ = 45@
 200@ += 4300
 35@ += 1
@@ -796,6 +833,13 @@ gosub @CRASH1_28246
 set_lvar_int_to_lvar_int 206@ = 45@
 206@ += 9000
 Text.Print('CRA1_06', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CRA1_06', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ += 1
 
 :CRASH1_4824
@@ -888,6 +932,13 @@ gosub @CRASH1_28246
 set_lvar_int_to_lvar_int 206@ = 45@
 206@ += 9000
 Text.Print('CRA1_06', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CRA1_06', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = 9
 
 :CRASH1_5367
@@ -1352,6 +1403,13 @@ if
 goto_if_false @CRASH1_8070
 339@ = 0
 Text.PrintNow('CRA1_10', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_10', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CRASH1_8070
 World.ClearArea(0, 255@, 256@, 257@, 3.0)
@@ -1363,6 +1421,13 @@ if
 goto_if_false @CRASH1_8158
 327@ = 1
 Text.PrintNow('CRA1_09', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_09', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.PrintHelp('FIRE_EX')
 
 :CRASH1_8158
@@ -2104,6 +2169,13 @@ goto @CRASH1_12765
 
 :CRASH1_12735
 Text.PrintNow('CRA1_10', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_10', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetControl($player1, True)
 336@ = 1
 
@@ -2489,6 +2561,13 @@ if
 goto_if_false @CRASH1_15122
 336@ = 1
 Text.PrintNow('CRA1_12', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_12', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.RemoveFromGroup(95@)
 Char.ClearTasksImmediately(95@)
 Task.StandStill(95@, -2)
@@ -2599,8 +2678,16 @@ Streaming.SetAreaVisible(0)
 World.ClearArea(1, 2351.961, -1172.073, 26.9765, 8.0)
 Streaming.LoadScene(2351.961, -1172.073, 26.9765)
 Char.SetCoordinates($scplayer, 2351.961, -1172.073, 26.9765)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Camera.SetFixedPosition(2345.044, -1170.015, 32.0063, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2345.8, -1169.822, 31.381, SwitchType.JumpCut)
 set_lvar_int_to_lvar_int 200@ = 45@
@@ -2632,6 +2719,7 @@ if
   is_int_lvar_equal_to_constant 40@ == 7
 goto_if_false @CRASH1_16045
 Char.SetCoordinates($scplayer, 2351.928, -1166.08, 26.4593)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Camera.SetBehindPlayer
 35@ = 99
@@ -3236,22 +3324,57 @@ switch_start 214@ total_jumps 5 default_jump 0 @CRASH1_20660 jumps 0 @CRASH1_205
 
 :CRASH1_20545
 Text.PrintNow('CRA1_30', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_30', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CRASH1_20660
 
 :CRASH1_20568
 Text.PrintNow('CRA1_31', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_31', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CRASH1_20660
 
 :CRASH1_20591
 Text.PrintNow('CRA1_32', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_32', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CRASH1_20660
 
 :CRASH1_20614
 Text.PrintNow('CRA1_33', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_33', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CRASH1_20660
 
 :CRASH1_20637
 Text.PrintNow('CRA1_34', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_34', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CRASH1_20660
 
 :CRASH1_20660
@@ -3305,6 +3428,13 @@ Blip.Remove(123@(213@,5i))
   213@ >= 5
 goto_if_false @CRASH1_20938
 Text.PrintNow('CRA1_03', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_03', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 313@ = 1
 
 :CRASH1_21013
@@ -4269,6 +4399,13 @@ return
 
 :CRASH1_28246
 Text.PrintNow('CRA1_07', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_07', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $g_Crash1_counterKM1 = 100
 set_lvar_int_to_lvar_int 202@ = 45@
 202@ += 3000
@@ -4322,6 +4459,13 @@ Char.FreezePosition(95@, False)
 211@ = 99
 Hud.ClearCounter($g_Crash1_counterKM1)
 Text.PrintNow('CRA1_50', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_50', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 340@ = 1
 285@ = 180.0
 Char.SetHeading(95@, 285@)
@@ -4374,6 +4518,7 @@ return
 Game.SetEveryoneIgnorePlayer($player1, True)
 Hud.SwitchWidescreen(True)
 Char.SetCoordinates($scplayer, 2344.535, -1181.745, 1030.961)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 359.8736)
 Camera.SetFixedPosition(2344.624, -1185.354, 1033.783, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2344.695, -1184.373, 1033.602, SwitchType.JumpCut)
@@ -4941,6 +5086,13 @@ if
   56@ == 1
 goto_if_false @CRASH1_32588
 Text.PrintNow(69@(51@,9s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(69@(51@,9s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CRASH1_32588
 57@(47@,3i) = 3
@@ -5641,6 +5793,7 @@ World.ClearArea(0, 2311.234, -1150.613, 25.8027, 0.5)
 Streaming.LoadScene(2311.234, -1150.613, 25.8027)
 Char.SetHeading($scplayer, 266.3994)
 Char.SetCoordinates($scplayer, 2311.234, -1150.613, 25.8027)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetBehindPlayer
 Blip.Remove(122@)
 Blip.Remove(128@)
@@ -5753,6 +5906,7 @@ Blip.Remove(122@)
 World.ClearArea(0, 2336.51, -1181.342, 1030.969, 0.5)
 Char.SetHeading($scplayer, 279.3672)
 Char.SetCoordinates($scplayer, 2336.51, -1181.342, 1030.969)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetBehindPlayer
 347@ = 0
 Char.SetProofs(95@, False, False, False, False, False)
@@ -5775,6 +5929,7 @@ Blip.Remove(122@)
 World.ClearArea(0, 2350.36, -1180.56, 1026.977, 0.5)
 Char.SetHeading($scplayer, 266.3335)
 Char.SetCoordinates($scplayer, 2350.36, -1180.56, 1026.977)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetBehindPlayer
 if 
   not Char.IsDead(95@)
@@ -5794,6 +5949,7 @@ goto_if_false @CRASH1_38226
 World.ClearArea(0, 2423.539, -1721.212, 12.9061, 0.5)
 Char.SetHeading($scplayer, 154.9302)
 Char.SetCoordinates($scplayer, 2423.539, -1721.212, 12.9061)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetBehindPlayer
 if 
   not Char.IsDead(95@)
@@ -5922,7 +6078,21 @@ gosub @CRASH1_31866
 Hud.SetRadarZoom(50)
 Game.ShowBlipsOnAllLevels(True)
 Text.ClearThisPrint('CRA1_06')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CRA1_06', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('CRA1_10')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('CRA1_10', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CRASH1_38825
 return 
@@ -5948,6 +6118,7 @@ goto @CRASH1_38872
 :CRASH1_38896
 Streaming.SetAreaVisible(17)
 Char.SetCoordinates($scplayer, 1038.17, -1335.221, 12.5493)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Cutscene.Load('CRASH1A')
 
@@ -6002,6 +6173,7 @@ gosub @CRASH1_39563
 World.ClearArea(0, 1038.17, -1335.221, 12.5493, 0.5)
 Streaming.LoadScene(1038.17, -1335.221, 12.5493)
 Char.SetCoordinates($scplayer, 1038.17, -1335.221, 12.5493)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Camera.SetBehindPlayer
 100@ = Car.Create(596, 1032.438, -1330.931, 12.3864)
@@ -6266,6 +6438,13 @@ if and
   Char.IsDead(95@)
 goto_if_false @CRASH1_41289
 Text.PrintNow('CRA1_51', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CRA1_51', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CRASH1_41289
 return 

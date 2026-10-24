@@ -3,6 +3,7 @@
 
 :CAT3
 script_name 'CAT3'
+Coop.EnableSyncingThisScript()
 gosub @CAT3_1452
 if 
   has_deatharrest_been_executed 
@@ -219,6 +220,7 @@ goto_if_false @CAT3_1450
 Char.WarpIntoCar($catalina, 352@)
 Task.LookAtChar($catalina, $scplayer, -1)
 Char.SetCoordinates($scplayer, -86.3344, -1127.316, 0.0781)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 6.874)
 Task.LookAtChar($scplayer, $catalina, -1)
 
@@ -226,6 +228,7 @@ Task.LookAtChar($scplayer, $catalina, -1)
 return 
 
 :CAT3_1452
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 wait 0
 Text.LoadMissionText('CAT')
@@ -425,6 +428,7 @@ goto @CAT3_3466
 
 :CAT3_3446
 Char.SetCoordinates($scplayer, 659.6722, -569.272, 15.3465)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CAT3_3466
 if and
@@ -505,6 +509,13 @@ Char.ShutUpForScriptedSpeech(244@, True)
 :CAT3_3891
 Audio.PlayMissionAudio(303@)
 Text.PrintNow(132@(301@,56s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(132@(301@,56s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 302@ = 3
 
 :CAT3_3917
@@ -515,6 +526,13 @@ if
   Audio.HasMissionAudioFinished(303@)
 goto_if_false @CAT3_4080
 Text.ClearThisPrint(132@(301@,56s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(132@(301@,56s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   244@ <> 0
 goto_if_false @CAT3_4006
@@ -814,6 +832,13 @@ if and
   not Car.IsDead(334@)
 goto_if_false @CAT3_5847
 Text.PrintNow('CAT3_02', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_02', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   Char.IsInCar($scplayer, 327@)
 goto_if_false @CAT3_5847
@@ -1176,6 +1201,13 @@ if
   37@ == 4
 goto_if_false @CAT3_7948
 Text.Print('CAT3_05', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('CAT3_05', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 37@ = -4
 
 :CAT3_7948
@@ -1583,7 +1615,7 @@ goto_if_false @CAT3_10735
 62@ = Car.GetOffsetInWorldCoords(63@, 64@, 334@, 0.0, -40.0, 0.0)
 342@, 343@, 344@, 345@ = Path.GetNthClosestCarNodeWithHeading(62@, 63@, 64@, 1)
 if 
-  not Camera.IsPointOnScreen(342@, 343@, 344@, 15.0)
+  not Coop.IsPointOnAnyPlayersScreen(342@, 343@, 344@, 15.0)
 goto_if_false @CAT3_10728
 Car.SetCoordinates(340@, 342@, 343@, 344@)
 Car.SetHeading(340@, 345@)
@@ -1740,7 +1772,7 @@ if
   not Car.IsDead(340@)
 goto_if_false @CAT3_11700
 if 
-  not Car.IsOnScreen(340@)
+  not Coop.IsCarOnAnyPlayersScreen(340@)
 goto_if_false @CAT3_11700
 Car.Delete(340@)
 
@@ -1756,6 +1788,13 @@ goto @CAT3_11758
 Camera.DoFade(1, 300)
 Text.ClearPrints
 Text.PrintNow('CAT3_08', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_08', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CAT3_17048
 
 :CAT3_11758
@@ -1763,6 +1802,13 @@ goto @CAT3_11788
 
 :CAT3_11765
 Text.PrintNow('CAT3_08', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_08', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CAT3_17048
 
 :CAT3_11788
@@ -2390,6 +2436,13 @@ if and
   35@ <> 3
 goto_if_false @CAT3_15344
 Text.PrintNow('CAT3_10', 100, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_10', 100, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CAT3_15344
 if 
@@ -2473,6 +2526,13 @@ if or
 goto_if_false @CAT3_15781
 Text.ClearPrints
 Text.PrintNow('CAT3_06', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_06', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CAT3_17048
 
 :CAT3_15781
@@ -2484,6 +2544,13 @@ if
 goto_if_false @CAT3_15840
 Text.ClearPrints
 Text.PrintNow('CAT3_07', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_07', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CAT3_17048
 
 :CAT3_15840
@@ -2495,6 +2562,13 @@ if
 goto_if_false @CAT3_15899
 Text.ClearPrints
 Text.PrintNow('CAT3_09', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_09', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @CAT3_17048
 
 :CAT3_15899
@@ -2542,6 +2616,13 @@ Char.StartFacialTalk(244@, 10000)
 :CAT3_16094
 Audio.PlayMissionAudio(303@)
 Text.PrintNow(132@(301@,56s), 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(132@(301@,56s), 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 302@ = 3
 
 :CAT3_16120
@@ -2552,6 +2633,13 @@ if
   Audio.HasMissionAudioFinished(303@)
 goto_if_false @CAT3_16276
 Text.ClearThisPrint(132@(301@,56s))
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer(132@(301@,56s), $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   244@ <> 0
 goto_if_false @CAT3_16202
@@ -2710,6 +2798,13 @@ goto @CAT3_16987
 
 :CAT3_17011
 Text.PrintNow('CAT3_08', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_08', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Player.SetControl($player1, True)
 goto @CAT3_17048
 
@@ -3066,6 +3161,13 @@ if
   35@ <> 3
 goto_if_false @CAT3_18818
 Text.PrintNow('CAT3_01', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAT3_01', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :CAT3_18818
 49@ = 0

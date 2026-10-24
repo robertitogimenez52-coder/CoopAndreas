@@ -3,6 +3,7 @@
 
 :BCESAR4
 script_name 'BCESAR4'
+Coop.EnableSyncingThisScript()
 gosub @BCESAR4_47
 if 
   has_deatharrest_been_executed 
@@ -14,6 +15,7 @@ gosub @BCESAR4_2736
 terminate_this_script 
 
 :BCESAR4_47
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 
 :BCESAR4_54
@@ -348,6 +350,7 @@ goto @BCESAR4_1957
 
 :BCESAR4_1923
 Char.SetCoordinates($scplayer, -503.3945, -186.0599, 76.6103)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 53.0)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -368,6 +371,7 @@ goto_if_false @BCESAR4_2222
 Text.LoadMissionText('BCESAR4')
 World.ClearArea(1, -526.7778, -189.0571, 76.9917, 100.0)
 Char.SetCoordinates($scplayer, -495.9034, -196.2218, 77.3986)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Player.MakeSafeForCutscene($player1)
 Streaming.Switch(False)
 Cutscene.Load('BCESAR5')
@@ -474,6 +478,7 @@ Car.SetCollision(34@, True)
 Car.SetCoordinates(34@, 1557.694, 17.4472, 23.1641)
 Car.SetHeading(34@, 9.0)
 Char.WarpIntoCar($scplayer, 34@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 
@@ -482,6 +487,7 @@ goto @BCESAR4_2617
 
 :BCESAR4_2583
 Char.SetCoordinates($scplayer, 1559.768, 14.4176, 23.1641)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 10.0)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -510,6 +516,7 @@ if
   not Car.IsDead(34@)
 goto_if_false @BCESAR4_2734
 Char.WarpIntoCar($scplayer, 34@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Car.FreezePosition(34@, False)
 
 :BCESAR4_2734

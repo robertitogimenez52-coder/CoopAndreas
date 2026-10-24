@@ -3,6 +3,7 @@
 
 :CASINO6
 script_name 'CASINO6'
+Coop.EnableSyncingThisScript()
 gosub @CASINO6_47
 if 
   has_deatharrest_been_executed 
@@ -15,10 +16,12 @@ terminate_this_script
 
 :CASINO6_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 World.SwitchEntryExit('ABATOIR', True)
 Text.LoadMissionText('CASINO6')
 Char.SetCoordinates($scplayer, 2179.934, 1684.148, 10.0533)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 108.0825)
 Char.FreezePosition($scplayer, True)
 Player.SetControl($player1, False)
@@ -72,6 +75,13 @@ goto_if_false @CASINO6_342
 Player.SetGroupRecruitment($player1, False)
 start_new_script @A_CONT 
 Char.SetAreaVisible($scplayer, 0)
+for $temp_int = 0 to 2 // the network players follow the host in and out of the interior
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
 Streaming.LoadSceneInDirection(2179.934, 1684.148, 10.0533, 108.0825)
 34@ = DecisionMakerChar.Load(DecisionMakerType.Empty)
 35@ = DecisionMakerChar.Load(DecisionMakerType.Tough)
@@ -107,6 +117,13 @@ Group.SetMember(39@, 310@)
 Char.SetShootRate(39@, 100)
 218@ = Blip.AddForCoord(967.3132, 2161.154, 9.8203)
 Text.PrintNow('CAS6_10', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_10', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.FreezePosition($scplayer, False)
 Player.SetControl($player1, True)
 231@ = Pickup.Create(#HEALTH, 3, 958.9762, 2096.836, 1011.1)
@@ -404,6 +421,13 @@ if
   not Char.LocateAnyMeansChar2D($scplayer, 39@, 60.0, 60.0, False)
 goto_if_false @CASINO6_2646
 Text.PrintNow('CAS6_11', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_11', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 317@ += 1
 
@@ -421,6 +445,13 @@ goto @CASINO6_2756
 
 :CASINO6_2686
 Text.PrintNow('CAS6_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 317@ += 1
 goto @CASINO6_2756
@@ -626,6 +657,7 @@ Hud.SwitchWidescreen(True)
 Streaming.LoadScene(942.8142, 2111.484, 1010.031)
 Streaming.RequestCollision(942.8142, 2111.484)
 Char.SetCoordinates($scplayer, 961.4175, 2111.39, 1010.03)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 100.0)
 Char.FreezePosition($scplayer, False)
 36@ = 0
@@ -3988,6 +4020,13 @@ if
   44@ == 1
 goto_if_false @CASINO6_27336
 Text.PrintNow('CAS6_G2', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G2', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 309@ = 1
 goto @CASINO6_27515
 
@@ -3996,6 +4035,13 @@ if
   36@ == 0
 goto_if_false @CASINO6_27492
 Text.PrintNow('CAS6_G1', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G1', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Blip.DoesExist(218@)
 goto_if_false @CASINO6_27426
@@ -4017,6 +4063,13 @@ goto @CASINO6_27515
 
 :CASINO6_27492
 Text.PrintNow('CAS6_G3', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G3', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 309@ = 2
 
 :CASINO6_27515
@@ -4027,6 +4080,13 @@ if
   44@ == 0
 goto_if_false @CASINO6_27632
 Text.PrintNow('CAS6_G4', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G4', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Blip.DoesExist(218@)
 goto_if_false @CASINO6_27612
@@ -4045,6 +4105,13 @@ if
   36@ == 0
 goto_if_false @CASINO6_27749
 Text.PrintNow('CAS6_G4', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G4', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Blip.DoesExist(218@)
 goto_if_false @CASINO6_27729
@@ -4215,6 +4282,13 @@ goto @CASINO6_28444
 :CASINO6_28503
 Camera.DoFade(1, 500)
 Text.PrintNow('CAS6_G5', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G5', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 317@ = 0
 Player.ClearWantedLevel($player1)
 Game.SetMaxWantedLevel(6)
@@ -4430,6 +4504,13 @@ if
   not Char.LocateAnyMeansChar2D($scplayer, 39@, 60.0, 60.0, False)
 goto_if_false @CASINO6_30046
 Text.PrintNow('CAS6_G6', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G6', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 317@ += 1
 
@@ -4447,6 +4528,13 @@ goto @CASINO6_30156
 
 :CASINO6_30086
 Text.PrintNow('CAS6_G7', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('CAS6_G7', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 317@ += 1
 goto @CASINO6_30156
@@ -4584,6 +4672,7 @@ goto @CASINO6_30803
 
 :CASINO6_30783
 Char.SetCoordinates($scplayer, 2171.511, 1687.368, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :CASINO6_30803
 Char.SetHeading($scplayer, 352.2379)
@@ -4696,6 +4785,13 @@ switch_start 227@ total_jumps 3 default_jump 0 @CASINO6_32141 jumps 0 @CASINO6_3
 
 :CASINO6_31494
 Text.PrintNow(228@s, 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(228@s, 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   36@ == 1
 goto_if_false @CASINO6_31542
@@ -4721,6 +4817,7 @@ Hud.SwitchWidescreen(True)
 Camera.SetFixedPosition(963.9219, 2124.63, 1013.85, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(963.0831, 2124.185, 1013.536, SwitchType.JumpCut)
 Char.SetCoordinates($scplayer, 955.6613, 2116.203, 1010.03)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 72.8077)
 if 
   not Char.IsDead(39@)
@@ -4773,6 +4870,13 @@ goto @CASINO6_31918
 :CASINO6_31942
 Text.PrintBig('M_FAIL', 4000, TextStyle.Middle)
 Text.PrintNow(228@s, 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(228@s, 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :CASINO6_31975

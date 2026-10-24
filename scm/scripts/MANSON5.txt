@@ -3,6 +3,7 @@
 
 :MANSON5
 script_name 'MANSON5'
+Coop.EnableSyncingThisScript()
 gosub @MANSON5_47
 if 
   has_deatharrest_been_executed 
@@ -15,6 +16,7 @@ terminate_this_script
 
 :MANSON5_47
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Text.LoadMissionText('MAN_5')
 Player.SetGroupRecruitment($player1, False)
@@ -74,6 +76,7 @@ World.ClearArea(1, 1252.471, -805.5187, 83.1484, 400.0)
 Streaming.LoadScene(1252.471, -805.5187, 83.1484)
 Streaming.RequestCollision(1252.471, -805.5187)
 Char.SetCoordinates($scplayer, 1252.471, -805.5187, 83.1484)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 144.1434)
 51@ = Player.GetGroup($player1)
 Group.SetDefaultTaskAllocator(51@, DefaultTaskAllocator.FollowAnyMeans)
@@ -177,6 +180,13 @@ Camera.DoFade(1, Fade.Out)
 54@ = 0
 TIMERB = 0
 Text.PrintNow('MAN5_G0', 7500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN5_G0', 7500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSON5_1350
 wait 0
@@ -235,6 +245,7 @@ goto @MANSON5_1694
 
 :MANSON5_1674
 Char.SetCoordinates($scplayer, -13.4832, -1139.642, 7.0664)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MANSON5_1694
 Char.SetHeading($scplayer, 347.9809)
@@ -353,6 +364,13 @@ if
   $distance > 75.0
 goto_if_false @MANSON5_2381
 Text.PrintNow('MAN5_G1', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN5_G1', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 68@ += 1
 
@@ -370,6 +388,13 @@ goto @MANSON5_2491
 
 :MANSON5_2421
 Text.PrintNow('MAN5_G2', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN5_G2', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 68@ += 1
 goto @MANSON5_2491
@@ -795,6 +820,7 @@ if
 goto_if_false @MANSON5_5048
 Char.ClearTasks($scplayer)
 Char.WarpIntoCar($scplayer, 39@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MANSON5_5048
 Camera.ResetNewScriptables
@@ -802,6 +828,13 @@ Camera.DoFade(1, Fade.Out)
 
 :MANSON5_5056
 Text.PrintNow('MAN5_G4', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN5_G4', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Hud.SwitchWidescreen(False)
 Player.SetControl($player1, True)
 Camera.RestoreJumpcut
@@ -1070,6 +1103,7 @@ goto @MANSON5_6854
 
 :MANSON5_6834
 Char.SetCoordinates($scplayer, 828.7999, -2036.757, 11.8672)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MANSON5_6854
 Char.SetHeading($scplayer, 129.8786)
@@ -1205,6 +1239,7 @@ Char.WarpFromCarToCoord($scplayer, 0.0, 0.0, 0.0)
 
 :MANSON5_7473
 Char.WarpIntoCar($scplayer, 42@)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 
 :MANSON5_7481
 if 
@@ -1302,6 +1337,13 @@ Hud.SwitchWidescreen(False)
 Camera.RestoreJumpcut
 Camera.SetBehindPlayer
 Text.PrintNow('MAN5_G5', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('MAN5_G5', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERA = 0
 
 :MANSON5_7989
@@ -2091,6 +2133,13 @@ if
   62@ == 1
 goto_if_false @MANSON5_13157
 Text.PrintNow(63@s, 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer(63@s, 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MANSON5_13157
 return 

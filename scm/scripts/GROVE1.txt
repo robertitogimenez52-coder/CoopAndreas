@@ -3,6 +3,7 @@
 
 :GROVE1
 script_name 'GROVE1'
+Coop.EnableSyncingThisScript()
 gosub @GROVE1_608
 if 
   has_deatharrest_been_executed 
@@ -76,6 +77,7 @@ goto @GROVE1_606
 return 
 
 :GROVE1_608
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 77@ = 50
 78@ = 50
@@ -212,6 +214,7 @@ goto @GROVE1_1312
 
 :GROVE1_1360
 Char.SetCoordinates($scplayer, 2497.324, -1684.744, 12.44)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 0.0)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -248,6 +251,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_1657
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 goto @GROVE1_1672
 
@@ -256,6 +266,13 @@ Char.SetProofs(38@, False, False, False, False, False)
 
 :GROVE1_1672
 Text.PrintNow('GM1_18', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_18', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 89@ = Blip.AddForCoord(2293.032, -1795.767, 12.5469)
 $blob_flag = 1
 TIMERA = 0
@@ -326,6 +343,13 @@ if
   TIMERA >= 5000
 goto_if_false @GROVE1_2102
 Text.ClearThisPrint('GM1_18')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GM1_18', $NETWORK_PLAYER[$temp_int])
+    end
+end
 114@ = 1
 
 :GROVE1_2102
@@ -360,14 +384,77 @@ goto @GROVE1_2357
 :GROVE1_2254
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('GRO1_FA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FE')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FE', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FF')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FF', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FG')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FG', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FH')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FH', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_FJ')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_FJ', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GROVE1_2357
 goto @GROVE1_2420
@@ -377,6 +464,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearPrints
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_2413
@@ -390,6 +484,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_2489
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_2475
@@ -409,6 +510,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @GROVE1_2555
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 117@ = 0
 
 :GROVE1_2555
@@ -420,6 +528,13 @@ Blip.Remove(89@)
 39@ = Blip.AddForChar(38@)
 Blip.SetAsFriendly(39@, True)
 Text.PrintNow('GM1_2', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_2', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 73@ = 0
 37@ = 1
@@ -450,6 +565,13 @@ Group.SetMember(38@, $Players_Group)
 Blip.Remove(39@)
 89@ = Blip.AddForCoord(2293.032, -1795.767, 12.5469)
 Text.PrintNow('GM1_18', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_18', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 1
 87@ = 0
 37@ = 0
@@ -464,6 +586,13 @@ if
 goto_if_false @GROVE1_2931
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -482,6 +611,13 @@ if
 goto_if_false @GROVE1_3022
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -494,6 +630,13 @@ Group.SetMember(38@, $Players_Group)
 Blip.Remove(39@)
 89@ = Blip.AddForCoord(2293.032, -1795.767, 12.5469)
 Text.PrintNow('GM1_18', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_18', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 1
 37@ = 0
 
@@ -509,6 +652,13 @@ if
 goto_if_false @GROVE1_3176
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -527,6 +677,13 @@ if
 goto_if_false @GROVE1_3267
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -548,6 +705,13 @@ goto @GROVE1_3367
 
 :GROVE1_3344
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_3367
@@ -563,6 +727,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_3438
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_3438
@@ -576,6 +747,7 @@ if
 goto_if_false @GROVE1_3548
 World.ClearArea(1, 2294.323, -1797.048, 12.586, 3.0)
 Char.SetCoordinates($scplayer, 2294.323, -1797.048, 12.586)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 goto @GROVE1_3652
 
@@ -592,6 +764,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_3635
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_3635
@@ -626,6 +805,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_3837
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_3837
@@ -639,6 +825,13 @@ goto @GROVE1_3884
 
 :GROVE1_3861
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_3884
@@ -714,6 +907,13 @@ goto @GROVE1_4241
 
 :GROVE1_4218
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_4241
@@ -721,6 +921,13 @@ Player.SetControl($player1, True)
 Game.SetEveryoneIgnorePlayer($player1, False)
 Game.SetPoliceIgnorePlayer($player1, False)
 Text.PrintNow('GM1_1', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_1', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 40@ = Blip.AddSpriteForCoord(62, 1988.316, -1199.675, 19.135)
 Zone.SetGangStrength('GLN1', GangType.Ballas, 40)
 Zone.SetGangStrength('GLN1', GangType.Grove, 0)
@@ -753,6 +960,13 @@ if
   TIMERB >= 5000
 goto_if_false @GROVE1_4552
 Text.ClearThisPrint('GM1_1')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GM1_1', $NETWORK_PLAYER[$temp_int])
+    end
+end
 115@ = 1
 
 :GROVE1_4552
@@ -787,10 +1001,45 @@ goto @GROVE1_4763
 :GROVE1_4704
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('GRO1_JA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_JA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_JB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_JB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_JC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_JC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_JD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_JD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_JE')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_JE', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GROVE1_4763
 goto @GROVE1_4827
@@ -800,6 +1049,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearPrints
 Blip.Remove(40@)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_4820
@@ -823,6 +1079,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_4942
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_4928
@@ -842,6 +1105,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @GROVE1_5008
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 117@ = 0
 
 :GROVE1_5008
@@ -852,6 +1122,13 @@ goto_if_false @GROVE1_5086
 39@ = Blip.AddForChar(38@)
 Blip.SetAsFriendly(39@, True)
 Text.PrintNow('GM1_2', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_2', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 73@ = 0
 37@ = 1
@@ -894,6 +1171,13 @@ if
 goto_if_false @GROVE1_5343
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -912,6 +1196,13 @@ if
 goto_if_false @GROVE1_5434
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -937,6 +1228,13 @@ if
 goto_if_false @GROVE1_5552
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -955,6 +1253,13 @@ if
 goto_if_false @GROVE1_5643
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -963,6 +1268,13 @@ goto @GROVE1_4467
 
 :GROVE1_5650
 Text.PrintNow('GM1_3', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_3', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 TIMERB = 0
 93@ = 0
 94@ = 0
@@ -980,6 +1292,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearPrints
 Blip.Remove(40@)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_5789
@@ -1006,6 +1325,13 @@ if
   TIMERB >= 5000
 goto_if_false @GROVE1_5911
 Text.ClearThisPrint('GM1_3')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GM1_3', $NETWORK_PLAYER[$temp_int])
+    end
+end
 116@ = 1
 
 :GROVE1_5911
@@ -1040,7 +1366,21 @@ goto @GROVE1_6089
 :GROVE1_6063
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('GRO1_KA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_KA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_KB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_KB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :GROVE1_6089
 goto @GROVE1_6153
@@ -1050,6 +1390,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearPrints
 Blip.Remove(40@)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_6146
@@ -1065,6 +1412,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_6254
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_6240
@@ -1084,6 +1438,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @GROVE1_6320
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 117@ = 0
 
 :GROVE1_6320
@@ -1094,6 +1455,13 @@ goto_if_false @GROVE1_6398
 39@ = Blip.AddForChar(38@)
 Blip.SetAsFriendly(39@, True)
 Text.PrintNow('GM1_2', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_2', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 73@ = 0
 37@ = 1
@@ -1136,6 +1504,13 @@ if
 goto_if_false @GROVE1_6655
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -1154,6 +1529,13 @@ if
 goto_if_false @GROVE1_6746
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -1179,6 +1561,13 @@ if
 goto_if_false @GROVE1_6864
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -1197,6 +1586,13 @@ if
 goto_if_false @GROVE1_6955
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -1227,6 +1623,13 @@ if
   88@ == 0
 goto_if_false @GROVE1_7110
 Text.PrintNow('GM1_16', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_16', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 88@ = 1
 
 :GROVE1_7110
@@ -1241,10 +1644,45 @@ goto @GROVE1_5826
 :GROVE1_7131
 Blip.Remove(40@)
 Text.ClearThisPrint('GM1_16')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GM1_16', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GM1_2')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GM1_2', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GM1_4')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GM1_4', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.ClearThisPrint('GM1_3')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GM1_3', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Game.CanTriggerGangWarWhenOnAMission(False)
 wait 5000
 ENTEXT_63()
@@ -1258,6 +1696,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_7273
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(39@)
 goto @GROVE1_18797
 
@@ -1277,6 +1722,13 @@ goto @GROVE1_7369
 
 :GROVE1_7346
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_7369
@@ -1298,6 +1750,7 @@ goto_if_false @GROVE1_7504
 Streaming.LoadScene(2038.184, -1143.772, 23.455)
 World.ClearArea(1, 2038.184, -1143.772, 23.455, 3.0)
 Char.SetCoordinates($scplayer, 2038.184, -1143.772, 23.455)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 56.5)
 goto @GROVE1_7601
 
@@ -1334,6 +1787,7 @@ if
 goto_if_false @GROVE1_7694
 World.ClearArea(1, 2037.048, -1144.896, 23.487, 3.0)
 Char.SetCoordinates($scplayer, 2037.048, -1144.896, 23.487)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading(38@, 56.5)
 goto @GROVE1_7791
 
@@ -1481,6 +1935,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Blip.Remove(40@)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_9206
@@ -1510,6 +1971,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Blip.Remove(40@)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_9333
@@ -1692,10 +2160,24 @@ goto @GROVE1_10116
 
 :GROVE1_10093
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_10116
 Text.PrintNow('GM1_9', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_9', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 119@ = 0
 
 :GROVE1_10139
@@ -1709,6 +2191,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_10252
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_10238
@@ -1728,6 +2217,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @GROVE1_10318
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 117@ = 0
 
 :GROVE1_10318
@@ -1738,6 +2234,13 @@ goto_if_false @GROVE1_10564
 39@ = Blip.AddForChar(38@)
 Blip.SetAsFriendly(39@, True)
 Text.PrintNow('GM1_2', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_2', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 73@ = 0
 if 
@@ -1876,6 +2379,13 @@ if
 goto_if_false @GROVE1_11013
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -1894,6 +2404,13 @@ if
 goto_if_false @GROVE1_11104
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -1967,6 +2484,13 @@ if
 goto_if_false @GROVE1_11414
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -1985,6 +2509,13 @@ if
 goto_if_false @GROVE1_11505
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -2540,6 +3071,13 @@ goto @GROVE1_10139
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearPrints
 Text.PrintNow('GM1_15', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_15', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 36@ = Blip.AddForCoord(2000.269, -1117.084, 25.821)
 $blob_flag = 1
 119@ = 0
@@ -2554,6 +3092,13 @@ if
   Char.IsDead(38@)
 goto_if_false @GROVE1_14637
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   37@ == 1
 goto_if_false @GROVE1_14623
@@ -2573,6 +3118,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @GROVE1_14703
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 117@ = 0
 
 :GROVE1_14703
@@ -2584,6 +3136,13 @@ Blip.Remove(36@)
 39@ = Blip.AddForChar(38@)
 Blip.SetAsFriendly(39@, True)
 Text.PrintNow('GM1_2', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_2', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $blob_flag = 0
 73@ = 0
 37@ = 1
@@ -2627,6 +3186,13 @@ if
 goto_if_false @GROVE1_15063
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -2645,6 +3211,13 @@ if
 goto_if_false @GROVE1_15154
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -2671,6 +3244,13 @@ if
 goto_if_false @GROVE1_15292
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_GA', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_GA', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 Char.ShutUpForScriptedSpeech(38@, True)
 
@@ -2689,6 +3269,13 @@ if
 goto_if_false @GROVE1_15383
 Char.StopFacialTalk(38@)
 Text.ClearThisPrint('GRO1_GA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_GA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.ShutUpForScriptedSpeech(38@, False)
 119@ = 0
 
@@ -2710,6 +3297,13 @@ goto @GROVE1_15484
 
 :GROVE1_15461
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_15484
@@ -2732,6 +3326,7 @@ Streaming.MarkModelAsNoLongerNeeded(355)
 Streaming.SetAreaVisible(11)
 Player.MakeSafeForCutscene($player1)
 Char.SetCoordinates($scplayer, 1044.88, -1334.32, 12.55)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Camera.SetFadingColor(0, 0, 0)
 Camera.DoFade(0, 1000)
 
@@ -2809,6 +3404,7 @@ Char.ShutUpForScriptedSpeech(72@, True)
 Streaming.RequestCollision(2002.105, -1129.403)
 World.ClearArea(1, 2002.105, -1129.403, 24.484, 1.0)
 Char.SetCoordinates($scplayer, 2002.105, -1129.403, 24.484)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 270.0)
 Char.SetCurrentWeapon($scplayer, WeaponType.Unarmed)
 Char.ShutUpForScriptedSpeech($scplayer, True)
@@ -2839,6 +3435,13 @@ goto_if_false @GROVE1_16363
 Task.PlayAnim(38@, "HNDSHKFA", "GANGS", 4.0, False, False, False, False, -1)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO1_BA', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_BA', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk(38@, 999999)
 goto @GROVE1_16396
 
@@ -2847,6 +3450,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16396
@@ -2864,6 +3474,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16501
@@ -2874,6 +3491,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16550
@@ -2884,6 +3508,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16599
@@ -2892,6 +3523,13 @@ goto @GROVE1_16433
 :GROVE1_16606
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Text.ClearThisPrint('GRO1_BA')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_BA', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(38@)
 goto_if_false @GROVE1_16649
@@ -2903,12 +3541,26 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16682
 Audio.LoadMissionAudio(17407, 1)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_BB', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_BB', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Char.StartFacialTalk($scplayer, 999999)
 
 :GROVE1_16719
@@ -2924,6 +3576,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16791
@@ -2934,6 +3593,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16840
@@ -2944,6 +3610,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_16889
@@ -2951,11 +3624,25 @@ goto @GROVE1_16719
 
 :GROVE1_16896
 Text.ClearThisPrint('GRO1_BB')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_BB', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Char.StopFacialTalk($scplayer)
 Audio.LoadMissionAudio(17408, 2)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO1_BC', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_BC', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(72@)
 goto_if_false @GROVE1_16976
@@ -2967,6 +3654,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17009
@@ -2982,6 +3676,13 @@ goto @GROVE1_17091
 
 :GROVE1_17068
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17091
@@ -2989,6 +3690,13 @@ goto @GROVE1_17121
 
 :GROVE1_17098
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17121
@@ -3004,6 +3712,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17193
@@ -3014,6 +3729,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 goto @GROVE1_17269
 
@@ -3031,6 +3753,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17318
@@ -3038,6 +3767,13 @@ goto @GROVE1_17121
 
 :GROVE1_17325
 Text.ClearThisPrint('GRO1_BC')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_BC', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 if 
   Char.IsDead(72@)
@@ -3046,6 +3782,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 goto @GROVE1_17401
 
@@ -3056,6 +3799,13 @@ Char.StopFacialTalk(72@)
 Audio.LoadMissionAudio(17409, 1)
 Audio.PlayMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GRO1_BD', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_BD', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(38@)
 goto_if_false @GROVE1_17461
@@ -3067,6 +3817,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17494
@@ -3082,6 +3839,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 goto @GROVE1_17593
 
@@ -3099,6 +3863,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17642
@@ -3109,6 +3880,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17691
@@ -3116,6 +3894,13 @@ goto @GROVE1_17494
 
 :GROVE1_17698
 Text.ClearThisPrint('GRO1_BD')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_BD', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 if 
   Char.IsDead(38@)
@@ -3124,6 +3909,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 goto @GROVE1_17774
 
@@ -3133,6 +3925,13 @@ Char.StopFacialTalk(38@)
 :GROVE1_17774
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 Text.PrintNow('GRO1_BE', 10000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GRO1_BE', 10000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(72@)
 goto_if_false @GROVE1_17827
@@ -3144,6 +3943,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17860
@@ -3155,6 +3961,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot1)
 goto_if_false @GROVE1_17967
 Text.ClearThisPrint('GRO1_BE')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_BE', $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Char.IsDead(72@)
 goto_if_false @GROVE1_17934
@@ -3166,6 +3979,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_17967
@@ -3176,6 +3996,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18016
@@ -3186,6 +4013,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18065
@@ -3196,6 +4030,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18114
@@ -3215,6 +4056,13 @@ Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.ClearPrints
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18214
@@ -3229,6 +4077,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18282
@@ -3239,6 +4094,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18331
@@ -3249,6 +4111,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18380
@@ -3256,6 +4125,13 @@ goto @GROVE1_18214
 
 :GROVE1_18387
 Text.ClearThisPrint('GRO1_BE')
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.ClearThisPrintForNetworkPlayer('GRO1_BE', $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 if 
@@ -3269,6 +4145,13 @@ Text.ClearPrints
 Audio.ClearMissionAudio(MissionAudioSlot.Slot1)
 Audio.ClearMissionAudio(MissionAudioSlot.Slot2)
 Text.PrintNow('GM1_12', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('GM1_12', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @GROVE1_18797
 
 :GROVE1_18467
@@ -3313,6 +4196,7 @@ Char.RemoveElegantly(38@)
 Car.Delete(75@)
 Path.SwitchPedRoadsBackToOriginal(1965.968, -1096.668, 20.0, 2081.465, -1163.309, 30.0)
 Char.SetCoordinates($scplayer, 2002.105, -1129.403, 24.484)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 180.0)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -3495,6 +4379,13 @@ if
   Audio.HasMissionAudioFinished(MissionAudioSlot.Slot2)
 goto_if_false @GROVE1_19713
 Text.PrintNow($grove1_chat(93@,17s), 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer($grove1_chat(93@,17s), 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Audio.PlayMissionAudio(MissionAudioSlot.Slot1)
 gosub @GROVE1_19715
 94@ = 2

@@ -10,9 +10,11 @@ gosub @VCRASH1_8041
 terminate_this_script 
 
 :VCRASH1_36
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 $onmission = 1
 Stat.RegisterMissionGiven
 script_name 'VCRASH1'
+Coop.EnableSyncingThisScript()
 wait 0
 Text.LoadMissionText('VCR1')
 Player.MakeGangDisappear
@@ -62,6 +64,7 @@ goto @VCRASH1_201
 World.ClearArea(0, 1599.09, 2667.725, 9.8203, 0.5)
 Streaming.LoadScene(1599.09, 2667.725, 9.8203)
 Char.SetCoordinates($scplayer, 1599.09, 2667.725, 9.8203)
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
 Char.SetHeading($scplayer, 90.0)
 Camera.SetBehindPlayer
 Weather.Release
@@ -78,6 +81,13 @@ goto @VCRASH1_312
 :VCRASH1_336
 Restart.SetRespawnPointForDurationOfMission(1599.09, 2667.725, 9.8203)
 Text.PrintNow('VCR1__1', 15000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__1', 15000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 34@ = Blip.AddForCoord(-1306.191, 2532.48, 86.7332)
 Blip.ChangeColor(34@, BlipColor.Red)
 59@ = 0
@@ -418,6 +428,13 @@ if
   62@(91@,10i) == 2
 goto_if_false @VCRASH1_3253
 Text.PrintNow('VCR1__7', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__7', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 CarGenerator.Switch($gen_car_flying[7], 0)
 set_lvar_int_to_var_int 37@ = $game_timer
 37@ += 8000
@@ -440,6 +457,13 @@ if
   not Char.IsInAnyHeli($scplayer)
 goto_if_false @VCRASH1_3378
 Text.PrintNow('VCR1__9', 6000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__9', 6000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 35@ = Blip.AddForCar(75@)
 Blip.SetAsFriendly(35@, True)
 Blip.ChangeDisplay(34@, BlipDisplay.MarkerOnly)
@@ -460,6 +484,13 @@ if
   Char.IsInAnyHeli($scplayer)
 goto_if_false @VCRASH1_3551
 Text.PrintNow('VCR1_10', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1_10', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   not Car.IsDead(74@)
 goto_if_false @VCRASH1_3501
@@ -557,6 +588,13 @@ Car.LockDoors(93@, CarLock.Unlocked)
 :VCRASH1_4031
 Char.PerformSequence(80@(91@,10i), 95@)
 Text.PrintNow('VCR1__8', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__8', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(35@)
 Blip.ChangeDisplay(34@, BlipDisplay.Both)
 Path.SwitchRoadsOff(2475.428, 2345.007, 2.7255, 2517.416, 2398.874, 12.369)
@@ -693,12 +731,12 @@ if
   not World.IsPointObscuredByAMissionEntity($x, $y, $z, 4.0, 4.0, 4.0)
 goto_if_false @VCRASH1_5170
 if 
-  not Car.IsOnScreen(97@)
+  not Coop.IsCarOnAnyPlayersScreen(97@)
 goto_if_false @VCRASH1_5170
 $x, $y, $z = Car.GetCoordinates(97@)
 $x, $y, $z, $heading = Path.GetClosestCarNodeWithHeading($x, $y, $z)
 if 
-  not Camera.IsPointOnScreen($x, $y, $z, 4.0)
+  not Coop.IsPointOnAnyPlayersScreen($x, $y, $z, 4.0)
 goto_if_false @VCRASH1_5170
 Car.SetCoordinates(97@, $x, $y, $z)
 Car.SetHeading(97@, $heading)
@@ -721,7 +759,7 @@ goto @VCRASH1_5470
 
 :VCRASH1_5331
 if 
-  not Car.IsOnScreen(97@)
+  not Coop.IsCarOnAnyPlayersScreen(97@)
 goto_if_false @VCRASH1_5470
 $x, $y, $z = Car.GetCoordinates(97@)
 $x, $y, $z, $heading = Path.GetClosestCarNodeWithHeading($x, $y, $z)
@@ -729,7 +767,7 @@ if
   not World.IsPointObscuredByAMissionEntity($x, $y, $z, 4.0, 4.0, 4.0)
 goto_if_false @VCRASH1_5470
 if 
-  not Camera.IsPointOnScreen($x, $y, $z, 4.0)
+  not Coop.IsPointOnAnyPlayersScreen($x, $y, $z, 4.0)
 goto_if_false @VCRASH1_5470
 Car.SetCoordinates(97@, $x, $y, $z)
 Car.SetHeading(97@, $heading)
@@ -832,6 +870,13 @@ Blip.Remove(34@)
 106@ = Pickup.Create(#BRIEFCASE, 3, 103@, 104@, 105@)
 34@ = Blip.AddForPickup(106@)
 Text.PrintNow('VCR1__3', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__3', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 60@ = 2
 61@ = 1
 
@@ -840,6 +885,13 @@ goto @VCRASH1_6127
 
 :VCRASH1_6104
 Text.PrintNow('VCR1__4', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__4', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @VCRASH1_7873
 
 :VCRASH1_6127
@@ -847,6 +899,13 @@ goto @VCRASH1_6157
 
 :VCRASH1_6134
 Text.PrintNow('VCR1__5', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__5', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @VCRASH1_7873
 
 :VCRASH1_6157
@@ -921,6 +980,13 @@ Char.SetHealth(80@(91@,10i), 200)
 :VCRASH1_6670
 62@(91@,10i) = 0
 Text.PrintNow('VCR1__2', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__2', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 61@ = 0
 
 :VCRASH1_6704
@@ -974,6 +1040,13 @@ if
   59@ == 1
 goto_if_false @VCRASH1_7001
 Text.PrintNow('VCR1_11', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1_11', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Skip.Clear
 59@ += 1
 
@@ -1098,6 +1171,13 @@ if
 goto_if_false @VCRASH1_7866
 Blip.Remove(34@)
 Text.PrintNow('VCR1__6', 5000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('VCR1__6', 5000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @VCRASH1_7980
 
 :VCRASH1_7866
